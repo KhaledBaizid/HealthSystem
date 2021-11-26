@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="512.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HCS.client.view.RECEPTION.HCSReceptionistController">
+   <children>
+      <TableView fx:id="RoleTableView" layoutX="413.0" layoutY="350.0" prefHeight="154.0" prefWidth="463.0">
+        <columns>
+          <TableColumn fx:id="firstnameColumn" prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="lastnameColumn" prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="birthdayColumn" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="roleColumn" prefWidth="75.0" text="Column X" />
+        </columns>
+      </TableView>
+      <TabPane layoutX="28.0" layoutY="28.0" prefHeight="322.0" prefWidth="770.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Manage_Patient">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutX="14.0" prefHeight="291.0" prefWidth="606.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Add_Patient">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="178.0" prefWidth="434.0">
+                                       <children>
+                                          <TextField fx:id="cprNumber" layoutX="123.0" layoutY="14.0" />
+                                          <Label layoutX="30.0" layoutY="18.0" text="CPR_NUMBER" />
+                                          <TextField fx:id="firstname" layoutX="123.0" layoutY="50.0" />
+                                          <Label layoutX="30.0" layoutY="54.0" text="Firstname" />
+                                          <TextField fx:id="lastname" layoutX="123.0" layoutY="86.0" />
+                                          <Label layoutX="30.0" layoutY="90.0" text="Lastname" />
+                                          <DatePicker layoutX="123.0" layoutY="122.0" />
+                                          <Label layoutX="30.0" layoutY="126.0" text="Birthday" />
+                                          <Button layoutX="233.0" layoutY="191.0" mnemonicParsing="false" onAction="#createPatient" text="Add Patient" />
+                                          <TextField fx:id="address" layoutX="375.0" layoutY="50.0" />
+                                          <TextField fx:id="phone" layoutX="375.0" layoutY="86.0" />
+                                          <TextField fx:id="mail" layoutX="375.0" layoutY="122.0" />
+                                          <ComboBox fx:id="sexComboBox" layoutX="375.0" layoutY="14.0" prefWidth="150.0" />
+                                          <Label layoutX="331.0" layoutY="18.0" text="Sex" />
+                                          <Label layoutX="327.0" layoutY="54.0" text="Address" />
+                                          <Label layoutX="325.0" layoutY="90.0" text="Phone" />
+                                          <Label layoutX="335.0" layoutY="126.0" text="Mail" />
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Edit_Patient">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TextField fx:id="cprNumber1" layoutX="115.0" layoutY="25.0" />
+                                          <Label layoutX="31.0" layoutY="29.0" text="CPR_NUMBER" />
+                                          <TextField fx:id="firstname1" layoutX="115.0" layoutY="60.0" />
+                                          <Label layoutX="43.0" layoutY="64.0" text="Firstname" />
+                                          <TextField fx:id="lastname1" layoutX="115.0" layoutY="96.0" />
+                                          <Label layoutX="43.0" layoutY="100.0" text="Lastname" />
+                                          <DatePicker layoutX="115.0" layoutY="135.0" />
+                                          <Label layoutX="47.0" layoutY="139.0" text="Birthday" />
+                                          <TextField fx:id="address1" layoutX="377.0" layoutY="60.0" />
+                                          <TextField fx:id="phone1" layoutX="377.0" layoutY="96.0" />
+                                          <TextField fx:id="mail1" layoutX="377.0" layoutY="135.0" />
+                                          <ComboBox fx:id="sexComboBox1" layoutX="377.0" layoutY="25.0" prefWidth="150.0" />
+                                          <Label layoutX="335.0" layoutY="29.0" text="Sex" />
+                                          <Label layoutX="322.0" layoutY="64.0" text="Address" />
+                                          <Label layoutX="327.0" layoutY="100.0" text="Phone" />
+                                          <Label layoutX="339.0" layoutY="139.0" text="Mail" />
+                                          <Button layoutX="190.0" layoutY="188.0" mnemonicParsing="false" onAction="#updatePatient" text="Update" />
+                                          <Button layoutX="309.0" layoutY="188.0" mnemonicParsing="false" onAction="#removePatient" text="Remove" />
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Manage_Booking">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutX="14.0" layoutY="14.0" prefHeight="263.0" prefWidth="614.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Add_Booking">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <DatePicker fx:id="bookingDateTimePicker" layoutX="111.0" layoutY="32.0" />
+                                          <ComboBox fx:id="BookingTimeComboBox" layoutX="357.0" layoutY="32.0" prefHeight="26.0" prefWidth="122.0" />
+                                          <Label layoutX="57.0" layoutY="36.0" text="Date" />
+                                          <Label layoutX="312.0" layoutY="36.0" text="Time" />
+                                          <Label layoutX="21.0" layoutY="93.0" text="Cpr_Number" />
+                                          <Label layoutX="31.0" layoutY="128.0" text="Firstname" />
+                                          <Label layoutX="31.0" layoutY="164.0" text="Lastname" />
+                                          <TextField fx:id="bookingCPRNumber" layoutX="111.0" layoutY="89.0" />
+                                          <TextField fx:id="bookingFirstname" layoutX="111.0" layoutY="124.0" />
+                                          <TextField fx:id="bookingLastname" layoutX="112.0" layoutY="160.0" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Edit_Booking">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
