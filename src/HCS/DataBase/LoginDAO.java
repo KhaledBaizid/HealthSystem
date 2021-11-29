@@ -33,17 +33,17 @@ public class LoginDAO implements ManageLoginDAO
   @Override public String HCSLogin(String username, String password)
   {
     String role=null;
-    //System.out.println("CREATEUSERDATABASE");
+    System.out.println("SEP2");
     try(Connection connection = jdbcController.getConnection()) {
       System.out.println(username+""+password);
       PreparedStatement statement = connection.prepareStatement
-          ("SELECT roles FROM userslogin WHERE username = ? AND passwords = ?");
+          ("SELECT role FROM userlogin WHERE username = ? AND password = ?");
       statement.setString(1,username);
       statement.setString(2,password);
       ResultSet resultSet = statement.executeQuery();
       if (resultSet.next())
       {
-        role = resultSet.getString("roles");
+        role = resultSet.getString("role");
       }
       System.out.println(role);
       // statement.executeUpdate();

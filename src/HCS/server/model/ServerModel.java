@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ServerModel implements ServerModelInterface {
 
     private PropertyChangeSupport support;
-    private ArrayList<User> connectedUsers;
+   // private ArrayList<User> connectedUsers;
     ArrayList<String> activeUsernames = new ArrayList<>();
     private ManageUserDAO userDAO;
     private ManageReceptionDAO receptionDAO;
@@ -25,7 +25,7 @@ public class ServerModel implements ServerModelInterface {
         this.userDAO=userDAO;
         this.loginDAO=loginDAO;
         support = new PropertyChangeSupport(this);
-        connectedUsers = new ArrayList<>();
+       // connectedUsers = new ArrayList<>();
     }
  /* public ServerModel(MainDAO mainDAO)
 
@@ -48,7 +48,7 @@ public class ServerModel implements ServerModelInterface {
     }
 
 
-    @Override
+  /*  @Override
     public boolean loginUser(User user) {
         System.out.println("modelServerLogin");
 
@@ -99,7 +99,7 @@ public class ServerModel implements ServerModelInterface {
         activeUsernames.remove(user.getUsername());
         support.firePropertyChange(RequestType.UPDATE_ACTIVE_USERS.toString(),null,user.getUsername());
 
-    }
+    }*/
 
     @Override public String HCSLogin(String username, String password)
     {           //  support.firePropertyChange("HCSLogin", null, userDAO.HCSLogin(username, password));
@@ -131,16 +131,16 @@ public class ServerModel implements ServerModelInterface {
         userDAO.HCSRemoveRole(username);
     }
 
-    @Override public void createPatient(String cprnumber,String firstname, String Lastname)
+    @Override public void createPatient(Patient patient)
     {
         System.out.println("ReceptionModelServer");
-     receptionDAO.createPatient(cprnumber, firstname, Lastname);
+     receptionDAO.createPatient(patient);
       //  userDAO.createPatient(cprnumber, firstname, Lastname);
 
     }
 
-    private void updateActiveUsers(String username) {
+   /* private void updateActiveUsers(String username) {
 
        support.firePropertyChange(RequestType.GET_ACTIVE_USERS.toString(),null,username);
-    }
+    }*/
 }

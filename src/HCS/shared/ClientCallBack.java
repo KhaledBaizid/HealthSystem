@@ -5,11 +5,11 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface ClientCallBack extends Remote {
-    void publicMessageSent(PropertyChangeEvent event) throws RemoteException;
+  //  void publicMessageSent(PropertyChangeEvent event) throws RemoteException;
 
-    void userAdded(PropertyChangeEvent event) throws RemoteException;
+   // void userAdded(PropertyChangeEvent event) throws RemoteException;
 
-    void userDeleted(PropertyChangeEvent event) throws RemoteException;
+    //void userDeleted(PropertyChangeEvent event) throws RemoteException;
 
     void sharedroles(PropertyChangeEvent event) throws RemoteException;
 

@@ -1,7 +1,7 @@
 package HCS.client.network;
 
-import HCS.shared.transferObjects.Message;
-import HCS.shared.transferObjects.User;
+//import HCS.shared.transferObjects.Message;
+//import HCS.shared.transferObjects.User;
 import HCS.shared.utility.Subject;
 
 import java.sql.Date;
@@ -11,13 +11,13 @@ public interface HCSClientAdmin extends Subject
 {
     void startClient();
 
-    void login(User user) ;
+  //  void login(User user) ;
 
-    ArrayList<String> getActiveUsersList();
+ //   ArrayList<String> getActiveUsersList();
 
-    void sendPublicMessage(Message messageToSend);
+   // void sendPublicMessage(Message messageToSend);
 
-    void disconnect(User user);
+   // void disconnect(User user);
 
 
     //////

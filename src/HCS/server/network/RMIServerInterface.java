@@ -1,9 +1,10 @@
 package HCS.server.network;
 
 import HCS.shared.ClientCallBack;
-import HCS.shared.transferObjects.Message;
+//import HCS.shared.transferObjects.Message;
+import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
-import HCS.shared.transferObjects.User;
+//import HCS.shared.transferObjects.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -13,14 +14,14 @@ import java.util.ArrayList;
 public interface RMIServerInterface extends Remote
 {
 
-  boolean loginUser( User user) throws RemoteException;
+ // boolean loginUser( User user) throws RemoteException;
 
-  ArrayList<String> sendActiveUsersToClient() throws RemoteException;
+  //ArrayList<String> sendActiveUsersToClient() throws RemoteException;
 
-  void sendPublicMessage(Message message)throws RemoteException;
+  //void sendPublicMessage(Message message)throws RemoteException;
 
 
-  void disconnect(User userDisconnecting) throws RemoteException;
+ // void disconnect(User userDisconnecting) throws RemoteException;
   void registerClient(ClientCallBack clientCallBack) throws RemoteException;
 
    void unregisterClient(ClientCallBack clientCallBack) throws RemoteException;
@@ -34,7 +35,7 @@ public interface RMIServerInterface extends Remote
   void HCSRemoveRole(String username) throws RemoteException;
 
   //void createPatient(String firstname,String Lastname);
-  void createPatient(String cprnumber ,String firstname,String Lastname) throws RemoteException;;
+  void createPatient(Patient patient) throws RemoteException;;
 
 
 

@@ -2,6 +2,7 @@ package HCS.client.network;
 
 import HCS.server.network.RMIServerInterface;
 import HCS.shared.ClientCallBack;
+import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 
 import java.beans.PropertyChangeEvent;
@@ -39,11 +40,11 @@ public class RMIClientReception implements HCSClientReception,ClientCallBack
     }
   }
 
-  @Override public void createPatient(String cprnumber,String firstname, String Lastname)
+  @Override public void createPatient(Patient patient)
   {
     try
     { System.out.println("ReceptionClient");
-      server.createPatient(cprnumber, firstname, Lastname);
+      server.createPatient(patient);
     }
     catch (RemoteException e)
     {
@@ -63,7 +64,7 @@ public class RMIClientReception implements HCSClientReception,ClientCallBack
     support.removePropertyChangeListener(eventName, listener);
   }
 
-  @Override public void publicMessageSent(PropertyChangeEvent event)
+ /* @Override public void publicMessageSent(PropertyChangeEvent event)
       throws RemoteException
   {
 
@@ -79,7 +80,7 @@ public class RMIClientReception implements HCSClientReception,ClientCallBack
       throws RemoteException
   {
 
-  }
+  }*/
 
   @Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException

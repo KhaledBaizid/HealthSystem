@@ -2,15 +2,15 @@ package HCS.client.view.RECEPTION;
 
 import HCS.client.ViewModel.HCSReceptionistViewModel;
 import HCS.client.core.ViewHandler;
+import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class HCSReceptionistController
 {
@@ -20,6 +20,17 @@ public class HCSReceptionistController
   private TextField firstname;
   @FXML
   private TextField lastname;
+  @FXML
+  private DatePicker birthdayDatePicker;
+  @FXML
+  private ComboBox sexComboBox;
+  @FXML
+  private TextField address;
+  @FXML
+  private TextField phone;
+  @FXML
+  private TextField mail;
+
 
   @FXML
   private TableView<Role> RoleTableView;
@@ -43,6 +54,8 @@ public class HCSReceptionistController
   {
     this.vh=vh;
     this.vm=vm;
+
+    sexComboBox.getItems().addAll("F","M");
     // vm.addListener("HCSLogin",this::succesfulLogin);
     System.out.println("ReceptionController");
     firstnameColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("firstname"));
@@ -58,7 +71,11 @@ public class HCSReceptionistController
   public void createPatient()
   {
     System.out.println("ReceptionController");
-    vm.createPatient(cprNumber.textProperty().getValue(),firstname.textProperty().getValue(),lastname.textProperty().getValue());
+    LocalDate localDate=birthdayDatePicker.getValue();
+    Date date=Date.valueOf(localDate);
+    Patient patient=new Patient(cprNumber.textProperty().getValue(),firstname.textProperty().getValue(),lastname.textProperty().getValue(),date,
+        sexComboBox.getSelectionModel().getSelectedItem().toString(),address.textProperty().getValue(),phone.textProperty().getValue(),mail.textProperty().getValue());
+    vm.createPatient(patient);
 
   }
 

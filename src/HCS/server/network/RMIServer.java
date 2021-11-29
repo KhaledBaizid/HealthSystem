@@ -2,10 +2,11 @@ package HCS.server.network;
 
 import HCS.server.model.ServerModelInterface;
 import HCS.shared.ClientCallBack;
-import HCS.shared.transferObjects.Message;
-import HCS.shared.transferObjects.RequestType;
+//import HCS.shared.transferObjects.Message;
+//import HCS.shared.transferObjects.RequestType;
+import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
-import HCS.shared.transferObjects.User;
+//import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeEvent;
 import java.rmi.AlreadyBoundException;
@@ -27,9 +28,9 @@ public class RMIServer implements RMIServerInterface
     UnicastRemoteObject.exportObject( this, 0);
     this.model = model;
     clients= new ArrayList<>();
-    model.addListener(RequestType.RECEIVE_PUBLIC.toString(),this::publicMessageSent);
-    model.addListener(RequestType.GET_ACTIVE_USERS.toString(),this::userAdded);
-    model.addListener(RequestType.UPDATE_ACTIVE_USERS.toString(),this::userdeleted);
+   // model.addListener(RequestType.RECEIVE_PUBLIC.toString(),this::publicMessageSent);
+   // model.addListener(RequestType.GET_ACTIVE_USERS.toString(),this::userAdded);
+  //  model.addListener(RequestType.UPDATE_ACTIVE_USERS.toString(),this::userdeleted);
  //   model.addListener("HCSLogin",this::HCS);
     model.addListener("HCSGetRoles",this::sharedRoles);
 
@@ -52,7 +53,7 @@ public class RMIServer implements RMIServerInterface
   {
   }
 
-  private void userAdded(PropertyChangeEvent event) {
+ /* private void userAdded(PropertyChangeEvent event) {
     for (ClientCallBack i:clients
          ) {
       try {
@@ -62,9 +63,9 @@ public class RMIServer implements RMIServerInterface
       }
 
     }
-  }
+  }*/
 
-  private void userdeleted(PropertyChangeEvent event) {
+ /* private void userdeleted(PropertyChangeEvent event) {
 
     for (ClientCallBack i:clients
     ) {
@@ -75,9 +76,9 @@ public class RMIServer implements RMIServerInterface
       }
 
     }
-  }
+  }*/
 
-  private void publicMessageSent(PropertyChangeEvent event) {
+ /* private void publicMessageSent(PropertyChangeEvent event) {
     for (ClientCallBack i : clients){
       try {
         i.publicMessageSent(event);
@@ -85,7 +86,7 @@ public class RMIServer implements RMIServerInterface
         e.printStackTrace();
       }
     }
-  }
+  }*/
 
 
   public void startServer() throws RemoteException, AlreadyBoundException
@@ -95,7 +96,7 @@ public class RMIServer implements RMIServerInterface
     System.out.println("ServerStart");
   }
 
-  @Override public boolean loginUser(User user)
+/*  @Override public boolean loginUser(User user)
   {
     System.out.println("UserloginServer");
     return model.loginUser(user);
@@ -116,7 +117,7 @@ public class RMIServer implements RMIServerInterface
   {
   model.disconnect(userDisconnecting);
 
-  }
+  }*/
 
   @Override
   public void registerClient(ClientCallBack clientCallBack) {
@@ -153,10 +154,10 @@ public class RMIServer implements RMIServerInterface
     model.HCSRemoveRole(username);
   }
 
-  @Override public void createPatient(String cprnumber ,String firstname, String Lastname)
+  @Override public void createPatient(Patient patient)
   {
     System.out.println("ReceptionServer");
-  model.createPatient(cprnumber, firstname, Lastname);
+  model.createPatient(patient);
   }
 
 }

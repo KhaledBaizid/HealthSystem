@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="512.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HCS.client.view.RECEPTION.HCSReceptionistController">
+<AnchorPane prefHeight="552.0" prefWidth="952.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HCS.client.view.RECEPTION.HCSReceptionistController">
    <children>
       <TableView fx:id="RoleTableView" layoutX="413.0" layoutY="350.0" prefHeight="154.0" prefWidth="463.0">
         <columns>
@@ -41,7 +41,7 @@
                                           <Label layoutX="30.0" layoutY="54.0" text="Firstname" />
                                           <TextField fx:id="lastname" layoutX="123.0" layoutY="86.0" />
                                           <Label layoutX="30.0" layoutY="90.0" text="Lastname" />
-                                          <DatePicker layoutX="123.0" layoutY="122.0" />
+                                          <DatePicker fx:id="birthdayDatePicker" layoutX="123.0" layoutY="122.0" />
                                           <Label layoutX="30.0" layoutY="126.0" text="Birthday" />
                                           <Button layoutX="233.0" layoutY="191.0" mnemonicParsing="false" onAction="#createPatient" text="Add Patient" />
                                           <TextField fx:id="address" layoutX="375.0" layoutY="50.0" />

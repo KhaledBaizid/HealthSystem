@@ -1,6 +1,7 @@
 package HCS.client.ViewModel;
 
 import HCS.client.model.HCSModelReceptionInterface;
+import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,10 +38,10 @@ public class HCSReceptionistViewModel
     model.HCSGetRoles();
   }
 
-  public void createPatient(String cprnumber ,String firstname,String Lastname)
+  public void createPatient(Patient patient)
   {
     System.out.println("ReceptionViewModel");
-    model.createPatient(cprnumber, firstname, Lastname);
+    model.createPatient(patient);
 
   }
 }

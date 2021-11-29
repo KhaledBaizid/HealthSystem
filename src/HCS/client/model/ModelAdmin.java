@@ -1,9 +1,9 @@
 package HCS.client.model;
 
 import HCS.client.network.HCSClientAdmin;
-import HCS.shared.transferObjects.Message;
-import HCS.shared.transferObjects.RequestType;
-import HCS.shared.transferObjects.User;
+//import HCS.shared.transferObjects.Message;
+//import HCS.shared.transferObjects.RequestType;
+//import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -16,20 +16,20 @@ public class ModelAdmin implements HCSModelAdminInterface
     private HCSClientAdmin client;
     private PropertyChangeSupport support;
 
-    private User user;
+    //private User user;
 
 
     public ModelAdmin(HCSClientAdmin client) {
         support = new PropertyChangeSupport(this);
         this.client = client;
         client.startClient();
-        user = new User();
+      //  user = new User();
 
-        client.addListener(RequestType.SUCCESSFUL_LOGIN.toString(), this::fireAll);
+       /* client.addListener(RequestType.SUCCESSFUL_LOGIN.toString(), this::fireAll);
         client.addListener(RequestType.EXISTING_USERNAME.toString(), this::fireAll);
         client.addListener(RequestType.UPDATE_ACTIVE_USERS.toString(), this::fireAll);
         client.addListener(RequestType.GET_ACTIVE_USERS.toString(), this::fireAll);
-        client.addListener(RequestType.RECEIVE_PUBLIC.toString(), this::fireAll);
+        client.addListener(RequestType.RECEIVE_PUBLIC.toString(), this::fireAll);*/
 /////////////////////
         client.addListener("HCSLogin", this::fireAll);
         client.addListener("HCSGetRoles", this::fireAll);
@@ -52,7 +52,7 @@ public class ModelAdmin implements HCSModelAdminInterface
         support.removePropertyChangeListener(eventName, listener);
     }
 
-    @Override
+  /*  @Override
     public void login(String username) {
         user.setUsername(username);
         client.login(user);
@@ -74,7 +74,7 @@ public class ModelAdmin implements HCSModelAdminInterface
     @Override
     public void disconnect() {
         client.disconnect(user);
-    }
+    }*/
 
 
     @Override public void HCSLogin(String username, String password)

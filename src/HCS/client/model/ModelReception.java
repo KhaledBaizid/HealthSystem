@@ -1,6 +1,7 @@
 package HCS.client.model;
 
 import HCS.client.network.HCSClientReception;
+import HCS.shared.transferObjects.Patient;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -25,10 +26,10 @@ public class ModelReception implements HCSModelReceptionInterface
     support.firePropertyChange(event);
   }
 
-  @Override public void createPatient(String cprnumber,String firstname, String Lastname)
+  @Override public void createPatient(Patient patient)
   {
     System.out.println("ReceptionModel");
-   clientReception.createPatient(cprnumber, firstname, Lastname);
+   clientReception.createPatient(patient);
   }
   @Override
   public void addListener(String eventName, PropertyChangeListener listener) {

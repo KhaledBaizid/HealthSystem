@@ -1,26 +1,27 @@
 package HCS.server.model;
 
-import HCS.shared.transferObjects.Message;
+//import HCS.shared.transferObjects.Message;
+import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
-import HCS.shared.transferObjects.User;
+//import HCS.shared.transferObjects.User;
 import HCS.shared.utility.Subject;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
 public interface ServerModelInterface extends Subject {
-    boolean loginUser(User user);
+   // boolean loginUser(User user);
 
-    ArrayList<String> sendActiveUsersToClient();
+   // ArrayList<String> sendActiveUsersToClient();
 
-    void sendPublicMessage(Message message);
+  //  void sendPublicMessage(Message message);
 
-    void disconnect(User userDisconnecting);
+  //  void disconnect(User userDisconnecting);
 
 
     String HCSLogin(String username,String password);
     void HCSCreateRole(String firstname,String lastname, Date birthday,String username,String password,String role);
     ArrayList<Role> HCSGetRoles();
     void HCSRemoveRole(String username);
-    void createPatient(String cprnumber ,String firstname,String Lastname);
+    void createPatient(Patient patient);
 }

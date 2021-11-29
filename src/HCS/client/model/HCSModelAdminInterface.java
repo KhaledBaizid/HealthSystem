@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public interface HCSModelAdminInterface extends Subject
 {
-    void login(String username);
-   ArrayList<String> getActiveUsersList();
-    void sendPublicMessage(String value);
-    void disconnect();
+   // void login(String username);
+  // ArrayList<String> getActiveUsersList();
+   // void sendPublicMessage(String value);
+   // void disconnect();
 
     ///////
    void HCSLogin(String username,String password);

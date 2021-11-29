@@ -2,10 +2,10 @@ package HCS.client.network;
 
 import HCS.server.network.RMIServerInterface;
 import HCS.shared.ClientCallBack;
-import HCS.shared.transferObjects.Message;
-import HCS.shared.transferObjects.RequestType;
+//import HCS.shared.transferObjects.Message;
+//import HCS.shared.transferObjects.RequestType;
 import HCS.shared.transferObjects.Role;
-import HCS.shared.transferObjects.User;
+//import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -44,7 +44,7 @@ public class RMIClientAdmin implements HCSClientAdmin, ClientCallBack
 
 
 
-  @Override public void login(User user)
+  /*@Override public void login(User user)
   {
     try
     {
@@ -91,9 +91,9 @@ public class RMIClientAdmin implements HCSClientAdmin, ClientCallBack
     {
       e.printStackTrace();
     }
-  }
+  }*/
 
-  @Override public void disconnect(User user)
+ /* @Override public void disconnect(User user)
   {
     try
     {
@@ -105,7 +105,7 @@ public class RMIClientAdmin implements HCSClientAdmin, ClientCallBack
     {
       e.printStackTrace();
     }
-  }
+  }*/
 
   @Override public void HCSLogin(String username, String password)
   {
@@ -178,7 +178,7 @@ public class RMIClientAdmin implements HCSClientAdmin, ClientCallBack
 
 
 
-  @Override
+ /* @Override
   public void publicMessageSent(PropertyChangeEvent event) {
     support.firePropertyChange(event);
 
@@ -192,7 +192,7 @@ public class RMIClientAdmin implements HCSClientAdmin, ClientCallBack
 
   {
     support.firePropertyChange(event);
-  }
+  }*/
 
   @Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException

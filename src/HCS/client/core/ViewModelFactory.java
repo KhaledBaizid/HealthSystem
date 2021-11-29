@@ -5,8 +5,8 @@ import HCS.client.ViewModel.*;
 public class ViewModelFactory
 {
   private ModelFactory mf;
-  private UserChatViewModel userChatViewModel;
-  private UserLoginViewModel userloginviewmodel;
+ // private UserChatViewModel userChatViewModel;
+  //private UserLoginViewModel userloginviewmodel;
 
   private HCSLoginViewModel hcsLoginViewModel;
   private HCSAdminViewModel hcsAdminViewModel;
@@ -20,7 +20,7 @@ public class ViewModelFactory
   }
 
 
-  public UserChatViewModel getUserChatViewModel()
+ /* public UserChatViewModel getUserChatViewModel()
   {
     if (userChatViewModel == null) userChatViewModel = new UserChatViewModel(mf.getModel());
     return userChatViewModel;
@@ -30,7 +30,7 @@ public class ViewModelFactory
     if (userloginviewmodel == null)
       userloginviewmodel = new UserLoginViewModel(mf.getModel());
     return userloginviewmodel;
-  }
+  }*/
 
   public HCSLoginViewModel getHcsLoginViewModel()
   {

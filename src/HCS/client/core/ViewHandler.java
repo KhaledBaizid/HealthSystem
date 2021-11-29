@@ -1,6 +1,6 @@
 package HCS.client.core;
 
-import HCS.client.view.*;
+//import HCS.client.view.*;
 import HCS.client.view.ADMIN.HCSAdminController;
 import HCS.client.view.DOCTOR.HCSDoctorController;
 import HCS.client.view.LOGIN.HCSLoginController;
@@ -39,7 +39,7 @@ public class ViewHandler
   }
 
 
-  public void openUserChatView(String username)
+ /* public void openUserChatView(String username)
   {
     if (UserChatScene == null)
     {
@@ -61,7 +61,7 @@ public class ViewHandler
     primaryStage.setScene(UserChatScene);
     primaryStage.show();
 
-  }
+  }*/
 
 
  /* public void openUserLogin()

@@ -76,7 +76,7 @@ public class UserDAOImpl implements ManageUserDAO
   {
 
     try(Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("INSERT INTO userslogin VALUES (?,?,?,?,?,?)");
+      PreparedStatement statement = connection.prepareStatement("INSERT INTO userlogin VALUES (?,?,?,?,?,?)");
       statement.setString(1,firstname);
       statement.setString(2,lastname);
      // Date d=(Date) birthday.ge
@@ -98,7 +98,7 @@ public class UserDAOImpl implements ManageUserDAO
     ArrayList<Role> roles=new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM userslogin  ");
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM userlogin  ");
 
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
@@ -106,8 +106,8 @@ public class UserDAOImpl implements ManageUserDAO
         String lastname = resultSet.getString("lastname");
         Date birthday = resultSet.getDate("birthday");
         String username = resultSet.getString("username");
-        String password= resultSet.getString("passwords");
-        String role=resultSet.getString("roles");
+        String password= resultSet.getString("password");
+        String role=resultSet.getString("role");
         roles.add(new Role(firstname,lastname,birthday,username,password,role));
         System.out.println(roles.get(0).getUsername());
 
@@ -124,7 +124,7 @@ public class UserDAOImpl implements ManageUserDAO
   @Override public void HCSRemoveRole(String username)
   {
     try(Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("DELETE FROM userslogin where username=?");
+      PreparedStatement statement = connection.prepareStatement("DELETE FROM userlogin where username=?");
       statement.setString(1,username);
       statement.executeUpdate();
 
@@ -141,13 +141,13 @@ public class UserDAOImpl implements ManageUserDAO
     try(Connection connection = jdbcController.getConnection()) {
       System.out.println(username+""+password);
       PreparedStatement statement = connection.prepareStatement
-          ("UPDATE userslogin SET firstname=?,lastname=?,birthday=?,username=?,passwords=?,roles=role WHERE username = ? ");
+          ("UPDATE userslogin SET firstname=?,lastname=?,birthday=?,username=?,password=?,role=role WHERE username = ? ");
       statement.setString(1,username);
       statement.setString(2,password);
       ResultSet resultSet = statement.executeQuery();
       if (resultSet.next())
       {
-        role = resultSet.getString("roles");
+        role = resultSet.getString("role");
       }
       System.out.println(role);
       // statement.executeUpdate();

@@ -49,7 +49,7 @@ public class RMIClientDoctor implements HCSClientDoctor, ClientCallBack
     support.removePropertyChangeListener(eventName, listener);
   }
 
-  @Override public void publicMessageSent(PropertyChangeEvent event)
+/*  @Override public void publicMessageSent(PropertyChangeEvent event)
       throws RemoteException
   {
 
@@ -65,7 +65,7 @@ public class RMIClientDoctor implements HCSClientDoctor, ClientCallBack
       throws RemoteException
   {
 
-  }
+  }*/
 
   @Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException

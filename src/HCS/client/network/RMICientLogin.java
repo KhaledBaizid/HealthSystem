@@ -23,7 +23,7 @@ public class RMICientLogin implements HCSClientLogin, ClientCallBack
   }
 
 
-  @Override public void publicMessageSent(PropertyChangeEvent event)
+ /* @Override public void publicMessageSent(PropertyChangeEvent event)
       throws RemoteException
   {
 
@@ -39,7 +39,7 @@ public class RMICientLogin implements HCSClientLogin, ClientCallBack
       throws RemoteException
   {
 
-  }
+  }*/
 
   @Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException
