@@ -1,6 +1,7 @@
 package HCS.server.model;
 
 //import HCS.shared.transferObjects.Message;
+import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 //import HCS.shared.transferObjects.User;
@@ -23,5 +24,12 @@ public interface ServerModelInterface extends Subject {
     void HCSCreateRole(String firstname,String lastname, Date birthday,String username,String password,String role);
     ArrayList<Role> HCSGetRoles();
     void HCSRemoveRole(String username);
+
     void createPatient(Patient patient);
+    ArrayList<Patient> HCSGetPatients();
+    ArrayList<Patient> HCSGetSpecificPatients(String search);
+    void createBooking(Booking booking);
+    ArrayList<Booking> HCSGetBookings();
+    void removeBooking(Date bookingDate,String bookingTime );
+    ArrayList<String> getTimeAvailable(Date date);
 }

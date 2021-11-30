@@ -13,13 +13,13 @@ public class ServerModel implements ServerModelInterface {
     private PropertyChangeSupport support;
    // private ArrayList<User> connectedUsers;
     ArrayList<String> activeUsernames = new ArrayList<>();
-    private ManageUserDAO userDAO;
+    private ManageAdminDAO userDAO;
     private ManageReceptionDAO receptionDAO;
     private ManageLoginDAO loginDAO;
    // private MainDAO mainDAO;
   //UserDAOImpl
 
-    public ServerModel(ManageUserDAO userDAO,ManageReceptionDAO receptionDAO,ManageLoginDAO loginDAO)
+    public ServerModel(ManageAdminDAO userDAO,ManageReceptionDAO receptionDAO,ManageLoginDAO loginDAO)
 
     {   this.receptionDAO=receptionDAO;
         this.userDAO=userDAO;
@@ -138,6 +138,46 @@ public class ServerModel implements ServerModelInterface {
       //  userDAO.createPatient(cprnumber, firstname, Lastname);
 
     }
+
+  @Override public ArrayList<Patient> HCSGetPatients()
+  {
+    ArrayList<Patient> patients;
+   patients=receptionDAO.HCSGetPatients();
+    return patients;
+  }
+
+  @Override public ArrayList<Patient> HCSGetSpecificPatients(String search)
+  {
+    ArrayList<Patient> patients;
+    patients=receptionDAO.HCSGetSpecificPatients(search);
+    return patients;
+  }
+
+  @Override public void createBooking(Booking booking)
+  {
+    System.out.println("BookingServerModel");
+    receptionDAO.createBooking(booking);
+  }
+
+  @Override public ArrayList<Booking> HCSGetBookings()
+  {
+    ArrayList<Booking> booking1;
+    booking1=receptionDAO.HCSGetBookings();
+    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
+    // return userDAO.HCSGetRoles();
+    support.firePropertyChange("HCSGetBookings",null,booking1);
+    return booking1;
+  }
+
+  @Override public void removeBooking(Date bookingDate, String bookingTime)
+  {
+    receptionDAO.removeBooking(bookingDate, bookingTime);
+  }
+
+  @Override public ArrayList<String> getTimeAvailable(Date date)
+  {
+    return receptionDAO.getTimeAvailable(date);
+  }
 
    /* private void updateActiveUsers(String username) {
 

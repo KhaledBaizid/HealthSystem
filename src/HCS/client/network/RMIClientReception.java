@@ -2,6 +2,7 @@ package HCS.client.network;
 
 import HCS.server.network.RMIServerInterface;
 import HCS.shared.ClientCallBack;
+import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 
@@ -13,6 +14,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class RMIClientReception implements HCSClientReception,ClientCallBack
@@ -88,6 +90,12 @@ public class RMIClientReception implements HCSClientReception,ClientCallBack
     support.firePropertyChange(event);
   }
 
+  @Override public void sharedBookings(PropertyChangeEvent event)
+      throws RemoteException
+  {
+    support.firePropertyChange(event);
+  }
+
   @Override public void HCSGetRoles()
   {
 
@@ -103,5 +111,87 @@ public class RMIClientReception implements HCSClientReception,ClientCallBack
       e.printStackTrace();
     }
 
+  }
+
+  @Override public void HCSGetPatients()
+  {
+    ArrayList<Patient> patients;
+    try
+    {
+      patients=server.HCSGetPatients();
+      support.firePropertyChange("HCSGetPatients",null,patients);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void HCSGetSpecificPatients(String search)
+  {
+    ArrayList<Patient> patients;
+    try
+    {
+      patients=server.HCSGetSpecificPatients(search);
+      support.firePropertyChange("HCSGetPatients",null,patients);
+
+
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void createBooking(Booking booking)
+  {
+    try
+    {
+      System.out.println("BookingClient");
+      server.createBooking(booking);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void HCSGetBookings()
+  {
+    try
+    { ArrayList<Booking> bookings;
+      bookings= server.HCSGetBookings();
+      support.firePropertyChange("HCSGetBookings",null,bookings);
+
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void removeBooking(Date bookingDate, String bookingTime)
+  {
+    try
+    {
+      server.removeBooking(bookingDate, bookingTime);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public ArrayList<String> getTimeAvailable(Date date)
+  {
+    try
+    {
+      return server.getTimeAvailable(date);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+    return null;
   }
 }

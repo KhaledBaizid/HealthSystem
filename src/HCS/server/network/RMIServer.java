@@ -4,6 +4,7 @@ import HCS.server.model.ServerModelInterface;
 import HCS.shared.ClientCallBack;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
+import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 //import HCS.shared.transferObjects.User;
@@ -33,7 +34,22 @@ public class RMIServer implements RMIServerInterface
   //  model.addListener(RequestType.UPDATE_ACTIVE_USERS.toString(),this::userdeleted);
  //   model.addListener("HCSLogin",this::HCS);
     model.addListener("HCSGetRoles",this::sharedRoles);
+    model.addListener("HCSGetBookings",this::sharedBookings);
 
+  }
+
+  private void sharedBookings(PropertyChangeEvent event)
+  {
+    for (ClientCallBack i:clients
+    ) {
+      try {
+        i.sharedBookings(event);
+        System.out.println(i.toString());
+      } catch (RemoteException e) {
+        e.printStackTrace();
+      }
+
+    }
   }
 
   private void sharedRoles(PropertyChangeEvent event)
@@ -158,6 +174,39 @@ public class RMIServer implements RMIServerInterface
   {
     System.out.println("ReceptionServer");
   model.createPatient(patient);
+  }
+
+  @Override public ArrayList<Patient> HCSGetPatients() throws RemoteException
+  {
+    return model.HCSGetPatients();
+  }
+
+  @Override public ArrayList<Patient> HCSGetSpecificPatients(String search)
+      throws RemoteException
+  {
+    return model.HCSGetSpecificPatients(search);
+  }
+
+  @Override public void createBooking(Booking booking) throws RemoteException
+  {
+    System.out.println("BookingServer");
+    model.createBooking(booking);
+  }
+
+  @Override public ArrayList<Booking> HCSGetBookings() throws RemoteException
+  {
+    return model.HCSGetBookings();
+  }
+
+  @Override public void removeBooking(Date bookingDate, String bookingTime)
+      throws RemoteException
+  {
+    model.removeBooking(bookingDate, bookingTime);
+  }
+
+  @Override public ArrayList<String> getTimeAvailable(Date date)
+  {
+    return model.getTimeAvailable(date);
   }
 
 }

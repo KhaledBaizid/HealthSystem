@@ -99,7 +99,7 @@ public class ViewHandler
         loader.setLocation(getClass().getResource("../view/LOGIN/HCSLogin.fxml"));
         Parent root = loader.load();
         HCSLoginController ctrl = loader.getController();
-        ctrl.init(this,vmf.getHcsLoginViewModel());
+        ctrl.init(this,vmf);
         loginScene = new Scene(root);
 
       } catch (IOException e) {

@@ -1,11 +1,14 @@
 package HCS.client.model;
 
 import HCS.client.network.HCSClientReception;
+import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.sql.Date;
+import java.util.ArrayList;
 
 public class ModelReception implements HCSModelReceptionInterface
 {
@@ -17,7 +20,9 @@ public class ModelReception implements HCSModelReceptionInterface
     this.clientReception=clientReception;
     support = new PropertyChangeSupport(this);
     clientReception.startClient();
+    clientReception.addListener("HCSGetPatients",this::fireAll);
     clientReception.addListener("HCSGetRoles", this::fireAll);
+    clientReception.addListener("HCSGetBookings",this::fireAll);
 
   }
 
@@ -30,6 +35,7 @@ public class ModelReception implements HCSModelReceptionInterface
   {
     System.out.println("ReceptionModel");
    clientReception.createPatient(patient);
+   clientReception.HCSGetPatients();
   }
   @Override
   public void addListener(String eventName, PropertyChangeListener listener) {
@@ -44,5 +50,37 @@ public class ModelReception implements HCSModelReceptionInterface
   {
     System.out.println("model");
     clientReception.HCSGetRoles();
+  }
+
+  @Override public void HCSGetPatients()
+  {
+    clientReception.HCSGetPatients();
+  }
+
+  @Override public void HCSGetSpecificPatients(String search)
+  {
+    clientReception.HCSGetSpecificPatients(search);
+  }
+
+  @Override public void createBooking(Booking booking)
+  {
+    System.out.println("BookingModel");
+    clientReception.createBooking(booking);
+    clientReception.HCSGetBookings();
+  }
+
+  @Override public void HCSGetBookings()
+  {
+    clientReception.HCSGetBookings();
+  }
+
+  @Override public void removeBooking(Date bookingDate, String bookingTime)
+  {
+    clientReception.removeBooking(bookingDate, bookingTime);
+  }
+
+  @Override public ArrayList<String> getTimeAvailable(Date date)
+  {
+    return clientReception.getTimeAvailable(date);
   }
 }

@@ -2,6 +2,7 @@ package HCS.server.network;
 
 import HCS.shared.ClientCallBack;
 //import HCS.shared.transferObjects.Message;
+import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 //import HCS.shared.transferObjects.User;
@@ -35,10 +36,17 @@ public interface RMIServerInterface extends Remote
   void HCSRemoveRole(String username) throws RemoteException;
 
   //void createPatient(String firstname,String Lastname);
-  void createPatient(Patient patient) throws RemoteException;;
+  void createPatient(Patient patient) throws RemoteException;
+ ArrayList<Patient> HCSGetPatients() throws RemoteException;
+ ArrayList<Patient> HCSGetSpecificPatients(String search) throws  RemoteException;
+
+ void createBooking(Booking booking) throws RemoteException;
+ ArrayList<Booking> HCSGetBookings() throws RemoteException;
+ void removeBooking(Date bookingDate,String bookingTime ) throws RemoteException;
+ ArrayList<String> getTimeAvailable(Date date) throws RemoteException;
 
 
 
-  /////
+ /////
 }
 

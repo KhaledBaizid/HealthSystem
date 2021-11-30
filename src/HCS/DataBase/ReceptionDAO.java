@@ -1,5 +1,6 @@
 package HCS.DataBase;
 
+import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 
@@ -88,7 +89,7 @@ public class ReceptionDAO implements ManageReceptionDAO
     ArrayList<Patient> patients=new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM userlogin  ");
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient  ");
 
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
@@ -111,5 +112,121 @@ public class ReceptionDAO implements ManageReceptionDAO
     ///
 
     return patients;
+  }
+
+  @Override public ArrayList<Patient> HCSGetSpecificPatients(String search)
+  {
+    ArrayList<Patient> patients=new ArrayList<>();
+    ///
+
+    try (Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient WHERE cprNumber LIKE ? OR firstname LIKE ? OR lastname LIKE ?   ");
+      statement.setString(1,"%"+search+"%");
+      statement.setString(2,"%"+search+"%");
+      statement.setString(3,"%"+search+"%");
+    //  statement.setString(2,search);
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        String cprNumber = resultSet.getString("cprNumber");
+        String firstname = resultSet.getString("firstname");
+        String lastname = resultSet.getString("lastname");
+        Date birthday = resultSet.getDate("birthday");
+        String sex = resultSet.getString("sex");
+        String address= resultSet.getString("address");
+        String phone=resultSet.getString("phone");
+        String mail=resultSet.getString("mail");
+        patients.add(new Patient(cprNumber,firstname,lastname,birthday,sex,address,phone,mail));
+        // System.out.println(patients.get(0).getUsername());
+
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    ///
+
+    return patients;
+  }
+
+  @Override public void createBooking(Booking booking)
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+      System.out.println("BookingDAO");
+      PreparedStatement statement = connection.prepareStatement("INSERT INTO booking VALUES (?,?,?,?)");
+      statement.setDate(1,booking.getBookingDate());
+      statement.setString(2,booking.getBookingTime());
+      statement.setString(3,booking.getSymptoms());
+      statement.setString(4,booking.getCprNumber());
+      statement.executeUpdate();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  @Override public ArrayList<Booking> HCSGetBookings()
+  {
+    ArrayList<Booking> bookings=new ArrayList<>();
+    ///
+    try (Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber  ");
+
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        Date bookingDate = resultSet.getDate("bookingdate");
+        String bookingTime = resultSet.getString("bookingtime");
+        String cprNumber = resultSet.getString("cprNumber");
+        String firstname = resultSet.getString("firstname");
+        String lastname = resultSet.getString("lastname");
+        Date birthday = resultSet.getDate("birthday");
+        String sex = resultSet.getString("sex");
+        String symptoms= resultSet.getString("symptoms");
+
+        bookings.add(new Booking(bookingDate,bookingTime,cprNumber,firstname,lastname,birthday,sex,symptoms));
+        // System.out.println(patients.get(0).getUsername());
+
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    ///
+
+    return bookings;
+  }
+
+  @Override public void removeBooking(Date bookingDate, String bookingTime)
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("DELETE FROM booking where bookingdate=? AND bookingtime=?");
+      statement.setDate(1,bookingDate);
+      statement.setString(2,bookingTime);
+      statement.executeUpdate();
+
+
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  @Override public ArrayList<String> getTimeAvailable(Date date)
+  {
+    ArrayList<String> timeAvalable = new ArrayList<>();
+    try (Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("SELECT bookingtime FROM booking WHERE bookingdate=? ");
+      statement.setDate(1,date);
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+
+       // assert timeAvalable != null;
+        timeAvalable.add(resultSet.getString("bookingtime"));
+        // System.out.println(patients.get(0).getUsername());
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+
+    return timeAvalable;
   }
 }
