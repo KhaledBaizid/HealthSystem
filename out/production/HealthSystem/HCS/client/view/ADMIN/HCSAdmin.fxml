@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="894.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HCS.client.view.ADMIN.HCSAdminController">
+   <children>
+      <Label layoutX="73.0" layoutY="57.0" text="Firstname" />
+      <Label layoutX="73.0" layoutY="96.0" text="Lastname" />
+      <Label layoutX="72.0" layoutY="163.0" text="Username" />
+      <Label layoutX="72.0" layoutY="211.0" text="Password" />
+      <Label layoutX="72.0" layoutY="255.0" text="Role" />
+      <TextField fx:id="firstname" layoutX="160.0" layoutY="53.0" />
+      <TextField fx:id="username" layoutX="159.0" layoutY="159.0" />
+      <TextField fx:id="lastname" layoutX="160.0" layoutY="92.0" />
+      <TextField fx:id="password" layoutX="159.0" layoutY="207.0" />
+      <Button layoutX="159.0" layoutY="321.0" mnemonicParsing="false" onAction="#createRoleButton" text="Create Actor" />
+      <TextField fx:id="role" layoutX="359.0" layoutY="111.0" visible="false" />
+      <TextField fx:id="birthday" layoutX="528.0" layoutY="334.0" />
+      <Label layoutX="70.0" layoutY="128.0" text="Birthday" />
+      <ComboBox fx:id="roleComboBox" layoutX="159.0" layoutY="251.0" prefWidth="150.0" />
+      <Button layoutX="333.0" layoutY="321.0" mnemonicParsing="false" onAction="#deleteRoleButton" text="Delete Actor" />
+      <TableView fx:id="RoleTableView" layoutX="382.0" layoutY="49.0" onMouseClicked="#TableViewClicked" prefHeight="255.0" prefWidth="478.0">
+        <columns>
+          <TableColumn fx:id="firstnameColumn" prefWidth="75.0" text="Fname" />
+          <TableColumn fx:id="lastnameColumn" prefWidth="75.0" text="Lname" />
+            <TableColumn fx:id="birthdayColumn" prefWidth="75.0" text="Birthday" />
+            <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Username" />
+            <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Password" />
+            <TableColumn fx:id="roleColumn" prefWidth="75.0" text="Role" />
+        </columns>
+      </TableView>
+      <DatePicker fx:id="birthdayDatePicker" layoutX="160.0" layoutY="124.0" />
+   </children>
+</AnchorPane>
