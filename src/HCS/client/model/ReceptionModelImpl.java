@@ -1,6 +1,6 @@
 package HCS.client.model;
 
-import HCS.client.network.HCSClientReception;
+import HCS.client.network.ReceptionClient;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 
@@ -10,12 +10,12 @@ import java.beans.PropertyChangeSupport;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class ModelReception implements HCSModelReceptionInterface
+public class ReceptionModelImpl implements ReceptionModel
 {
-  private HCSClientReception clientReception;
+  private ReceptionClient clientReception;
   private PropertyChangeSupport support;
 
-  public ModelReception(HCSClientReception clientReception)
+  public ReceptionModelImpl(ReceptionClient clientReception)
   {
     this.clientReception=clientReception;
     support = new PropertyChangeSupport(this);

@@ -12,6 +12,7 @@ public interface ClientCallBack extends Remote {
     //void userDeleted(PropertyChangeEvent event) throws RemoteException;
 
     void sharedroles(PropertyChangeEvent event) throws RemoteException;
+    void sharedBookings(PropertyChangeEvent event) throws RemoteException;
 
 
 }

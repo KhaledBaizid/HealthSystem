@@ -1,10 +1,9 @@
 package HCS.client.ViewModel;
 
-import HCS.client.model.HCSModelReceptionInterface;
+import HCS.client.model.ReceptionModel;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,14 +11,14 @@ import java.beans.PropertyChangeEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class HCSReceptionistViewModel
+public class ReceptionViewModel
 {
-  private HCSModelReceptionInterface model;
+  private ReceptionModel model;
   private ObservableList<Role> roles1;
   private ObservableList<Patient> patients;
   private ObservableList<Booking> bookings;
 
-  public HCSReceptionistViewModel(HCSModelReceptionInterface model)
+  public ReceptionViewModel(ReceptionModel model)
   {
     this.model=model;
     roles1= FXCollections.observableArrayList();

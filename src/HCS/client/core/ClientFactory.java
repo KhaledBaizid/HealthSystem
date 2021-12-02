@@ -5,33 +5,33 @@ import HCS.client.network.*;
 
 public class ClientFactory
 {
-    private HCSClientAdmin client;
-    private HCSClientReception clientReception;
-    private HCSClientLogin clientLogin;
-    private HCSClientDoctor clientDoctor;
+    private AdminClient client;
+    private ReceptionClient clientReception;
+    private LoginClient clientLogin;
+    private DoctorClient clientDoctor;
 
-    public HCSClientAdmin getClient()
+    public AdminClient getClient()
     {
-        if (client == null) client = new RMIClientAdmin();
+        if (client == null) client = new AdminClientImpl();
         return client;
     }
 
     //
-    public HCSClientReception getClientReception()
+    public ReceptionClient getClientReception()
     {
-        if (clientReception == null) clientReception = new RMIClientReception();
+        if (clientReception == null) clientReception = new ReceptionClientImpl();
         return clientReception;
     }
     //
-    public HCSClientLogin getClientLogin()
+    public LoginClient getClientLogin()
     {
-        if (clientLogin==null) clientLogin=new RMICientLogin();
+        if (clientLogin==null) clientLogin=new LoginClientImpl();
         return clientLogin;
     }
     //
-    public HCSClientDoctor getClientDoctor()
+    public DoctorClient getClientDoctor()
     {
-        if (clientDoctor==null)clientDoctor=new RMIClientDoctor();
+        if (clientDoctor==null)clientDoctor=new DoctorClientImpl();
         return clientDoctor;
     }
 }

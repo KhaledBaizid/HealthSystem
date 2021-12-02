@@ -5,37 +5,37 @@ import HCS.client.model.*;
 public class ModelFactory
 {
   private ClientFactory cf;
-  HCSModelAdminInterface model;
-  HCSModelReceptionInterface modelReceptionInterface;
-  HCSModelLoginInterface modelLoginInterface;
-  HCSModelDoctorInterface modelDoctorInterface;
+  AdminModel model;
+  ReceptionModel modelReceptionInterface;
+  LoginModel modelLoginInterface;
+  DoctorModel modelDoctorInterface;
 
   public ModelFactory(ClientFactory cf)
   {
     this.cf = cf;
   }
 
-  public HCSModelAdminInterface getModel()
+  public AdminModel getModel()
   {
-    if (model == null) model = new ModelAdmin(cf.getClient());
+    if (model == null) model = new AdminModelImpl(cf.getClient());
     return model;
   }
 
-  public HCSModelReceptionInterface getModelReceptionInterface()
+  public ReceptionModel getModelReceptionInterface()
   {
-    if (modelReceptionInterface == null) modelReceptionInterface = new ModelReception(cf.getClientReception());
+    if (modelReceptionInterface == null) modelReceptionInterface = new ReceptionModelImpl(cf.getClientReception());
     return modelReceptionInterface;
   }
 
-  public HCSModelLoginInterface getModelLoginInterface()
+  public LoginModel getModelLoginInterface()
   {
-    if (modelLoginInterface==null) modelLoginInterface=new ModelLogin(cf.getClientLogin());
+    if (modelLoginInterface==null) modelLoginInterface=new LoginModelImpl(cf.getClientLogin());
         return modelLoginInterface;
   }
 
-  public HCSModelDoctorInterface getModelDoctorInterface()
+  public DoctorModel getModelDoctorInterface()
   {
-    if (modelDoctorInterface==null) modelDoctorInterface=new ModelDoctor(cf.getClientDoctor());
+    if (modelDoctorInterface==null) modelDoctorInterface=new DoctorModelImpl(cf.getClientDoctor());
     return modelDoctorInterface;
   }
 

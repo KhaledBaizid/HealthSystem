@@ -8,11 +8,11 @@ public class ViewModelFactory
  // private UserChatViewModel userChatViewModel;
   //private UserLoginViewModel userloginviewmodel;
 
-  private HCSLoginViewModel hcsLoginViewModel;
-  private HCSAdminViewModel hcsAdminViewModel;
-  private HCSReceptionistViewModel hcsReceptionistViewModel;
-  private HCSAdminDeleteRoleViewModel hcsAdminDeleteRoleViewModel;
-  private HCSDoctorViewModel hcsDoctorViewModel;
+   LoginViewModel loginViewModel;
+   AdminViewModel adminViewModel;
+   ReceptionViewModel receptionViewModel;
+   HCSAdminDeleteRoleViewModel hcsAdminDeleteRoleViewModel;
+   DoctorViewModel doctorViewModel;
 
   public ViewModelFactory(ModelFactory mf)
   {
@@ -32,29 +32,29 @@ public class ViewModelFactory
     return userloginviewmodel;
   }*/
 
-  public HCSLoginViewModel getHcsLoginViewModel()
+  public LoginViewModel getHcsLoginViewModel()
   {
     /*if (hcsLoginViewModel==null)
       hcsLoginViewModel= new HCSLoginViewModel(mf.getModel());
     return hcsLoginViewModel;*/
-    if (hcsLoginViewModel==null)
-      hcsLoginViewModel= new HCSLoginViewModel(mf.getModelLoginInterface());
-    return hcsLoginViewModel;
+    if (loginViewModel ==null)
+      loginViewModel = new LoginViewModel(mf.getModelLoginInterface());
+    return loginViewModel;
   }
 
-  public HCSAdminViewModel getHcsAdminViewModel()
+  public AdminViewModel getHcsAdminViewModel()
   {
-    if (hcsAdminViewModel==null)
-      hcsAdminViewModel= new HCSAdminViewModel(mf.getModel());
-    return hcsAdminViewModel;
+    if (adminViewModel ==null)
+      adminViewModel = new AdminViewModel(mf.getModel());
+    return adminViewModel;
   }
 
-  public HCSReceptionistViewModel getHcsReceptionistViewModel()
+  public ReceptionViewModel getHcsReceptionistViewModel()
   {
-    if (hcsReceptionistViewModel==null)
-      hcsReceptionistViewModel= new HCSReceptionistViewModel(
+    if (receptionViewModel ==null)
+      receptionViewModel = new ReceptionViewModel(
            mf.getModelReceptionInterface());
-    return hcsReceptionistViewModel;
+    return receptionViewModel;
   }
 
   public HCSAdminDeleteRoleViewModel getHcsAdminDeleteRoleViewModel()
@@ -64,10 +64,10 @@ public class ViewModelFactory
     return hcsAdminDeleteRoleViewModel;
   }
 
-  public HCSDoctorViewModel getHcsDoctorViewModel()
+  public DoctorViewModel getHcsDoctorViewModel()
   {
-    if (hcsDoctorViewModel==null) hcsDoctorViewModel=new HCSDoctorViewModel(mf.getModelDoctorInterface());
-    return hcsDoctorViewModel;
+    if (doctorViewModel ==null) doctorViewModel =new DoctorViewModel(mf.getModelDoctorInterface());
+    return doctorViewModel;
   }
 
 }

@@ -1,6 +1,6 @@
 package HCS.client.view.ADMIN;
 
-import HCS.client.ViewModel.HCSAdminViewModel;
+import HCS.client.ViewModel.AdminViewModel;
 import HCS.client.core.ViewHandler;
 import HCS.shared.transferObjects.Role;
 import javafx.fxml.FXML;
@@ -52,8 +52,8 @@ public class HCSAdminController
 
 
   private ViewHandler vh;
-  private HCSAdminViewModel vm;
-  public void init(ViewHandler vh, HCSAdminViewModel vm)
+  private AdminViewModel vm;
+  public void init(ViewHandler vh, AdminViewModel vm)
   {
     this.vh=vh;
     this.vm=vm;
@@ -98,7 +98,7 @@ public class HCSAdminController
   {
    // LocalDate s= birthdayDatePicker.getValue();
    // System.out.println(s.toString());
-    System.out.println(HCSAdminController.class.getName());
+   // System.out.println(HCSAdminController.class.getName());
     vm.HCSRemoveRole(username.textProperty().getValue());
      vm.getModelRoles();
     System.out.println("controller");

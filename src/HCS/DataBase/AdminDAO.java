@@ -5,13 +5,13 @@ import HCS.shared.transferObjects.Role;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UserDAOImpl implements ManageUserDAO
+public class AdminDAO implements ManageAdminDAO
 {
 
- private static  UserDAOImpl instance;
+ private static AdminDAO instance;
   private JDBCController jdbcController;
 
-  private UserDAOImpl()
+  private AdminDAO()
   {
     try
     {
@@ -25,11 +25,11 @@ public class UserDAOImpl implements ManageUserDAO
 
   }
 
-  public static synchronized UserDAOImpl getInstance()
+  public static synchronized AdminDAO getInstance()
   {
     if (instance == null)
     {
-      instance = new UserDAOImpl();
+      instance = new AdminDAO();
     }
     return instance;
   }
@@ -48,7 +48,7 @@ public class UserDAOImpl implements ManageUserDAO
     }
   }
 
-  @Override public String HCSLogin(String username, String password)
+ /* @Override public String HCSLogin(String username, String password)
   {
     String role=null;
     //System.out.println("CREATEUSERDATABASE");
@@ -69,6 +69,34 @@ public class UserDAOImpl implements ManageUserDAO
       throwables.printStackTrace();
     }
     return role;
+  }*/
+
+  @Override public boolean roleExist(String username)
+  {
+    boolean exist=false;
+    //System.out.println("CREATEUSERDATABASE");
+    try(Connection connection = jdbcController.getConnection()) {
+
+     // System.out.println(username+""+password);
+      PreparedStatement statement = connection.prepareStatement
+          ("SELECT username FROM userlogin WHERE username = ?");
+      statement.setString(1,username);
+     // statement.setString(2,password);
+      ResultSet resultSet = statement.executeQuery();
+      if (resultSet.next())
+      {
+        String a=resultSet.getString("username");
+        System.out.println(a);
+        if (a.equals(username))
+        exist = true;
+      }
+     // System.out.println(role);
+      // statement.executeUpdate();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+    //System.out.println(role);
+    return exist;
   }
 
   @Override public void HCSCreateRole(String firstname, String lastname,

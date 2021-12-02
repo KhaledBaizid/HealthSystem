@@ -209,4 +209,9 @@ public class RMIServer implements RMIServerInterface
     return model.getTimeAvailable(date);
   }
 
+  @Override public boolean roleExist(String username) throws RemoteException
+  {
+    return model.roleExist(username);
+  }
+
 }

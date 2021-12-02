@@ -1,7 +1,8 @@
 package HCS.client.view.LOGIN;
 
-import HCS.client.ViewModel.HCSLoginViewModel;
+import HCS.client.ViewModel.LoginViewModel;
 import HCS.client.core.ViewHandler;
+import HCS.client.core.ViewModelFactory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -22,13 +23,13 @@ public class HCSLoginController
   private Label errorLabel;
 
   private ViewHandler vh;
-  private  HCSLoginViewModel vm;
+  private LoginViewModel vm;
+  private ViewModelFactory vmf;
 
-
-  public void init(ViewHandler vh, HCSLoginViewModel vm)
+  public void init(ViewHandler vh, ViewModelFactory vmf)
   {
     this.vh=vh;
-    this.vm=vm;
+    this.vm=vmf.getHcsLoginViewModel();
     vm.addListener("HCSLogin",this::succesfulLogin);
     errorLabel.textProperty().bind(vm.errorProperty());
     //HCSPasswordTextEdit.visibleProperty().bind(HCSPasswordTextEdit.selectedProperty().not());

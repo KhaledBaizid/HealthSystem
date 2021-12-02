@@ -1,6 +1,6 @@
 package HCS.client.view.RECEPTION;
 
-import HCS.client.ViewModel.HCSReceptionistViewModel;
+import HCS.client.ViewModel.ReceptionViewModel;
 import HCS.client.core.ViewHandler;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
@@ -94,8 +94,8 @@ public class HCSReceptionistController
 
 
   private ViewHandler vh;
-  private HCSReceptionistViewModel vm;
-  public void init(ViewHandler vh, HCSReceptionistViewModel vm)
+  private ReceptionViewModel vm;
+  public void init(ViewHandler vh, ReceptionViewModel vm)
   {
     this.vh=vh;
     this.vm=vm;

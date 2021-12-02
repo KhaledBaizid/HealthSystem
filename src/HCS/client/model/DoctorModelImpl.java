@@ -1,20 +1,26 @@
 package HCS.client.model;
 
-import HCS.client.network.HCSClientDoctor;
+import HCS.client.network.DoctorClient;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ModelDoctor implements HCSModelDoctorInterface
+public class DoctorModelImpl implements DoctorModel
 {
   private PropertyChangeSupport support;
-  private HCSClientDoctor clientDoctor;
+  private DoctorClient clientDoctor;
 
-  public ModelDoctor(HCSClientDoctor clientDoctor)
+  public DoctorModelImpl(DoctorClient clientDoctor)
   {
     this.clientDoctor=clientDoctor;
     this.support= new PropertyChangeSupport(this);
     clientDoctor.startClient();
+    clientDoctor.addListener("HCSGetBookings",this::fireforward);
+  }
+
+  private void fireforward(PropertyChangeEvent event)
+  {support.firePropertyChange(event);
   }
 
   @Override public void addListener(String eventName,
@@ -27,5 +33,10 @@ public class ModelDoctor implements HCSModelDoctorInterface
       PropertyChangeListener listener)
   {
     support.removePropertyChangeListener(eventName, listener);
+  }
+
+  @Override public void HCSGetBookings()
+  {
+    clientDoctor.HCSGetBookings();
   }
 }

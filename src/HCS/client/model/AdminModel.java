@@ -5,7 +5,7 @@ import HCS.shared.utility.Subject;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public interface HCSModelAdminInterface extends Subject
+public interface AdminModel extends Subject
 {
    // void login(String username);
   // ArrayList<String> getActiveUsersList();

@@ -1,6 +1,6 @@
 package HCS.client.ViewModel;
 
-import HCS.client.model.HCSModelAdminInterface;
+import HCS.client.model.AdminModel;
 import HCS.shared.transferObjects.Role;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,13 +9,13 @@ import java.beans.PropertyChangeEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class HCSAdminViewModel
+public class AdminViewModel
 {
-  private HCSModelAdminInterface model;
+  private AdminModel model;
   private ObservableList<Role> roles1;
 
 
-  public HCSAdminViewModel(HCSModelAdminInterface model)
+  public AdminViewModel(AdminModel model)
   {
     this.model=model;
     roles1= FXCollections.observableArrayList();
@@ -48,4 +48,5 @@ public class HCSAdminViewModel
   public  void HCSRemoveRole(String username){
     model.HCSRemoveRole(username);
   }
+
 }

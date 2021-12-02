@@ -105,11 +105,23 @@ public class ServerModel implements ServerModelInterface {
     {           //  support.firePropertyChange("HCSLogin", null, userDAO.HCSLogin(username, password));
 
         String role= loginDAO.HCSLogin(username, password);
+      System.out.println(role);
      // String role= mainDAO.getManageUserDAO().HCSLogin(username, password);
        return role;
     }
 
-    @Override public void HCSCreateRole(String firstname, String lastname,
+  @Override public boolean roleExist(String username)
+  {
+    boolean b;
+        b=userDAO.roleExist(username);
+       // b=true;
+    System.out.println(b);
+    System.out.println(b);
+    System.out.println(b);
+    return b;
+  }
+
+  @Override public void HCSCreateRole(String firstname, String lastname,
         Date birthday, String username, String password, String role)
     {
         userDAO.HCSCreateRole(firstname, lastname, birthday, username, password, role);

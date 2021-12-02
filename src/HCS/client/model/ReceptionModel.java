@@ -1,18 +1,16 @@
-package HCS.client.network;
+package HCS.client.model;
 
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.utility.Subject;
 
-import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public interface HCSClientReception extends Subject
+public interface ReceptionModel extends Subject
 {
-  void startClient();
   void createPatient(Patient patient);
-  void   HCSGetRoles();
+  void HCSGetRoles();
   void HCSGetPatients();
   void HCSGetSpecificPatients(String search);
   void createBooking(Booking booking);

@@ -1,6 +1,6 @@
 package HCS.client.ViewModel;
 
-import HCS.client.model.HCSModelLoginInterface;
+import HCS.client.model.LoginModel;
 import HCS.shared.utility.Subject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -9,15 +9,15 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class HCSLoginViewModel implements Subject
+public class LoginViewModel implements Subject
 {
 
   private PropertyChangeSupport support;
  // private ModelInterface model;
-  private HCSModelLoginInterface model;
+  private LoginModel model;
   private StringProperty error;
 
-  public HCSLoginViewModel(HCSModelLoginInterface model)
+  public LoginViewModel(LoginModel model)
   {support = new PropertyChangeSupport(this);
     this.model=model;
     model.addListener("HCSLogin", this::firePropertyForward);

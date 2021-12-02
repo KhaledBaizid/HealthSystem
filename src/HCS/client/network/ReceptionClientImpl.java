@@ -17,12 +17,12 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class RMIClientReception implements HCSClientReception,ClientCallBack
+public class ReceptionClientImpl implements ReceptionClient,ClientCallBack
 {
   private RMIServerInterface server;
   private PropertyChangeSupport support;
 
-  public RMIClientReception ()
+  public ReceptionClientImpl()
   {
     support = new PropertyChangeSupport(this);
 

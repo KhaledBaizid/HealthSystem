@@ -21,6 +21,7 @@ public interface ServerModelInterface extends Subject {
 
 
     String HCSLogin(String username,String password);
+    boolean roleExist(String username);
     void HCSCreateRole(String firstname,String lastname, Date birthday,String username,String password,String role);
     ArrayList<Role> HCSGetRoles();
     void HCSRemoveRole(String username);

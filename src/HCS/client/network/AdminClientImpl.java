@@ -18,13 +18,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class RMIClientAdmin implements HCSClientAdmin, ClientCallBack
+public class AdminClientImpl implements AdminClient, ClientCallBack
 {
   private RMIServerInterface server;
   private PropertyChangeSupport support;
 
 
-  public RMIClientAdmin() {
+  public AdminClientImpl() {
     support = new PropertyChangeSupport(this);
   }
 
@@ -198,5 +198,11 @@ public class RMIClientAdmin implements HCSClientAdmin, ClientCallBack
       throws RemoteException
   {
     support.firePropertyChange(event);
+  }
+
+  @Override public void sharedBookings(PropertyChangeEvent event)
+      throws RemoteException
+  {
+
   }
 }

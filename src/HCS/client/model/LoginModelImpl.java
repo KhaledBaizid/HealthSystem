@@ -1,17 +1,17 @@
 package HCS.client.model;
 
-import HCS.client.network.HCSClientLogin;
+import HCS.client.network.LoginClient;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ModelLogin implements HCSModelLoginInterface
+public class LoginModelImpl implements LoginModel
 {
-  private HCSClientLogin clientLogin;
+  private LoginClient clientLogin;
   private PropertyChangeSupport support;
 
-  public ModelLogin(HCSClientLogin clientLogin)
+  public LoginModelImpl(LoginClient clientLogin)
   {
     this.clientLogin=clientLogin;
     this.support=new PropertyChangeSupport(this);

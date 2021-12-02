@@ -1,6 +1,6 @@
 package HCS.client.model;
 
-import HCS.client.network.HCSClientAdmin;
+import HCS.client.network.AdminClient;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
 //import HCS.shared.transferObjects.User;
@@ -9,17 +9,16 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.Date;
-import java.util.ArrayList;
 
-public class ModelAdmin implements HCSModelAdminInterface
+public class AdminModelImpl implements AdminModel
 {
-    private HCSClientAdmin client;
+    private AdminClient client;
     private PropertyChangeSupport support;
 
     //private User user;
 
 
-    public ModelAdmin(HCSClientAdmin client) {
+    public AdminModelImpl(AdminClient client) {
         support = new PropertyChangeSupport(this);
         this.client = client;
         client.startClient();

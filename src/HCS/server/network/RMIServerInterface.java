@@ -45,6 +45,8 @@ public interface RMIServerInterface extends Remote
  void removeBooking(Date bookingDate,String bookingTime ) throws RemoteException;
  ArrayList<String> getTimeAvailable(Date date) throws RemoteException;
 
+ boolean roleExist(String username) throws RemoteException;
+
 
 
  /////
