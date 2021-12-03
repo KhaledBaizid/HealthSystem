@@ -1,7 +1,9 @@
 package HCS.client.view.RECEPTION;
 
+import HCS.client.ViewModel.BookingViewModel;
 import HCS.client.ViewModel.ReceptionViewModel;
 import HCS.client.core.ViewHandler;
+import HCS.client.view.Booking.HCSBookingController;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
@@ -95,10 +97,14 @@ public class HCSReceptionistController
 
   private ViewHandler vh;
   private ReceptionViewModel vm;
-  public void init(ViewHandler vh, ReceptionViewModel vm)
+  private BookingViewModel vmb;
+  private Object HCSBookingController;
+
+  public void init(ViewHandler vh, ReceptionViewModel vm ,BookingViewModel vmb)
   {
     this.vh=vh;
     this.vm=vm;
+    this.vmb=vmb;
 
     sexComboBox.getItems().addAll("F","M");
     bookingDatePicker.setValue(LocalDate.now());
@@ -128,7 +134,7 @@ public class HCSReceptionistController
     bookingBirthdayColumn.setCellValueFactory(new PropertyValueFactory<Booking,Date>("birthday"));
     bookingSexColumn.setCellValueFactory(new PropertyValueFactory<Booking,String>("sex"));
     bookingSymptomsColumn.setCellValueFactory(new PropertyValueFactory<Booking,String>("symptoms"));
-    vm.getModelBookings();
+    vmb.getModelBookings();
     bookingTableView.setItems(vm.getTableViewBookings());
 
     // vm.addListener("HCSLogin",this::succesfulLogin);
@@ -170,6 +176,7 @@ public class HCSReceptionistController
 
   public void patientTableClicked()
   {
+
     Patient patient= patientTableView.getSelectionModel().getSelectedItem();
     bookingCPRNumber.setText(patient.getCprNumber());
     bookingFirstname.setText(patient.getFirstname());
@@ -182,17 +189,18 @@ public class HCSReceptionistController
     Date date1=Date.valueOf(localDate);
     Booking booking = new Booking(date1,bookingTimeComboBox.getSelectionModel().getSelectedItem().toString(),symptoms.textProperty().getValue(),
         bookingCPRNumber.textProperty().getValue());
-    vm.createBooking(booking);
+    vmb.createBooking(booking);
     System.out.println("BookingController");
   }
   public void removeBooking()
   { LocalDate localDate=bookingDatePicker1.getValue();
     Date date1=Date.valueOf(localDate);
-   vm.removeBooking(date1,bookingTimeComboBox1.getSelectionModel().getSelectedItem().toString());
-   vm.getModelBookings();
+   vmb.removeBooking(date1,bookingTimeComboBox1.getSelectionModel().getSelectedItem().toString());
+   vmb.getModelBookings();
   }
   public void bookingTableClicked()
   {
+
     Booking booking=bookingTableView.getSelectionModel().getSelectedItem();
     bookingDatePicker1.setValue(booking.getBookingDate().toLocalDate());
     bookingCPRNumber1.setText(booking.getCprNumber());
@@ -218,5 +226,16 @@ public class HCSReceptionistController
     }
     System.out.println("datetime");
 
+  }
+
+  public void BookForPatient()
+  {
+    //HCSBookingController.class.getClassLoader().
+    vh.openHCSBooking(bookingCPRNumber.textProperty().getValue(),bookingFirstname.textProperty().getValue(),bookingLastname.textProperty().getValue());
+    //vh.openHCSDoctor("sgsgsgs");
+  }
+  public void OpenBookPage()
+  {
+    vh.openHCSBooking();
   }
 }

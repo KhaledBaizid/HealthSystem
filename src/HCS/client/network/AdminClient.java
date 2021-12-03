@@ -10,21 +10,9 @@ import java.util.ArrayList;
 public interface AdminClient extends Subject
 {
     void startClient();
-
-  //  void login(User user) ;
-
- //   ArrayList<String> getActiveUsersList();
-
-   // void sendPublicMessage(Message messageToSend);
-
-   // void disconnect(User user);
-
-
-    //////
-    void HCSLogin(String username,String password);
-    void HCSCreateRole(String firstname,String lastname, Date birthday,String username,String password,String role);
-   void   HCSGetRoles();
-    void HCSRemoveRole(String username);
+    void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role);
+   void   GetUsers();
+    void RemoveUser(String username);
 
     //////
 }

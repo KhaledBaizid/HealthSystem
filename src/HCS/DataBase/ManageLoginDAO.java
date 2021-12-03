@@ -2,6 +2,6 @@ package HCS.DataBase;
 
 public interface ManageLoginDAO
 {
-  String HCSLogin(String username,String password);
+  String Login(String username,String password);
 
 }

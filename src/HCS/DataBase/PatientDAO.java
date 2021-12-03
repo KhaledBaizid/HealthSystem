@@ -1,18 +1,17 @@
 package HCS.DataBase;
 
-import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Role;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ReceptionDAO implements ManageReceptionDAO
+public class PatientDAO implements ManagePatientDAO
 {
   private JDBCController jdbcController;
-  private static  ReceptionDAO instance;
+  private static PatientDAO instance;
 
-  private ReceptionDAO()
+  private PatientDAO()
   {
     try
     {
@@ -26,11 +25,11 @@ public class ReceptionDAO implements ManageReceptionDAO
 
   }
 
-  public static synchronized ReceptionDAO getInstance()
+  public static synchronized PatientDAO getInstance()
   {
     if (instance == null)
     {
-      instance = new ReceptionDAO();
+      instance = new PatientDAO();
     }
     return instance;
   }
@@ -148,7 +147,37 @@ public class ReceptionDAO implements ManageReceptionDAO
     return patients;
   }
 
-  @Override public void createBooking(Booking booking)
+  @Override public boolean patientExist(String cprNumber)
+  {
+
+      boolean exist=false;
+      //System.out.println("CREATEUSERDATABASE");
+      try(Connection connection = jdbcController.getConnection()) {
+
+        // System.out.println(username+""+password);
+        PreparedStatement statement = connection.prepareStatement
+            ("SELECT cprnumber FROM patient WHERE cprnumber = ?");
+        statement.setString(1,cprNumber);
+        // statement.setString(2,password);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next())
+        {
+          String a=resultSet.getString("cprnumber");
+          System.out.println(a);
+          if (a.equals(cprNumber))
+            exist = true;
+        }
+        // System.out.println(role);
+        // statement.executeUpdate();
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
+      //System.out.println(role);
+      return exist;
+    }
+
+
+ /* @Override public void createBooking(Booking booking)
   {
     try(Connection connection = jdbcController.getConnection()) {
       System.out.println("BookingDAO");
@@ -228,5 +257,5 @@ public class ReceptionDAO implements ManageReceptionDAO
 
 
     return timeAvalable;
-  }
+  }*/
 }

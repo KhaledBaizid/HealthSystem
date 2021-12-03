@@ -1,6 +1,6 @@
 package HCS.client.network;
 
-import HCS.server.network.RMIServerInterface;
+import HCS.server.network.RMIServer;
 import HCS.shared.ClientCallBack;
 
 import java.beans.PropertyChangeEvent;
@@ -14,7 +14,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class LoginClientImpl implements LoginClient, ClientCallBack
 {
-  private RMIServerInterface server;
+  private RMIServer server;
   private PropertyChangeSupport support;
 
   public LoginClientImpl()
@@ -58,7 +58,7 @@ public class LoginClientImpl implements LoginClient, ClientCallBack
     try {
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-      server = (RMIServerInterface)  registry.lookup("Chat");
+      server = (RMIServer)  registry.lookup("HCS");
       server.registerClient(this);
       // System.out.println("StartClient");
 
@@ -71,7 +71,7 @@ public class LoginClientImpl implements LoginClient, ClientCallBack
   {
     try
     {
-      String role= server.HCSLogin(username,password);
+      String role= server.Login(username,password);
       support.firePropertyChange("HCSLogin",null,role);
     }
     catch (RemoteException e)

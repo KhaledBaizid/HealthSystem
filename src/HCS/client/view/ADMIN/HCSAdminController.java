@@ -67,7 +67,7 @@ public class HCSAdminController
     usernameColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("username"));
     passwordColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("password"));
     roleColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("role"));
-    vm.getModelRoles();
+    vm.getModelUsers();
     RoleTableView.setItems(vm.getTableViewRoles());
 
 
@@ -77,14 +77,14 @@ public class HCSAdminController
 
   private void getRoles()
   {
-    vm.getModelRoles();
+    vm.getModelUsers();
   }
 
   public void createRoleButton()
   {
       LocalDate localDate=birthdayDatePicker.getValue();
       Date date=Date.valueOf(localDate);
-    vm.HCSCreateRole(firstname.textProperty().getValue(),
+    vm.CreateUser(firstname.textProperty().getValue(),
                      lastname.textProperty().getValue(),
        // birthdayDatePicker.getValue()
         date,
@@ -99,15 +99,15 @@ public class HCSAdminController
    // LocalDate s= birthdayDatePicker.getValue();
    // System.out.println(s.toString());
    // System.out.println(HCSAdminController.class.getName());
-    vm.HCSRemoveRole(username.textProperty().getValue());
-     vm.getModelRoles();
+    vm.RemoveUser(username.textProperty().getValue());
+     vm.getModelUsers();
     System.out.println("controller");
     //vh.openHCSAdminDeleteRole();
 
   }
  public void  TableViewClicked()
- {
-   Role role =RoleTableView.getSelectionModel().getSelectedItem();
+ { Role role=null;
+    role =RoleTableView.getSelectionModel().getSelectedItem();
    firstname.setText(role.getFirstname());
    lastname.setText(role.getLastname());
    //Date date =role.getBirthday();

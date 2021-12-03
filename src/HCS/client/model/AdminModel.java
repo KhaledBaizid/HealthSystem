@@ -13,9 +13,9 @@ public interface AdminModel extends Subject
    // void disconnect();
 
     ///////
-   void HCSLogin(String username,String password);
-  void HCSCreateRole(String firstname,String lastname, Date birthday,String username,String password,String role);
-    void   HCSGetRoles();
-  void HCSRemoveRole(String username);
+  // void HCSLogin(String username,String password);
+  void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role);
+    void   GetUsers();
+  void RemoveUser(String username);
   ///////
 }

@@ -2,6 +2,7 @@ package HCS.client.core;
 
 //import HCS.client.view.*;
 import HCS.client.view.ADMIN.HCSAdminController;
+import HCS.client.view.Booking.HCSBookingController;
 import HCS.client.view.DOCTOR.HCSDoctorController;
 import HCS.client.view.LOGIN.HCSLoginController;
 import HCS.client.view.RECEPTION.HCSReceptionistController;
@@ -22,6 +23,7 @@ public class ViewHandler
    Scene DeleteRole;
    Scene ReceptionScene;
    Scene DoctorScene;
+   Scene BookingScene;
 
   public ViewHandler(ViewModelFactory vmf, Stage primaryStage)
   {
@@ -148,7 +150,7 @@ public class ViewHandler
         loader.setLocation(getClass().getResource("../view/RECEPTION/HCSReceptionist.fxml"));
         Parent root = loader.load();
         HCSReceptionistController ctrl = loader.getController();
-        ctrl.init(this,vmf.getHcsReceptionistViewModel());
+        ctrl.init(this,vmf.getHcsReceptionistViewModel(),vmf.getHcsBookingViewModel());
         ReceptionScene  = new Scene(root);
 
       } catch (IOException e) {
@@ -208,6 +210,50 @@ public class ViewHandler
     primaryStage.show();
   }*/
 
+  public void openHCSBooking (String cprNumber,String firstname,String lastname)
+  {
+
+    if (BookingScene  == null)
+    {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/Booking/HCSBooking.fxml"));
+        Parent root = loader.load();
+        HCSBookingController ctrl = loader.getController();
+        ctrl.init(this,vmf.getHcsBookingViewModel(),cprNumber,firstname,lastname);
+        BookingScene  = new Scene(root);
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+    primaryStage.setTitle("BOOKING:" );
+    primaryStage.setScene(BookingScene);
+    primaryStage.show();
+  }
+  public void openHCSBooking ()
+  {
+
+    if (BookingScene  == null)
+    {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/Booking/HCSBooking.fxml"));
+        Parent root = loader.load();
+        HCSBookingController ctrl = loader.getController();
+        ctrl.init(this,vmf.getHcsBookingViewModel(),"","","");
+        BookingScene  = new Scene(root);
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+    primaryStage.setTitle("BOOKING:" );
+    primaryStage.setScene(BookingScene);
+    primaryStage.show();
+  }
 
 
 

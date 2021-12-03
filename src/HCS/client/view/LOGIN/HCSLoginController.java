@@ -14,11 +14,11 @@ import java.beans.PropertyChangeEvent;
 public class HCSLoginController
 {
   @FXML
-  private TextField HCSUsernameTextEdit;
+  private TextField usernameTextEdit;
   @FXML
   private TextField HCSPasswordTextEdit;
   @FXML
-  private PasswordField HCSPassword;
+  private PasswordField password;
   @FXML
   private Label errorLabel;
 
@@ -30,37 +30,37 @@ public class HCSLoginController
   {
     this.vh=vh;
     this.vm=vmf.getHcsLoginViewModel();
-    vm.addListener("HCSLogin",this::succesfulLogin);
+    vm.addListener("HCSLogin",this::successfulLogin);
     errorLabel.textProperty().bind(vm.errorProperty());
     //HCSPasswordTextEdit.visibleProperty().bind(HCSPasswordTextEdit.selectedProperty().not());
   }
 
-  private void succesfulLogin(PropertyChangeEvent event)
+  private void successfulLogin(PropertyChangeEvent event)
   {
     String page= (String)event.getNewValue();
     System.out.println(page+page);
     if (page.equals("ADMIN"))
     {
       Platform.runLater(() -> {
-       vh.openHCSAdmin(HCSUsernameTextEdit.textProperty().getValue());
+       vh.openHCSAdmin(usernameTextEdit.textProperty().getValue());
       });
     } else if (page.equals("RECEPTION"))
     {
       Platform.runLater(() -> {
-        vh.openHCSReceptionist(HCSUsernameTextEdit.textProperty().getValue());
+        vh.openHCSReceptionist(usernameTextEdit.textProperty().getValue());
       });
     } else{
       Platform.runLater(() -> {
-        vh.openHCSDoctor(HCSUsernameTextEdit.textProperty().getValue());
+        vh.openHCSDoctor(usernameTextEdit.textProperty().getValue());
       });
 
     }
 
   }
 
-  public void HCSLoginButton()
+  public void LoginButton()
   {
-   vm.HCSLogin(HCSUsernameTextEdit.textProperty().getValue(),HCSPassword.textProperty().getValue());
+   vm.HCSLogin(usernameTextEdit.textProperty().getValue(),password.textProperty().getValue());
     System.out.println("viewcontroller");
   }
 }

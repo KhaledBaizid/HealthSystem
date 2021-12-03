@@ -30,8 +30,8 @@ public class AdminViewModel
     roles1.addAll(roles);
   }
 
-  public  void HCSCreateRole(String firstname,String lastname, Date birthday,String username,String password,String role){
-    model.HCSCreateRole(firstname, lastname, birthday, username, password, role);
+  public  void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role){
+    model.CreateUser(firstname, lastname, birthday, username, password, role);
   }
 
   public ObservableList<Role> getTableViewRoles()
@@ -39,14 +39,14 @@ public class AdminViewModel
 
     return roles1;
   }
-  public void getModelRoles()
+  public void getModelUsers()
   {
     System.out.println("viewmodel");
-    model.HCSGetRoles();
+    model.GetUsers();
   }
 
-  public  void HCSRemoveRole(String username){
-    model.HCSRemoveRole(username);
+  public  void RemoveUser(String username){
+    model.RemoveUser(username);
   }
 
 }

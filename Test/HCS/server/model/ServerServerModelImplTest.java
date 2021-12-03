@@ -1,17 +1,15 @@
 package HCS.server.model;
 
 import HCS.DataBase.*;
-import HCS.shared.transferObjects.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ServerModelInterfaceTest
-{ ServerModel server;
+class ServerServerModelImplTest
+{ ServerModelImpl server;
   AdminDAO adminDAO;
   LoginDAO loginDAO;
 
@@ -84,7 +82,7 @@ class ServerModelInterfaceTest
 
     boolean exist;
   // userDAO=AdminDAO.getInstance();
-    exist=adminDAO.roleExist("a");
+    exist=adminDAO.UserExist("a");
     System.out.println(exist);
     assertTrue(exist);
   }
@@ -93,13 +91,13 @@ class ServerModelInterfaceTest
   {
     Date date= new Date(02-10-1982);
     boolean executed=false;
-    if (adminDAO.roleExist("p"))
+    if (adminDAO.UserExist("z"))
     {
 
       assertTrue(!executed);
     }
     else {
-      adminDAO.HCSCreateRole("r", "r", date, "p", "r", "RECEPTION");
+      adminDAO.CreateUser("r", "r", date, "z", "r", "RECEPTION");
       assertTrue(!executed);
     }
 
@@ -107,13 +105,13 @@ class ServerModelInterfaceTest
 
   @Test void HCSLogin()
   {
-    String role=loginDAO.HCSLogin("a","a");
+    String role=loginDAO.Login("a","a");
     assertTrue(role.equals("ADMIN"));
-    role=loginDAO.HCSLogin("r","r");
+    role=loginDAO.Login("r","r");
     assertTrue(role.equals("RECEPTION"));
-    role=loginDAO.HCSLogin("d","d");
+    role=loginDAO.Login("d","d");
     assertTrue(role.equals("DOCTOR"));
-    role=loginDAO.HCSLogin("k","a");
+    role=loginDAO.Login("k","a");
     assertTrue(role==null);
    /* Date date= new Date(02-10-1982);
     adminDAO.HCSCreateRole("r", "r", date, "b", "a", "RECEPTION");

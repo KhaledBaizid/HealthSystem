@@ -10,10 +10,10 @@
    <children>
       <Label layoutX="70.0" layoutY="128.0" text="Username" />
       <Label layoutX="70.0" layoutY="183.0" text="password" />
-      <TextField fx:id="HCSUsernameTextEdit" layoutX="182.0" layoutY="124.0" />
+      <TextField fx:id="usernameTextEdit" layoutX="182.0" layoutY="124.0" />
       <TextField fx:id="HCSPasswordTextEdit" layoutX="300.0" layoutY="274.0" visible="false" />
-      <Button layoutX="182.0" layoutY="261.0" mnemonicParsing="false" onAction="#HCSLoginButton" text="Button" />
-      <PasswordField fx:id="HCSPassword" layoutX="182.0" layoutY="179.0" />
+      <Button layoutX="182.0" layoutY="261.0" mnemonicParsing="false" onAction="#LoginButton" text="Login" />
+      <PasswordField fx:id="password" layoutX="182.0" layoutY="179.0" />
       <Label fx:id="errorLabel" layoutX="182.0" layoutY="224.0" text="Label" />
    </children>
 </AnchorPane>

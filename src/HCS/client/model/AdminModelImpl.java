@@ -76,26 +76,26 @@ public class AdminModelImpl implements AdminModel
     }*/
 
 
-    @Override public void HCSLogin(String username, String password)
+  /*  @Override public void HCSLogin(String username, String password)
     {
          client.HCSLogin(username,password);
-    }
+    }*/
 
-    @Override public void HCSCreateRole(String firstname, String lastname,
+    @Override public void CreateUser(String firstname, String lastname,
         Date birthday, String username, String password, String role)
     {
-        client.HCSCreateRole(firstname, lastname, birthday, username, password, role);
-       client.HCSGetRoles();
+        client.CreateUser(firstname, lastname, birthday, username, password, role);
+       client.GetUsers();
     }
 
-    @Override public void HCSGetRoles()
+    @Override public void GetUsers()
     {
         System.out.println("model");
-        client.HCSGetRoles();
+        client.GetUsers();
     }
 
-    @Override public void HCSRemoveRole(String username)
+    @Override public void RemoveUser(String username)
     {
-        client.HCSRemoveRole(username);
+        client.RemoveUser(username);
     }
 }

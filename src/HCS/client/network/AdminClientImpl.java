@@ -1,6 +1,6 @@
 package HCS.client.network;
 
-import HCS.server.network.RMIServerInterface;
+import HCS.server.network.RMIServer;
 import HCS.shared.ClientCallBack;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class AdminClientImpl implements AdminClient, ClientCallBack
 {
-  private RMIServerInterface server;
+  private RMIServer server;
   private PropertyChangeSupport support;
 
 
@@ -33,7 +33,7 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
     try {
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-      server = (RMIServerInterface)  registry.lookup("Chat");
+      server = (RMIServer)  registry.lookup("HCS");
       server.registerClient(this);
      // System.out.println("StartClient");
 
@@ -107,7 +107,7 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
     }
   }*/
 
-  @Override public void HCSLogin(String username, String password)
+/*  @Override public void HCSLogin(String username, String password)
   {
     try
     { String role= server.HCSLogin(username,password);
@@ -120,14 +120,14 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
       e.printStackTrace();
     }
    // return null;
-  }
+  }*/
 
-  @Override public void HCSCreateRole(String firstname, String lastname,
+  @Override public void CreateUser(String firstname, String lastname,
       Date birthday, String username, String password, String role)
   {
     try
     {
-      server.HCSCreateRole(firstname, lastname, birthday, username, password, role);
+      server.CreateUser(firstname, lastname, birthday, username, password, role);
     }
     catch (RemoteException e)
     {
@@ -135,14 +135,14 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
     }
   }
 
-  @Override public void HCSGetRoles()
+  @Override public void GetUsers()
   {
 
     try
     {
       System.out.println("client");
       ArrayList<Role> roles;
-      roles = server.HCSGetRoles();
+      roles = server.GetUsers();
       support.firePropertyChange("HCSGetRoles",null,roles);
     }
     catch (RemoteException e)
@@ -152,11 +152,11 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
 
   }
 
-  @Override public void HCSRemoveRole(String username)
+  @Override public void RemoveUser(String username)
   {
     try
     {
-      server.HCSRemoveRole(username);
+      server.RemoveUser(username);
     }
     catch (RemoteException e)
     {

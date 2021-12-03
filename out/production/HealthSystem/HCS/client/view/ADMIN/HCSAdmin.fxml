@@ -20,7 +20,7 @@
       <TextField fx:id="username" layoutX="159.0" layoutY="159.0" />
       <TextField fx:id="lastname" layoutX="160.0" layoutY="92.0" />
       <TextField fx:id="password" layoutX="159.0" layoutY="207.0" />
-      <Button layoutX="159.0" layoutY="321.0" mnemonicParsing="false" onAction="#createRoleButton" text="Create Actor" />
+      <Button layoutX="159.0" layoutY="321.0" mnemonicParsing="false" onAction="#createRoleButton" styleClass="btns" text="Create Actor" />
       <TextField fx:id="role" layoutX="359.0" layoutY="111.0" visible="false" />
       <TextField fx:id="birthday" layoutX="528.0" layoutY="334.0" />
       <Label layoutX="70.0" layoutY="128.0" text="Birthday" />

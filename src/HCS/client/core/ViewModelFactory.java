@@ -13,39 +13,33 @@ public class ViewModelFactory
    ReceptionViewModel receptionViewModel;
    HCSAdminDeleteRoleViewModel hcsAdminDeleteRoleViewModel;
    DoctorViewModel doctorViewModel;
+   BookingViewModel bookingViewModel;
 
   public ViewModelFactory(ModelFactory mf)
   {
     this.mf = mf;
   }
 
-
- /* public UserChatViewModel getUserChatViewModel()
-  {
-    if (userChatViewModel == null) userChatViewModel = new UserChatViewModel(mf.getModel());
-    return userChatViewModel;
-  }
-
-  public UserLoginViewModel getUserLoginViewModel(){
-    if (userloginviewmodel == null)
-      userloginviewmodel = new UserLoginViewModel(mf.getModel());
-    return userloginviewmodel;
-  }*/
-
   public LoginViewModel getHcsLoginViewModel()
   {
-    /*if (hcsLoginViewModel==null)
-      hcsLoginViewModel= new HCSLoginViewModel(mf.getModel());
-    return hcsLoginViewModel;*/
+
     if (loginViewModel ==null)
-      loginViewModel = new LoginViewModel(mf.getModelLoginInterface());
+      loginViewModel = new LoginViewModel(mf.getModelLogin());
     return loginViewModel;
+  }
+
+  public BookingViewModel getHcsBookingViewModel()
+  {
+
+    if (bookingViewModel ==null)
+      bookingViewModel = new BookingViewModel(mf.getModelBooking());
+    return bookingViewModel;
   }
 
   public AdminViewModel getHcsAdminViewModel()
   {
     if (adminViewModel ==null)
-      adminViewModel = new AdminViewModel(mf.getModel());
+      adminViewModel = new AdminViewModel(mf.getModelAdmin());
     return adminViewModel;
   }
 
@@ -53,20 +47,20 @@ public class ViewModelFactory
   {
     if (receptionViewModel ==null)
       receptionViewModel = new ReceptionViewModel(
-           mf.getModelReceptionInterface());
+           mf.getModelReception(), mf.getModelBooking());
     return receptionViewModel;
   }
 
   public HCSAdminDeleteRoleViewModel getHcsAdminDeleteRoleViewModel()
   {
     if (hcsAdminDeleteRoleViewModel==null)
-      hcsAdminDeleteRoleViewModel= new HCSAdminDeleteRoleViewModel(mf.getModel());
+      hcsAdminDeleteRoleViewModel= new HCSAdminDeleteRoleViewModel(mf.getModelAdmin());
     return hcsAdminDeleteRoleViewModel;
   }
 
   public DoctorViewModel getHcsDoctorViewModel()
   {
-    if (doctorViewModel ==null) doctorViewModel =new DoctorViewModel(mf.getModelDoctorInterface());
+    if (doctorViewModel ==null) doctorViewModel =new DoctorViewModel(mf.getModelDoctor());
     return doctorViewModel;
   }
 

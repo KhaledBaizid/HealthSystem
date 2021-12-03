@@ -30,7 +30,7 @@ public class LoginDAO implements ManageLoginDAO
     return instance;
   }
 
-  @Override public String HCSLogin(String username, String password)
+  @Override public String Login(String username, String password)
   {
     String role=null;
     System.out.println("SEP2");

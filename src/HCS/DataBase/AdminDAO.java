@@ -36,7 +36,7 @@ public class AdminDAO implements ManageAdminDAO
 
 
 
-  @Override public void createUser(String username)
+ /* @Override public void createUser(String username)
   {
     System.out.println("CREATEUSERDATABASE");
     try(Connection connection = jdbcController.getConnection()) {
@@ -46,7 +46,7 @@ public class AdminDAO implements ManageAdminDAO
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
-  }
+  }*/
 
  /* @Override public String HCSLogin(String username, String password)
   {
@@ -71,7 +71,7 @@ public class AdminDAO implements ManageAdminDAO
     return role;
   }*/
 
-  @Override public boolean roleExist(String username)
+  @Override public boolean UserExist(String username)
   {
     boolean exist=false;
     //System.out.println("CREATEUSERDATABASE");
@@ -99,7 +99,7 @@ public class AdminDAO implements ManageAdminDAO
     return exist;
   }
 
-  @Override public void HCSCreateRole(String firstname, String lastname,
+  @Override public void CreateUser(String firstname, String lastname,
       Date birthday, String username, String password,String role)
   {
 
@@ -120,7 +120,7 @@ public class AdminDAO implements ManageAdminDAO
     }
   }
 
-  @Override public ArrayList<Role> HCSGetRoles()
+  @Override public ArrayList<Role> GetUsers()
   {
     System.out.println("HHHHHHHHHHHHHHHHHHHHHHHH");
     ArrayList<Role> roles=new ArrayList<>();
@@ -149,7 +149,7 @@ public class AdminDAO implements ManageAdminDAO
     return roles;
   }
 
-  @Override public void HCSRemoveRole(String username)
+  @Override public void RemoveUser(String username)
   {
     try(Connection connection = jdbcController.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("DELETE FROM userlogin where username=?");
@@ -184,7 +184,7 @@ public class AdminDAO implements ManageAdminDAO
     }
   }
 
-  @Override public void createPatient(String cprnumber, String firstname,
+ /* @Override public void createPatient(String cprnumber, String firstname,
       String lastname)
   {
     System.out.println("ReceptionDAO");
@@ -197,5 +197,5 @@ public class AdminDAO implements ManageAdminDAO
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
-  }
+  }*/
 }

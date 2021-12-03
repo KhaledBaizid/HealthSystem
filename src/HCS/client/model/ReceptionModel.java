@@ -13,8 +13,9 @@ public interface ReceptionModel extends Subject
   void HCSGetRoles();
   void HCSGetPatients();
   void HCSGetSpecificPatients(String search);
-  void createBooking(Booking booking);
+
+ /* void createBooking(Booking booking);
   void HCSGetBookings();
   void removeBooking(Date bookingDate,String bookingTime );
-  ArrayList<String> getTimeAvailable(Date date);
+  ArrayList<String> getTimeAvailable(Date date);*/
 }

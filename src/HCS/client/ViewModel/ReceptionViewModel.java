@@ -1,5 +1,6 @@
 package HCS.client.ViewModel;
 
+import HCS.client.model.BookingModel;
 import HCS.client.model.ReceptionModel;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
@@ -14,13 +15,15 @@ import java.util.ArrayList;
 public class ReceptionViewModel
 {
   private ReceptionModel model;
+  private BookingModel bookingModel;
   private ObservableList<Role> roles1;
   private ObservableList<Patient> patients;
   private ObservableList<Booking> bookings;
 
-  public ReceptionViewModel(ReceptionModel model)
+  public ReceptionViewModel(ReceptionModel model,BookingModel bookingModel)
   {
     this.model=model;
+    this.bookingModel=bookingModel;
     roles1= FXCollections.observableArrayList();
     patients=FXCollections.observableArrayList();
     bookings=FXCollections.observableArrayList();
@@ -80,11 +83,11 @@ public class ReceptionViewModel
   public void createBooking(Booking booking)
   {
     System.out.println("BookingViewModel");
-    model.createBooking(booking);
+    bookingModel.createBooking(booking);
   }
   public void getModelBookings()
   {
-    model.HCSGetBookings();
+    bookingModel.HCSGetBookings();
   }
   public ObservableList<Booking> getTableViewBookings()
   {
@@ -92,10 +95,10 @@ public class ReceptionViewModel
   }
   public void removeBooking(Date bookingDate, String bookingTime)
   {
-    model.removeBooking(bookingDate, bookingTime);
+    bookingModel.removeBooking(bookingDate, bookingTime);
   }
   public ArrayList<String> getTimeAvailable(Date date)
   {
-    return model.getTimeAvailable(date);
+    return bookingModel.getTimeAvailable(date);
   }
 }

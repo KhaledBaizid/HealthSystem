@@ -1,35 +1,44 @@
 package HCS.client.core;
 
 import HCS.client.network.*;
+import HCS.shared.transferObjects.Booking;
 /////import chat.client.network.Client;
 
 public class ClientFactory
 {
-    private AdminClient client;
-    private ReceptionClient clientReception;
-    private LoginClient clientLogin;
-    private DoctorClient clientDoctor;
+     AdminClient clientAdmin;
+     ReceptionClient clientReception;
+     LoginClient clientLogin;
+     DoctorClient clientDoctor;
+     BookingClient clientBooking;
 
-    public AdminClient getClient()
+
+    public AdminClient getAdminClient()
     {
-        if (client == null) client = new AdminClientImpl();
-        return client;
+        if (clientAdmin == null) clientAdmin = new AdminClientImpl();
+        return clientAdmin;
+    }
+    public BookingClient getBookingClient()
+    {
+        if (clientBooking== null) clientBooking = new BookingClientImpl();
+        return clientBooking;
     }
 
+
     //
-    public ReceptionClient getClientReception()
+    public ReceptionClient getReceptionClient()
     {
         if (clientReception == null) clientReception = new ReceptionClientImpl();
         return clientReception;
     }
     //
-    public LoginClient getClientLogin()
+    public LoginClient getLoginClient()
     {
         if (clientLogin==null) clientLogin=new LoginClientImpl();
         return clientLogin;
     }
     //
-    public DoctorClient getClientDoctor()
+    public DoctorClient getDoctorClient()
     {
         if (clientDoctor==null)clientDoctor=new DoctorClientImpl();
         return clientDoctor;

@@ -12,20 +12,23 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.stream.BaseStream;
 
-public class DoctorClientImpl implements DoctorClient, ClientCallBack
+public class BookingClientImpl implements BookingClient, ClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
 
-  public DoctorClientImpl()
+  public BookingClientImpl()
   {
     this.support=new PropertyChangeSupport(this);
   }
 
   @Override public void startClient()
   {
+
     try {
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
@@ -36,22 +39,63 @@ public class DoctorClientImpl implements DoctorClient, ClientCallBack
     } catch (RemoteException | NotBoundException e) {
       e.printStackTrace();
     }
-    
   }
 
-  @Override public void HCSGetBookings()
+  @Override public void createBooking(Booking booking)
   {
     try
     {
-      ArrayList<Booking> bookings;
-      bookings= server.HCSGetBookings();
-      support.firePropertyChange("HCSGetBookings",null,bookings);
+      System.out.println("BookingClient");
+      server.createBooking(booking);
     }
     catch (RemoteException e)
     {
       e.printStackTrace();
     }
+
   }
+
+  @Override public void HCSGetBookings()
+  {
+    try
+    { ArrayList<Booking> bookings;
+      bookings= server.HCSGetBookings();
+      support.firePropertyChange("HCSGetBookings",null,bookings);
+
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+
+  }
+
+  @Override public void removeBooking(Date bookingDate, String bookingTime)
+  {
+    try
+    {
+      server.removeBooking(bookingDate, bookingTime);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+
+  }
+
+  @Override public ArrayList<String> getTimeAvailable(Date date)
+  {
+    try
+    {
+      return server.getTimeAvailable(date);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
 
   @Override public void addListener(String eventName,
       PropertyChangeListener listener)
@@ -65,24 +109,6 @@ public class DoctorClientImpl implements DoctorClient, ClientCallBack
     support.removePropertyChangeListener(eventName, listener);
   }
 
-/*  @Override public void publicMessageSent(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }
-
-  @Override public void userAdded(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }
-
-  @Override public void userDeleted(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }*/
-
   @Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException
   {
@@ -93,6 +119,5 @@ public class DoctorClientImpl implements DoctorClient, ClientCallBack
       throws RemoteException
   {
     support.firePropertyChange(event);
-
   }
 }

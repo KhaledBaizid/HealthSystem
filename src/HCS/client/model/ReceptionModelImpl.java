@@ -62,7 +62,7 @@ public class ReceptionModelImpl implements ReceptionModel
     clientReception.HCSGetSpecificPatients(search);
   }
 
-  @Override public void createBooking(Booking booking)
+ /* @Override public void createBooking(Booking booking)
   {
     System.out.println("BookingModel");
     clientReception.createBooking(booking);
@@ -82,5 +82,5 @@ public class ReceptionModelImpl implements ReceptionModel
   @Override public ArrayList<String> getTimeAvailable(Date date)
   {
     return clientReception.getTimeAvailable(date);
-  }
+  }*/
 }

@@ -1,6 +1,6 @@
 package HCS.client.network;
 
-import HCS.server.network.RMIServerInterface;
+import HCS.server.network.RMIServer;
 import HCS.shared.ClientCallBack;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
@@ -17,9 +17,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class ReceptionClientImpl implements ReceptionClient,ClientCallBack
+public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
 {
-  private RMIServerInterface server;
+  private RMIServer server;
   private PropertyChangeSupport support;
 
   public ReceptionClientImpl()
@@ -33,7 +33,7 @@ public class ReceptionClientImpl implements ReceptionClient,ClientCallBack
     try {
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-      server = (RMIServerInterface)  registry.lookup("Chat");
+      server = (RMIServer)  registry.lookup("HCS");
       server.registerClient(this);
       // System.out.println("StartClient");
 
@@ -103,7 +103,7 @@ public class ReceptionClientImpl implements ReceptionClient,ClientCallBack
     {
       System.out.println("client");
       ArrayList<Role> roles;
-      roles = server.HCSGetRoles();
+      roles = server.GetUsers();
       support.firePropertyChange("HCSGetRoles",null,roles);
     }
     catch (RemoteException e)

@@ -1,9 +1,7 @@
 package HCS.server.network;
 
-import HCS.DataBase.ManageAdminDAO;
-import HCS.DataBase.ManageLoginDAO;
-import HCS.DataBase.ManageReceptionDAO;
-import HCS.server.model.ServerModel;
+import HCS.DataBase.*;
+import HCS.server.model.ServerModelImpl;
 import HCS.shared.ClientCallBack;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
@@ -14,36 +12,44 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class RMIServerInterfaceTest
+class RMIServerImplInterfaceTest
 { ManageAdminDAO userDAO = new ManageAdminDAO()
 {
-  @Override public void createUser(String username)
+/*  @Override public void createUser(String username)
   {
 
-  }
+  }*/
 
-  @Override public boolean roleExist(String username)
+ /* @Override public boolean roleExist(String username)
+  {
+    return false;
+  }*/
+
+  @Override public boolean UserExist(String username)
   {
     return false;
   }
 
-  @Override public void HCSCreateRole(String firstname, String lastname,
+  @Override public void CreateUser(String firstname, String lastname,
       Date birthday, String username, String password, String role)
   {
 
   }
 
-  @Override public ArrayList<Role> HCSGetRoles()
+  @Override public ArrayList<Role> GetUsers()
   {
     return null;
   }
 
-  @Override public void HCSRemoveRole(String username)
+  @Override public void RemoveUser(String username)
   {
 
   }
+
+  /*@Override public void HCSRemoveRole(String username)
+  {
+
+  }*/
 
   @Override public void HCRUpdateRole(String firstname, String lastname,
       Date birthday, String username, String password, String role)
@@ -51,16 +57,18 @@ class RMIServerInterfaceTest
 
   }
 
-  @Override public void createPatient(String cprnumber, String firstname,
+  /*@Override public void createPatient(String cprnumber, String firstname,
       String lastname)
   {
 
-  }
+  }*/
 };
-  ManageReceptionDAO receptionDAO;
+  ManagePatientDAO receptionDAO;
   ManageLoginDAO loginDAO;
-  RMIServer server1;
-  RMIServerInterface server=new RMIServerInterface()
+  ManageBookingDAO bookingDAO;
+  ManagePrescriptionDAO prescriptionDAO;
+  RMIServerImpl server1;
+  RMIServer server=new RMIServer()
   {
     @Override public void registerClient(ClientCallBack clientCallBack)
         throws RemoteException
@@ -74,25 +82,25 @@ class RMIServerInterfaceTest
 
     }
 
-    @Override public String HCSLogin(String username, String password)
+    @Override public String Login(String username, String password)
         throws RemoteException
     {
       return null;
     }
 
-    @Override public void HCSCreateRole(String firstname, String lastname,
+    @Override public void CreateUser(String firstname, String lastname,
         Date birthday, String username, String password, String role)
         throws RemoteException
     {
 
     }
 
-    @Override public ArrayList<Role> HCSGetRoles() throws RemoteException
+    @Override public ArrayList<Role> GetUsers() throws RemoteException
     {
       return null;
     }
 
-    @Override public void HCSRemoveRole(String username) throws RemoteException
+    @Override public void RemoveUser(String username) throws RemoteException
     {
 
     }
@@ -135,17 +143,18 @@ class RMIServerInterfaceTest
       return null;
     }
 
-    @Override public boolean roleExist(String username) throws RemoteException
+    @Override public boolean UserExist(String username) throws RemoteException
     {
       return false;
     }
   };
-  ServerModel model= new ServerModel( userDAO,receptionDAO, loginDAO);
+  ServerModelImpl serverModelImpl = new ServerModelImpl( userDAO,receptionDAO, loginDAO,bookingDAO,prescriptionDAO);
 
   {
     try
     {
-      server1 = new RMIServer(model);
+      System.out.println("");
+      server1 = new RMIServerImpl(serverModelImpl);
     }
     catch (RemoteException e)
     {
@@ -158,7 +167,7 @@ class RMIServerInterfaceTest
     boolean exist=false;
     try
     {
-      exist=server1.roleExist("a");
+      exist=server1.UserExist("a");
       System.out.println(exist);
     }
     catch (RemoteException e)

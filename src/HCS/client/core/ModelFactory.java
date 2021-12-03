@@ -9,33 +9,40 @@ public class ModelFactory
   ReceptionModel modelReceptionInterface;
   LoginModel modelLoginInterface;
   DoctorModel modelDoctorInterface;
+  BookingModel bookingModel;
 
   public ModelFactory(ClientFactory cf)
   {
     this.cf = cf;
   }
 
-  public AdminModel getModel()
+  public AdminModel getModelAdmin()
   {
-    if (model == null) model = new AdminModelImpl(cf.getClient());
+    if (model == null) model = new AdminModelImpl(cf.getAdminClient());
     return model;
   }
-
-  public ReceptionModel getModelReceptionInterface()
+  public BookingModel getModelBooking()
   {
-    if (modelReceptionInterface == null) modelReceptionInterface = new ReceptionModelImpl(cf.getClientReception());
+    if (bookingModel == null) bookingModel = new BookingModelImpl(cf.getBookingClient());
+    return bookingModel;
+  }
+
+
+  public ReceptionModel getModelReception()
+  {
+    if (modelReceptionInterface == null) modelReceptionInterface = new ReceptionModelImpl(cf.getReceptionClient());
     return modelReceptionInterface;
   }
 
-  public LoginModel getModelLoginInterface()
+  public LoginModel getModelLogin()
   {
-    if (modelLoginInterface==null) modelLoginInterface=new LoginModelImpl(cf.getClientLogin());
+    if (modelLoginInterface==null) modelLoginInterface=new LoginModelImpl(cf.getLoginClient());
         return modelLoginInterface;
   }
 
-  public DoctorModel getModelDoctorInterface()
+  public DoctorModel getModelDoctor()
   {
-    if (modelDoctorInterface==null) modelDoctorInterface=new DoctorModelImpl(cf.getClientDoctor());
+    if (modelDoctorInterface==null) modelDoctorInterface=new DoctorModelImpl(cf.getDoctorClient());
     return modelDoctorInterface;
   }
 
