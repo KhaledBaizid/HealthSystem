@@ -1,13 +1,12 @@
 package HCS.client.core;
 
 import HCS.client.network.*;
-import HCS.shared.transferObjects.Booking;
 /////import chat.client.network.Client;
 
 public class ClientFactory
 {
      AdminClient clientAdmin;
-     ReceptionClient clientReception;
+     PatientClient clientReception;
      LoginClient clientLogin;
      DoctorClient clientDoctor;
      BookingClient clientBooking;
@@ -26,9 +25,9 @@ public class ClientFactory
 
 
     //
-    public ReceptionClient getReceptionClient()
+    public PatientClient getReceptionClient()
     {
-        if (clientReception == null) clientReception = new ReceptionClientImpl();
+        if (clientReception == null) clientReception = new PatientClientImpl();
         return clientReception;
     }
     //

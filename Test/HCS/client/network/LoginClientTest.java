@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,7 +32,7 @@ class LoginClientTest
   }
 
 
-  @org.junit.jupiter.api.Test void HCSLogin()
+  @org.junit.jupiter.api.Test void Login()
   {
    //loginDAO.HCSLogin("b","a");
     String role=loginDAO.Login("a","a");
@@ -43,16 +44,32 @@ class LoginClientTest
     role=loginDAO.Login("b","a");
     assertTrue(role==null);
 
-    boolean patient= patientDAO.patientExist("11112222");
-    assertTrue(patient);
+    /*boolean patient= patientDAO.patientExist("11112222");
+    assertTrue(patient);*/
 
     Date date1= new Date(-1970);
-    Booking b= new Booking(date1,"09:30","gsgsggs","11112222");
+    Booking b= new Booking(date1,"09:30","gsgsggs","11110000");
     bookingDAO.createBooking(b);
      //LocalDate l=new LocalDate(2021,12,03);
     boolean booking =bookingDAO.bookingExist(date1,"09:30");
     assertTrue(booking);
     bookingDAO.removeBooking(date1,"09:30");
+
+    boolean find=false;
+    find=bookingDAO.isPatientHasABooking("11110000");
+    assertTrue(find);
+
+    Patient p= new Patient("11110000","khaled","baizid",date1,"M","adress","12345621","mail");
+    patientDAO.updatePatient("11110000",p);
+    patientDAO.patientExist("11110000");
+
+    ArrayList<Booking> bookings= bookingDAO.GetPatientBookings("11113333");
+    assertTrue(bookings.get(0).getBookingTime().equals("08:30") );
+    for(int i=0 ;i<bookings.size();i++)
+    {
+      System.out.println(bookings.get(i).getBookingTime());
+    }
+
 
   }
 }

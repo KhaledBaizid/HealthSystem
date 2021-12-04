@@ -1,7 +1,7 @@
 package HCS.client.ViewModel;
 
 import HCS.client.model.AdminModel;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class AdminViewModel
 {
   private AdminModel model;
-  private ObservableList<Role> roles1;
+  private ObservableList<User> roles1;
 
 
   public AdminViewModel(AdminModel model)
@@ -26,15 +26,15 @@ public class AdminViewModel
   private void getRoles(PropertyChangeEvent event)
   {
     roles1.clear();
-    ArrayList<Role> roles=(ArrayList<Role>) event.getNewValue();
-    roles1.addAll(roles);
+    ArrayList<User> users =(ArrayList<User>) event.getNewValue();
+    roles1.addAll(users);
   }
 
   public  void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role){
     model.CreateUser(firstname, lastname, birthday, username, password, role);
   }
 
-  public ObservableList<Role> getTableViewRoles()
+  public ObservableList<User> getTableViewRoles()
   {
 
     return roles1;

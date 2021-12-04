@@ -150,7 +150,7 @@ public class ViewHandler
         loader.setLocation(getClass().getResource("../view/RECEPTION/HCSReceptionist.fxml"));
         Parent root = loader.load();
         HCSReceptionistController ctrl = loader.getController();
-        ctrl.init(this,vmf.getHcsReceptionistViewModel(),vmf.getHcsBookingViewModel());
+        ctrl.init(this,vmf.getHcsReceptionistViewModel());
         ReceptionScene  = new Scene(root);
 
       } catch (IOException e) {

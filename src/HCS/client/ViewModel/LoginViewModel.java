@@ -29,7 +29,7 @@ public class LoginViewModel implements Subject
   {
     if (event.getNewValue()!=null)
     support.firePropertyChange(event);
-    else error.set("Check Again");
+    else error.set("Username and Password do not match");
 
   }
 

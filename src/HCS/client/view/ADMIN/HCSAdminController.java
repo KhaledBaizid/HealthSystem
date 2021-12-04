@@ -2,7 +2,7 @@ package HCS.client.view.ADMIN;
 
 import HCS.client.ViewModel.AdminViewModel;
 import HCS.client.core.ViewHandler;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,20 +30,20 @@ public class HCSAdminController
   @FXML
   private ComboBox roleComboBox;
   @FXML
-  private TableView<Role> RoleTableView;
+  private TableView<User> RoleTableView;
 
   @FXML private
-  TableColumn<Role, String> firstnameColumn;
+  TableColumn<User, String> firstnameColumn;
   @FXML private
-  TableColumn<Role, String> lastnameColumn;
+  TableColumn<User, String> lastnameColumn;
   @FXML private
-  TableColumn<Role, Date> birthdayColumn;
+  TableColumn<User, Date> birthdayColumn;
   @FXML private
-  TableColumn<Role, String> usernameColumn;
+  TableColumn<User, String> usernameColumn;
   @FXML private
-  TableColumn<Role, String> passwordColumn;
+  TableColumn<User, String> passwordColumn;
   @FXML private
-  TableColumn<Role, String> roleColumn;
+  TableColumn<User, String> roleColumn;
 
 
 
@@ -61,12 +61,12 @@ public class HCSAdminController
     roleComboBox.getItems().addAll("ADMIN","RECEPTION","DOCTOR");
     ////
    // getRoles();
-    firstnameColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("firstname"));
-    lastnameColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("lastname"));
-    birthdayColumn.setCellValueFactory(new PropertyValueFactory<Role,Date>("birthday"));
-    usernameColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("username"));
-    passwordColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("password"));
-    roleColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("role"));
+    firstnameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("firstname"));
+    lastnameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("lastname"));
+    birthdayColumn.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
+    usernameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
+    passwordColumn.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
+    roleColumn.setCellValueFactory(new PropertyValueFactory<User,String>("role"));
     vm.getModelUsers();
     RoleTableView.setItems(vm.getTableViewRoles());
 
@@ -106,16 +106,16 @@ public class HCSAdminController
 
   }
  public void  TableViewClicked()
- { Role role=null;
-    role =RoleTableView.getSelectionModel().getSelectedItem();
-   firstname.setText(role.getFirstname());
-   lastname.setText(role.getLastname());
+ { User user =null;
+    user =RoleTableView.getSelectionModel().getSelectedItem();
+   firstname.setText(user.getFirstname());
+   lastname.setText(user.getLastname());
    //Date date =role.getBirthday();
  // LocalDate localdate= date.toLocalDate();
-   birthdayDatePicker.setValue(role.getBirthday().toLocalDate());
-   username.setText(role.getUsername());
-   password.setText(role.getPassword());
-   roleComboBox.getSelectionModel().select(role.getRole());
+   birthdayDatePicker.setValue(user.getBirthday().toLocalDate());
+   username.setText(user.getUsername());
+   password.setText(user.getPassword());
+   roleComboBox.getSelectionModel().select(user.getRole());
    // System.out.println(role.getUsername());
  }
 }

@@ -50,7 +50,7 @@ public class BookingDAO implements ManageBookingDAO
 
   }
 
-  @Override public ArrayList<Booking> HCSGetBookings()
+  @Override public ArrayList<Booking> GetBookings()
   {
     ArrayList<Booking> bookings=new ArrayList<>();
     ///
@@ -97,7 +97,7 @@ public class BookingDAO implements ManageBookingDAO
 
   }
 
-  @Override public ArrayList<String> getTimeAvailable(Date date)
+  @Override public ArrayList<String> getAvailableTime(Date date)
   {
     ArrayList<String> timeAvalable = new ArrayList<>();
     try (Connection connection = jdbcController.getConnection()) {
@@ -148,5 +148,52 @@ public class BookingDAO implements ManageBookingDAO
     }
     //System.out.println(role);
     return exist;
+  }
+
+  @Override public boolean isPatientHasABooking(String cprNumber)
+  {
+    ArrayList<Booking> bookings= GetBookings();
+    boolean find = false;
+    for (Booking i:bookings )
+    {
+      if (i.getCprNumber().equals(cprNumber))
+      {
+        find=true;
+        break;
+      }
+    }
+  
+    return find;
+  }
+
+  @Override public ArrayList<Booking> GetPatientBookings(String cprNumber1)
+  {
+    ArrayList<Booking> bookings=new ArrayList<>();
+    ///
+    try (Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber WHERE booking.cprNumber LIKE ? ");
+      statement.setString(1,cprNumber1+"%");
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        Date bookingDate = resultSet.getDate("bookingdate");
+        String bookingTime = resultSet.getString("bookingtime");
+        String cprNumber = resultSet.getString("cprNumber");
+        String firstname = resultSet.getString("firstname");
+        String lastname = resultSet.getString("lastname");
+        Date birthday = resultSet.getDate("birthday");
+        String sex = resultSet.getString("sex");
+        String symptoms= resultSet.getString("symptoms");
+
+        bookings.add(new Booking(bookingDate,bookingTime,cprNumber,firstname,lastname,birthday,sex,symptoms));
+        // System.out.println(patients.get(0).getUsername());
+
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    ///
+
+    return bookings;
   }
 }

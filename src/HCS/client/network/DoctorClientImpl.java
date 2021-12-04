@@ -44,7 +44,7 @@ public class DoctorClientImpl implements DoctorClient, ClientCallBack
     try
     {
       ArrayList<Booking> bookings;
-      bookings= server.HCSGetBookings();
+      bookings= server.GetBookings();
       support.firePropertyChange("HCSGetBookings",null,bookings);
     }
     catch (RemoteException e)
@@ -83,11 +83,11 @@ public class DoctorClientImpl implements DoctorClient, ClientCallBack
 
   }*/
 
-  @Override public void sharedroles(PropertyChangeEvent event)
+  /*@Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException
   {
 
-  }
+  }*/
 
   @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException

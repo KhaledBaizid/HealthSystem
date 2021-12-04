@@ -1,6 +1,6 @@
 package HCS.DataBase;
 
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -120,10 +120,10 @@ public class AdminDAO implements ManageAdminDAO
     }
   }
 
-  @Override public ArrayList<Role> GetUsers()
+  @Override public ArrayList<User> GetUsers()
   {
     System.out.println("HHHHHHHHHHHHHHHHHHHHHHHH");
-    ArrayList<Role> roles=new ArrayList<>();
+    ArrayList<User> users =new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM userlogin  ");
@@ -136,8 +136,8 @@ public class AdminDAO implements ManageAdminDAO
         String username = resultSet.getString("username");
         String password= resultSet.getString("password");
         String role=resultSet.getString("role");
-        roles.add(new Role(firstname,lastname,birthday,username,password,role));
-        System.out.println(roles.get(0).getUsername());
+        users.add(new User(firstname,lastname,birthday,username,password,role));
+        System.out.println(users.get(0).getUsername());
 
       }
     } catch (SQLException throwables) {
@@ -146,7 +146,7 @@ public class AdminDAO implements ManageAdminDAO
 
     ///
 
-    return roles;
+    return users;
   }
 
   @Override public void RemoveUser(String username)
@@ -155,8 +155,6 @@ public class AdminDAO implements ManageAdminDAO
       PreparedStatement statement = connection.prepareStatement("DELETE FROM userlogin where username=?");
       statement.setString(1,username);
       statement.executeUpdate();
-
-
 
     } catch (SQLException throwables) {
       throwables.printStackTrace();

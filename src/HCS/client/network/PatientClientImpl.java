@@ -1,10 +1,10 @@
 package HCS.client.network;
 
+import HCS.shared.ClientReceptionCallBack;
 import HCS.server.network.RMIServer;
 import HCS.shared.ClientCallBack;
-import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -14,17 +14,18 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Date;
 import java.util.ArrayList;
 
-public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
+public class PatientClientImpl implements PatientClient,ClientCallBack,
+    ClientReceptionCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
 
-  public ReceptionClientImpl()
+  public PatientClientImpl()
   {
     support = new PropertyChangeSupport(this);
+   // server.addListener("PatientHasBooking",this::patientHasBooking);
 
   }
 
@@ -34,7 +35,8 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
-      server.registerClient(this);
+    //  server.registerClient(this);
+      server.registerClient(this,this);
       // System.out.println("StartClient");
 
     } catch (RemoteException | NotBoundException e) {
@@ -52,6 +54,33 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
     {
       e.printStackTrace();
     }
+  }
+
+  @Override public void removePatient(String cprNumber)
+  {
+    try
+    { System.out.println("ReceptionClient");
+     // server.
+      server.removePatient(cprNumber);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+
+  }
+
+  @Override public void updatePatient(String cprNumber, Patient patient)
+  {
+    try
+    { System.out.println("ReceptionClient");
+      server.updatePatient(cprNumber, patient);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+
   }
 
   @Override public void addListener(String eventName,
@@ -84,11 +113,11 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
 
   }*/
 
-  @Override public void sharedroles(PropertyChangeEvent event)
+ /* @Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException
   {
     support.firePropertyChange(event);
-  }
+  }*/
 
   @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException
@@ -102,9 +131,9 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
     try
     {
       System.out.println("client");
-      ArrayList<Role> roles;
-      roles = server.GetUsers();
-      support.firePropertyChange("HCSGetRoles",null,roles);
+      ArrayList<User> users;
+      users = server.GetUsers();
+      support.firePropertyChange("HCSGetRoles",null, users);
     }
     catch (RemoteException e)
     {
@@ -113,12 +142,12 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
 
   }
 
-  @Override public void HCSGetPatients()
+  @Override public void GetPatients()
   {
     ArrayList<Patient> patients;
     try
     {
-      patients=server.HCSGetPatients();
+      patients=server.GetPatients();
       support.firePropertyChange("HCSGetPatients",null,patients);
     }
     catch (RemoteException e)
@@ -127,12 +156,12 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
     }
   }
 
-  @Override public void HCSGetSpecificPatients(String search)
+  @Override public void GetSpecificPatients(String search)
   {
     ArrayList<Patient> patients;
     try
     {
-      patients=server.HCSGetSpecificPatients(search);
+      patients=server.GetSpecificPatients(search);
       support.firePropertyChange("HCSGetPatients",null,patients);
 
 
@@ -143,7 +172,7 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
     }
   }
 
-  @Override public void createBooking(Booking booking)
+ /* @Override public void createBooking(Booking booking)
   {
     try
     {
@@ -160,7 +189,7 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
   {
     try
     { ArrayList<Booking> bookings;
-      bookings= server.HCSGetBookings();
+      bookings= server.GetBookings();
       support.firePropertyChange("HCSGetBookings",null,bookings);
 
     }
@@ -186,12 +215,24 @@ public class ReceptionClientImpl implements ReceptionClient ,ClientCallBack
   {
     try
     {
-      return server.getTimeAvailable(date);
+      return server.getAvailableTime(date);
     }
     catch (RemoteException e)
     {
       e.printStackTrace();
     }
     return null;
+  }*/
+
+ /* @Override public void patientHasBooking(PropertyChangeEvent event)
+      throws RemoteException
+  {
+    support.firePropertyChange(event);
+  }*/
+
+  @Override public void sharedPatients(PropertyChangeEvent event)
+      throws RemoteException
+  {
+    support.firePropertyChange(event);
   }
 }

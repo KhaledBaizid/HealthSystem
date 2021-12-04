@@ -1,7 +1,7 @@
 package HCS.DataBase;
 
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -53,10 +53,44 @@ public class PatientDAO implements ManagePatientDAO
     }
   }
 
-  @Override public ArrayList<Role> HCSGetRoles()
+  @Override public void removePatient(String cprNumber)
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("DELETE FROM patient where cprNumber=?");
+      statement.setString(1,cprNumber);
+      statement.executeUpdate();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  @Override public void updatePatient(String cprNumber, Patient patient)
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("UPDATE  patient  SET cprNumber=?, firstname=?, lastname=?, birthday=?, sex=?, address=?, phone=?, mail=? where cprNumber=?");
+      statement.setString(1,patient.getCprNumber());
+      statement.setString(2,patient.getFirstname());
+      statement.setString(3,patient.getLastname());
+      statement.setDate(4,patient.getBirthday());
+      statement.setString(5,patient.getSex());
+      statement.setString(6,patient.getAddress());
+      statement.setString(7,patient.getPhone());
+      statement.setString(8,patient.getMail());
+      statement.setString(9,cprNumber);
+
+      statement.executeUpdate();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+  }
+
+  /*@Override public ArrayList<User> HCSGetRoles()
   {
     System.out.println("HHHHHHHHHHHHHHHHHHHHHHHH");
-    ArrayList<Role> roles=new ArrayList<>();
+    ArrayList<User> users =new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM userlogin  ");
@@ -69,8 +103,8 @@ public class PatientDAO implements ManagePatientDAO
         String username = resultSet.getString("username");
         String password= resultSet.getString("passwords");
         String role=resultSet.getString("roles");
-        roles.add(new Role(firstname,lastname,birthday,username,password,role));
-        System.out.println(roles.get(0).getUsername());
+        users.add(new User(firstname,lastname,birthday,username,password,role));
+        System.out.println(users.get(0).getUsername());
 
       }
     } catch (SQLException throwables) {
@@ -79,10 +113,10 @@ public class PatientDAO implements ManagePatientDAO
 
     ///
 
-    return roles;
-  }
+    return users;
+  }*/
 
-  @Override public ArrayList<Patient> HCSGetPatients()
+  @Override public ArrayList<Patient> GetPatients()
   {
     System.out.println("HHHHHHHHHHHHHHHHHHHHHHHH");
     ArrayList<Patient> patients=new ArrayList<>();
@@ -113,16 +147,16 @@ public class PatientDAO implements ManagePatientDAO
     return patients;
   }
 
-  @Override public ArrayList<Patient> HCSGetSpecificPatients(String search)
+  @Override public ArrayList<Patient> GetSpecificPatients(String search)
   {
     ArrayList<Patient> patients=new ArrayList<>();
     ///
 
     try (Connection connection = jdbcController.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient WHERE cprNumber LIKE ? OR firstname LIKE ? OR lastname LIKE ?   ");
-      statement.setString(1,"%"+search+"%");
-      statement.setString(2,"%"+search+"%");
-      statement.setString(3,"%"+search+"%");
+      statement.setString(1,search+"%");
+      statement.setString(2,search+"%");
+      statement.setString(3,search+"%");
     //  statement.setString(2,search);
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {

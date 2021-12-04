@@ -55,11 +55,11 @@ public class BookingClientImpl implements BookingClient, ClientCallBack
 
   }
 
-  @Override public void HCSGetBookings()
+  @Override public void GetBookings()
   {
     try
     { ArrayList<Booking> bookings;
-      bookings= server.HCSGetBookings();
+      bookings= server.GetBookings();
       support.firePropertyChange("HCSGetBookings",null,bookings);
 
     }
@@ -83,11 +83,11 @@ public class BookingClientImpl implements BookingClient, ClientCallBack
 
   }
 
-  @Override public ArrayList<String> getTimeAvailable(Date date)
+  @Override public ArrayList<String> getAvailableTime(Date date)
   {
     try
     {
-      return server.getTimeAvailable(date);
+      return server.getAvailableTime(date);
     }
     catch (RemoteException e)
     {
@@ -96,6 +96,33 @@ public class BookingClientImpl implements BookingClient, ClientCallBack
     return null;
   }
 
+  @Override public void GetPatientBookings(String cprNumber)
+  {
+    try
+    { ArrayList<Booking> bookings;
+      bookings= server.GetPatientBookings(cprNumber);
+      support.firePropertyChange("HCSGetBookings",null,bookings);
+    // return bookings;
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+   // return null;
+  }
+
+  @Override public void isPatientHasABooking(String cprNumber)
+  {
+    try
+    {
+      boolean find=server.isPatientHasABooking(cprNumber);
+      support.firePropertyChange("PtientHasBooking",null,find);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
 
   @Override public void addListener(String eventName,
       PropertyChangeListener listener)
@@ -109,11 +136,11 @@ public class BookingClientImpl implements BookingClient, ClientCallBack
     support.removePropertyChangeListener(eventName, listener);
   }
 
-  @Override public void sharedroles(PropertyChangeEvent event)
+  /*@Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException
   {
 
-  }
+  }*/
 
   @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException

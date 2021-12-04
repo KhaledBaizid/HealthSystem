@@ -20,6 +20,7 @@ public class BookingModelImpl implements BookingModel
     this.support= new PropertyChangeSupport(this);
     clientBooking.startClient();
     clientBooking.addListener("HCSGetBookings",this::fireforward);
+    clientBooking.addListener("PtientHasBooking",this::fireforward);
   }
 
   private void fireforward(PropertyChangeEvent event)
@@ -43,12 +44,12 @@ public class BookingModelImpl implements BookingModel
   {
     System.out.println("BookingModel");
     clientBooking.createBooking(booking);
-    clientBooking.HCSGetBookings();
+    clientBooking.GetBookings();
   }
 
-  @Override public void HCSGetBookings()
+  @Override public void GetBookings()
   {
-    clientBooking.HCSGetBookings();
+    clientBooking.GetBookings();
 
   }
 
@@ -57,8 +58,18 @@ public class BookingModelImpl implements BookingModel
     clientBooking.removeBooking(bookingDate, bookingTime);
   }
 
-  @Override public ArrayList<String> getTimeAvailable(Date date)
+  @Override public ArrayList<String> getAvailableTime(Date date)
   {
-    return clientBooking.getTimeAvailable(date);
+    return clientBooking.getAvailableTime(date);
+  }
+
+  @Override public void GetPatientBookings(String cprNumber)
+  {
+    clientBooking.GetPatientBookings(cprNumber);
+  }
+
+  @Override public void isPatientHasABooking(String cprNumber)
+  {
+    clientBooking.isPatientHasABooking(cprNumber);
   }
 }

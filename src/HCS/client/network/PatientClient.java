@@ -8,16 +8,19 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public interface ReceptionClient extends Subject
+public interface PatientClient extends Subject
 {
   void startClient();
-  void createPatient(Patient patient);
-  void   HCSGetRoles();
-  void HCSGetPatients();
-  void HCSGetSpecificPatients(String search);
 
-  void createBooking(Booking booking);
+  void createPatient(Patient patient);
+  void removePatient(String cprNumber);
+  void updatePatient(String cprNumber,Patient patient);
+  void   HCSGetRoles();
+  void GetPatients();
+  void GetSpecificPatients(String search);
+
+ /* void createBooking(Booking booking);
   void HCSGetBookings();
   void removeBooking(Date bookingDate,String bookingTime );
-  ArrayList<String> getTimeAvailable(Date date);
+  ArrayList<String> getTimeAvailable(Date date);*/
 }

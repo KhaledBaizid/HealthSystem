@@ -4,7 +4,7 @@ import HCS.server.network.RMIServer;
 import HCS.shared.ClientCallBack;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
 //import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeEvent;
@@ -141,9 +141,9 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
     try
     {
       System.out.println("client");
-      ArrayList<Role> roles;
-      roles = server.GetUsers();
-      support.firePropertyChange("HCSGetRoles",null,roles);
+      ArrayList<User> users;
+      users = server.GetUsers();
+      support.firePropertyChange("HCSGetRoles",null, users);
     }
     catch (RemoteException e)
     {
@@ -194,11 +194,11 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
     support.firePropertyChange(event);
   }*/
 
-  @Override public void sharedroles(PropertyChangeEvent event)
+  /*@Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException
   {
     support.firePropertyChange(event);
-  }
+  }*/
 
   @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException

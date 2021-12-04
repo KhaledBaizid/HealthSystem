@@ -3,15 +3,16 @@ package HCS.client.view.RECEPTION;
 import HCS.client.ViewModel.BookingViewModel;
 import HCS.client.ViewModel.ReceptionViewModel;
 import HCS.client.core.ViewHandler;
-import HCS.client.view.Booking.HCSBookingController;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.beans.PropertyChangeEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,6 +37,25 @@ public class HCSReceptionistController
   @FXML
   private TextField mail;
 
+  //////EDIT PATIENT///
+  @FXML
+  private TextField cprNumber1;
+  @FXML
+  private TextField firstname1;
+  @FXML
+  private TextField lastname1;
+  @FXML
+  private DatePicker birthdayDatePicker1;
+  @FXML
+  private ComboBox sexComboBox1;
+  @FXML
+  private TextField address1;
+  @FXML
+  private TextField phone1;
+  @FXML
+  private TextField mail1;
+  //////////////
+
   @FXML
   private TableView<Patient> patientTableView;
   @FXML private TableColumn<Patient, String> cprNumberColumn;
@@ -48,6 +68,8 @@ public class HCSReceptionistController
   @FXML private TableColumn<Patient, String> mailColumn;
   //////////////
   ///BOOKING
+
+  @FXML private TextField bookingSearch;
 
   @FXML private DatePicker bookingDatePicker;
   @FXML private ComboBox bookingTimeComboBox;
@@ -76,19 +98,19 @@ public class HCSReceptionistController
 
   /////////////////////
   @FXML
-  private TableView<Role> RoleTableView;
+  private TableView<User> RoleTableView;
 
-  @FXML private TableColumn<Role, String> firstname1Column;
+  @FXML private TableColumn<User, String> firstname1Column;
   @FXML private
-  TableColumn<Role, String> lastname1Column;
+  TableColumn<User, String> lastname1Column;
   @FXML private
-  TableColumn<Role, Date> birthday1Column;
+  TableColumn<User, Date> birthday1Column;
   @FXML private
-  TableColumn<Role, String> usernameColumn;
+  TableColumn<User, String> usernameColumn;
   @FXML private
-  TableColumn<Role, String> passwordColumn;
+  TableColumn<User, String> passwordColumn;
   @FXML private
-  TableColumn<Role, String> roleColumn;
+  TableColumn<User, String> roleColumn;
   //////////////
   @FXML
   private TextField searchTextField;
@@ -100,13 +122,14 @@ public class HCSReceptionistController
   private BookingViewModel vmb;
   private Object HCSBookingController;
 
-  public void init(ViewHandler vh, ReceptionViewModel vm ,BookingViewModel vmb)
+  public void init(ViewHandler vh, ReceptionViewModel vm)
   {
     this.vh=vh;
     this.vm=vm;
     this.vmb=vmb;
 
     sexComboBox.getItems().addAll("F","M");
+    sexComboBox1.getItems().addAll("F","M");
     bookingDatePicker.setValue(LocalDate.now());
     bookingTimeComboBox.getItems().addAll("08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45",
         "11:00","11:15","11:30","11:45","12:00","12:15","12:30","12:45","13:00","13:15","13:30","13:45","14:00","14:15","14:30","14:45","15:00","15:15","15:30","15:45");
@@ -134,19 +157,41 @@ public class HCSReceptionistController
     bookingBirthdayColumn.setCellValueFactory(new PropertyValueFactory<Booking,Date>("birthday"));
     bookingSexColumn.setCellValueFactory(new PropertyValueFactory<Booking,String>("sex"));
     bookingSymptomsColumn.setCellValueFactory(new PropertyValueFactory<Booking,String>("symptoms"));
-    vmb.getModelBookings();
+    vm.getModelBookings();
     bookingTableView.setItems(vm.getTableViewBookings());
 
     // vm.addListener("HCSLogin",this::succesfulLogin);
     System.out.println("ReceptionController");
-    firstname1Column.setCellValueFactory(new PropertyValueFactory<Role,String>("firstname"));
-    lastname1Column.setCellValueFactory(new PropertyValueFactory<Role,String>("lastname"));
-    birthday1Column.setCellValueFactory(new PropertyValueFactory<Role,Date>("birthday"));
-    usernameColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("username"));
-    passwordColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("password"));
-    roleColumn.setCellValueFactory(new PropertyValueFactory<Role,String>("role"));
+    firstname1Column.setCellValueFactory(new PropertyValueFactory<User,String>("firstname"));
+    lastname1Column.setCellValueFactory(new PropertyValueFactory<User,String>("lastname"));
+    birthday1Column.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
+    usernameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
+    passwordColumn.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
+    roleColumn.setCellValueFactory(new PropertyValueFactory<User,String>("role"));
     vm.getModelRoles();
     RoleTableView.setItems(vm.getTableViewRoles());
+
+    vm.addListener("PtientHasBooking",this::errorRemoving);
+  }
+
+  private void errorRemoving(PropertyChangeEvent event)
+  { boolean s= (boolean) event.getNewValue();
+    System.out.println(s);
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "The Patient can not be deleted because he has a booking time");
+        alert.showAndWait();
+
+      });
+
+    }
+
+
   }
 
   public void createPatient()
@@ -160,17 +205,32 @@ public class HCSReceptionistController
 
   }
 
-  public void updatePatient(ActionEvent actionEvent)
+  public void updatePatient()
   {
+    LocalDate localDate=birthdayDatePicker1.getValue();
+    Date date=Date.valueOf(localDate);
+    Patient patient=new Patient(cprNumber1.textProperty().getValue(),firstname1.textProperty().getValue(),lastname1.textProperty().getValue(),date,
+        sexComboBox1.getSelectionModel().getSelectedItem().toString(),address1.textProperty().getValue(),phone1.textProperty().getValue(),mail1.textProperty().getValue());
+    vm.updatePatient(cprNumber1.textProperty().getValue(),patient);
   }
 
-  public void removePatient(ActionEvent actionEvent)
+  public void removePatient()
   {
+   // if (vm.is)
+  vm.removePatient(cprNumber1.textProperty().getValue());
   }
+
+
   public void onSearchTyped()
   {
     if (!searchTextField.getText().isBlank())
    vm.getModelSpecificPatients(searchTextField.textProperty().getValue());
+    else vm.getModelPatients();
+  }
+  public void onCPRNumberTyped()
+  {
+    if (!cprNumber.getText().isBlank())
+      vm.getModelSpecificPatients(cprNumber.textProperty().getValue());
     else vm.getModelPatients();
   }
 
@@ -182,6 +242,15 @@ public class HCSReceptionistController
     bookingFirstname.setText(patient.getFirstname());
     bookingLastname.setText(patient.getLastname());
 
+    cprNumber1.setText(patient.getCprNumber());
+    firstname1.setText(patient.getFirstname());
+    lastname1.setText(patient.getLastname());
+    birthdayDatePicker1.setValue(patient.getBirthday().toLocalDate());
+    sexComboBox1.getSelectionModel().select(patient.getSex());
+    address1.setText(patient.getAddress());
+    phone1.setText(patient.getPhone());
+    mail1.setText(patient.getMail());
+
   }
 
   public void createBooking()
@@ -189,14 +258,14 @@ public class HCSReceptionistController
     Date date1=Date.valueOf(localDate);
     Booking booking = new Booking(date1,bookingTimeComboBox.getSelectionModel().getSelectedItem().toString(),symptoms.textProperty().getValue(),
         bookingCPRNumber.textProperty().getValue());
-    vmb.createBooking(booking);
+    vm.createBooking(booking);
     System.out.println("BookingController");
   }
   public void removeBooking()
   { LocalDate localDate=bookingDatePicker1.getValue();
     Date date1=Date.valueOf(localDate);
-   vmb.removeBooking(date1,bookingTimeComboBox1.getSelectionModel().getSelectedItem().toString());
-   vmb.getModelBookings();
+   vm.removeBooking(date1,bookingTimeComboBox1.getSelectionModel().getSelectedItem().toString());
+   vm.getModelBookings();
   }
   public void bookingTableClicked()
   {
@@ -214,7 +283,7 @@ public class HCSReceptionistController
     LocalDate localDate=bookingDatePicker.getValue();
     Date date2=Date.valueOf(localDate);
     System.out.println(bookingDatePicker.getValue().toString());
-    ArrayList<String> time=vm.getTimeAvailable(date2);
+    ArrayList<String> time=vm.getAvailableTime(date2);
    // vm.getTimeAvailable(date2);
     bookingTimeComboBox.getItems().clear();
     bookingTimeComboBox.getItems().addAll("08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45",
@@ -226,6 +295,10 @@ public class HCSReceptionistController
     }
     System.out.println("datetime");
 
+  }
+  public void onBookingTyped()
+  {
+    vm.getPatientBookings(bookingSearch.textProperty().getValue());
   }
 
   public void BookForPatient()

@@ -1,36 +1,62 @@
 package HCS.client.ViewModel;
 
 import HCS.client.model.BookingModel;
-import HCS.client.model.ReceptionModel;
+import HCS.client.model.PatientModel;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
+import HCS.shared.utility.Subject;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class ReceptionViewModel
+public class ReceptionViewModel implements Subject
 {
-  private ReceptionModel model;
+  private PropertyChangeSupport support;
+  private StringProperty error;
+  private PatientModel model;
   private BookingModel bookingModel;
-  private ObservableList<Role> roles1;
+  private ObservableList<User> roles1;
   private ObservableList<Patient> patients;
   private ObservableList<Booking> bookings;
 
-  public ReceptionViewModel(ReceptionModel model,BookingModel bookingModel)
+  public ReceptionViewModel(PatientModel model,BookingModel bookingModel)
   {
     this.model=model;
     this.bookingModel=bookingModel;
+    support = new PropertyChangeSupport(this);
     roles1= FXCollections.observableArrayList();
     patients=FXCollections.observableArrayList();
     bookings=FXCollections.observableArrayList();
     model.addListener("HCSGetPatients",this::getPatients);
     model.addListener("HCSGetRoles",this::getRoles);
-    model.addListener("HCSGetBookings",this::getBookings);
+   // model.addListener("HCSGetBookings",this::getBookings);
+
+    bookingModel.addListener("PtientHasBooking",this::patientHasBooking);
+    bookingModel.addListener("HCSGetBookings",this::getBookings);
+   // model.addListener("HCSGetPatients",this::fireAll);
+
   }
+
+  private void patientHasBooking(PropertyChangeEvent event)
+  {boolean s= (boolean) event.getNewValue();
+    System.out.println(s);
+   if (s)
+   {
+     support.firePropertyChange(event);
+   }
+  }
+  public StringProperty errorProperty()
+  {
+    return error;
+  }
+
 
   private void getBookings(PropertyChangeEvent event)
   {
@@ -48,14 +74,14 @@ public class ReceptionViewModel
   private void getRoles(PropertyChangeEvent event)
   {
     roles1.clear();
-    ArrayList<Role> roles=(ArrayList<Role>) event.getNewValue();
-    roles1.addAll(roles);
+    ArrayList<User> users =(ArrayList<User>) event.getNewValue();
+    roles1.addAll(users);
   }
   public ObservableList<Patient> getTableViewPatients()
   {
     return patients;
   }
-  public ObservableList<Role> getTableViewRoles()
+  public ObservableList<User> getTableViewRoles()
   {
 
     return roles1;
@@ -72,13 +98,22 @@ public class ReceptionViewModel
     model.createPatient(patient);
 
   }
+  public void removePatient(String cprNumber)
+  { //if (bookingModel.)
+    bookingModel.isPatientHasABooking(cprNumber);
+    model.removePatient(cprNumber);
+  }
+  public void updatePatient(String cprNumber,Patient patient)
+  {
+    model.updatePatient(cprNumber, patient);
+  }
   public void getModelPatients()
   {
-    model.HCSGetPatients();
+    model.GetPatients();
   }
   public void getModelSpecificPatients(String search)
   {
-    model.HCSGetSpecificPatients(search);
+    model.GetSpecificPatients(search);
   }
   public void createBooking(Booking booking)
   {
@@ -87,7 +122,7 @@ public class ReceptionViewModel
   }
   public void getModelBookings()
   {
-    bookingModel.HCSGetBookings();
+    bookingModel.GetBookings();
   }
   public ObservableList<Booking> getTableViewBookings()
   {
@@ -97,8 +132,29 @@ public class ReceptionViewModel
   {
     bookingModel.removeBooking(bookingDate, bookingTime);
   }
-  public ArrayList<String> getTimeAvailable(Date date)
+  public ArrayList<String> getAvailableTime(Date date)
   {
-    return bookingModel.getTimeAvailable(date);
+    return bookingModel.getAvailableTime(date);
+  }
+  public void getPatientBookings(String cprNumber)
+  {
+    bookingModel.GetPatientBookings(cprNumber);
+  }
+
+  public boolean isPatientHasAbooking(String cprNumber)
+  {
+    return false;
+  }
+
+  @Override public void addListener(String eventName,
+      PropertyChangeListener listener)
+  {
+    support.addPropertyChangeListener(eventName, listener);
+  }
+
+  @Override public void removeListener(String eventName,
+      PropertyChangeListener listener)
+  {
+
   }
 }

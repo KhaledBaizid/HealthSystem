@@ -6,7 +6,7 @@ public class ModelFactory
 {
   private ClientFactory cf;
   AdminModel model;
-  ReceptionModel modelReceptionInterface;
+  PatientModel modelReceptionInterface;
   LoginModel modelLoginInterface;
   DoctorModel modelDoctorInterface;
   BookingModel bookingModel;
@@ -28,9 +28,9 @@ public class ModelFactory
   }
 
 
-  public ReceptionModel getModelReception()
+  public PatientModel getModelReception()
   {
-    if (modelReceptionInterface == null) modelReceptionInterface = new ReceptionModelImpl(cf.getReceptionClient());
+    if (modelReceptionInterface == null) modelReceptionInterface = new PatientModelImpl(cf.getReceptionClient());
     return modelReceptionInterface;
   }
 

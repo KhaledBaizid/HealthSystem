@@ -53,58 +53,6 @@ public class ServerModelImpl implements ServerModel
     }
 
 
-  /*  @Override
-    public boolean loginUser(User user) {
-        System.out.println("modelServerLogin");
-
-        Boolean existingUser = false;
-
-        for (User i :connectedUsers) {
-            if (i.getUsername().equals(user.getUsername()))
-            {
-                existingUser = true;
-                break;
-            }
-        }
-
-        if (!existingUser){
-            connectedUsers.add(user);
-            System.out.println(user.getUsername() + " logged in successfully");
-
-            activeUsernames.add(user.getUsername());
-            updateActiveUsers(user.getUsername());
-            ///////////////
-            userDAO.createUser(user.getUsername());
-            ///////////
-            return true;
-        }else{
-
-            Request loginResultRequest = new Request(RequestType.EXISTING_USERNAME, user);
-            support.firePropertyChange(RequestType.EXISTING_USERNAME.toString(), null, loginResultRequest);
-            return false;
-        }
-    }
-
-    @Override
-    public ArrayList<String> sendActiveUsersToClient() {
-        return activeUsernames;
-    }
-
-    @Override
-    public void sendPublicMessage(Message messageToReceive) {
-        Request sendPublicMessageRequest = new Request(RequestType.RECEIVE_PUBLIC, messageToReceive);
-        support.firePropertyChange(sendPublicMessageRequest.getType().toString(), null, sendPublicMessageRequest);
-    }
-
-    @Override
-    public void disconnect(User user) {
-
-        connectedUsers
-            .removeIf(i -> i.getUsername().equals(user.getUsername()));
-        activeUsernames.remove(user.getUsername());
-        support.firePropertyChange(RequestType.UPDATE_ACTIVE_USERS.toString(),null,user.getUsername());
-
-    }*/
 
     @Override public String Login(String username, String password)
     {           //  support.firePropertyChange("HCSLogin", null, userDAO.HCSLogin(username, password));
@@ -119,10 +67,6 @@ public class ServerModelImpl implements ServerModel
   {
     boolean b;
         b=adminDAO.UserExist(username);
-       // b=true;
-    System.out.println(b);
-    System.out.println(b);
-    System.out.println(b);
     return b;
   }
 
@@ -132,15 +76,15 @@ public class ServerModelImpl implements ServerModel
         adminDAO.CreateUser(firstname, lastname, birthday, username, password, role);
     }
 
-    @Override public ArrayList<Role> GetUsers()
+    @Override public ArrayList<User> GetUsers()
     {
         System.out.println("servermodel");
-        ArrayList<Role> role1;
-        role1=adminDAO.GetUsers();
+        ArrayList<User> user1;
+        user1 =adminDAO.GetUsers();
         //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
        // return userDAO.HCSGetRoles();
-        support.firePropertyChange("HCSGetRoles",null,role1);
-        return role1;
+        support.firePropertyChange("HCSGetRoles",null, user1);
+        return user1;
     }
 
     @Override public void RemoveUser(String username)
@@ -156,17 +100,42 @@ public class ServerModelImpl implements ServerModel
 
     }
 
-  @Override public ArrayList<Patient> HCSGetPatients()
+  @Override public void removePatient(String cprNumber)
+  {
+    if( !bookingDAO.isPatientHasABooking(cprNumber))
+    {
+      patientDAO.removePatient(cprNumber);
+    }
+  /*  else
+    {
+      String s="h";
+      support.firePropertyChange("PtientHasBooking",null,s);
+    }*/
+  }
+
+  @Override public void updatePatient(String cprNumber, Patient patient)
+  {
+    patientDAO.updatePatient(cprNumber, patient);
+    ArrayList<Booking> booking1;
+    booking1=bookingDAO.GetBookings();
+    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
+    // return userDAO.HCSGetRoles();
+    support.firePropertyChange("HCSGetBookings",null,booking1);
+
+  }
+
+  @Override public ArrayList<Patient> GetPatients()
   {
     ArrayList<Patient> patients;
-   patients=patientDAO.HCSGetPatients();
+   patients=patientDAO.GetPatients();
+    support.firePropertyChange("HCSGetPatients",null, patients);
     return patients;
   }
 
-  @Override public ArrayList<Patient> HCSGetSpecificPatients(String search)
+  @Override public ArrayList<Patient> GetSpecificPatients(String search)
   {
     ArrayList<Patient> patients;
-    patients=patientDAO.HCSGetSpecificPatients(search);
+    patients=patientDAO.GetSpecificPatients(search);
     return patients;
   }
 
@@ -174,26 +143,53 @@ public class ServerModelImpl implements ServerModel
   {
     System.out.println("BookingServerModel");
     bookingDAO.createBooking(booking);
-  }
-
-  @Override public ArrayList<Booking> HCSGetBookings()
-  {
+    /////////
     ArrayList<Booking> booking1;
-    booking1=bookingDAO.HCSGetBookings();
+    booking1=bookingDAO.GetBookings();
     //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
     // return userDAO.HCSGetRoles();
     support.firePropertyChange("HCSGetBookings",null,booking1);
+  }
+
+  @Override public ArrayList<Booking> GetBookings()
+  {
+    ArrayList<Booking> booking1;
+    booking1=bookingDAO.GetBookings();
+    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
+    // return userDAO.HCSGetRoles();
+   // support.firePropertyChange("HCSGetBookings",null,booking1);
     return booking1;
   }
 
   @Override public void removeBooking(Date bookingDate, String bookingTime)
   {
     bookingDAO.removeBooking(bookingDate, bookingTime);
+    ArrayList<Booking> booking1;
+    booking1=bookingDAO.GetBookings();
+    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
+    // return userDAO.HCSGetRoles();
+    support.firePropertyChange("HCSGetBookings",null,booking1);
   }
 
-  @Override public ArrayList<String> getTimeAvailable(Date date)
+  @Override public ArrayList<String> getAvailableTime(Date date)
   {
-    return bookingDAO.getTimeAvailable(date);
+    return bookingDAO.getAvailableTime(date);
+  }
+
+  @Override public ArrayList<Booking> GetPatientBookings(String cprNumber)
+  {
+   // return bookingDAO.GetPatientBookings(cprNumber);
+    ArrayList<Booking> booking1;
+    booking1=bookingDAO.GetPatientBookings(cprNumber);
+    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
+    // return userDAO.HCSGetRoles();
+   // support.firePropertyChange("HCSGetBookings",null,booking1);
+    return booking1;
+  }
+
+  @Override public boolean isPatientHasABooking(String cprNumber)
+  {
+    return bookingDAO.isPatientHasABooking(cprNumber);
   }
 
    /* private void updateActiveUsers(String username) {

@@ -3,7 +3,7 @@ package HCS.server.model;
 //import HCS.shared.transferObjects.Message;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
 //import HCS.shared.transferObjects.User;
 import HCS.shared.utility.Subject;
 
@@ -24,15 +24,21 @@ public interface ServerModel extends Subject {
 
     boolean UserExist(String username);
     void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role);
-    ArrayList<Role> GetUsers();
+    ArrayList<User> GetUsers();
     void RemoveUser(String username);
 
     void createPatient(Patient patient);
-    ArrayList<Patient> HCSGetPatients();
-    ArrayList<Patient> HCSGetSpecificPatients(String search);
+    void removePatient(String cprNumber);
+    void updatePatient(String cprNumber,Patient patient);
+    ArrayList<Patient> GetPatients();
+    ArrayList<Patient> GetSpecificPatients(String search);
 
     void createBooking(Booking booking);
-    ArrayList<Booking> HCSGetBookings();
+    ArrayList<Booking> GetBookings();
     void removeBooking(Date bookingDate,String bookingTime );
-    ArrayList<String> getTimeAvailable(Date date);
+    ArrayList<String> getAvailableTime(Date date);
+    ArrayList<Booking> GetPatientBookings(String cprNumber);
+
+    boolean isPatientHasABooking(String cprNumber);
+
 }

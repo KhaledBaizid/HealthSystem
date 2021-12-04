@@ -10,7 +10,10 @@ public interface BookingClient extends Subject
 {
   void startClient();
   void createBooking(Booking booking);
-  void HCSGetBookings();
+  void GetBookings();
   void removeBooking(Date bookingDate,String bookingTime );
-  ArrayList<String> getTimeAvailable(Date date);
+  ArrayList<String> getAvailableTime(Date date);
+  void GetPatientBookings(String cprNumber);
+  void isPatientHasABooking(String cprNumber);
+
 }

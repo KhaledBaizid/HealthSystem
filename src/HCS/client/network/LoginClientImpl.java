@@ -41,11 +41,11 @@ public class LoginClientImpl implements LoginClient, ClientCallBack
 
   }*/
 
-  @Override public void sharedroles(PropertyChangeEvent event)
+  /*@Override public void sharedroles(PropertyChangeEvent event)
       throws RemoteException
   {
 
-  }
+  }*/
 
   @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException

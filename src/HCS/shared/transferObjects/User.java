@@ -3,7 +3,7 @@ package HCS.shared.transferObjects;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Role implements Serializable
+public class User implements Serializable
 {
   private String firstname;
   private String lastname;
@@ -12,7 +12,7 @@ public class Role implements Serializable
   private String password;
   private String role;
 
-  public Role (String firstname,String lastname,Date birthday,String username,String password,String role)
+  public User(String firstname,String lastname,Date birthday,String username,String password,String role)
   {
     this.firstname=firstname;
     this.lastname=lastname;

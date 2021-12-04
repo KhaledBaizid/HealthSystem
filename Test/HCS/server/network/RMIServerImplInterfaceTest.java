@@ -1,11 +1,12 @@
 package HCS.server.network;
 
+import HCS.shared.ClientReceptionCallBack;
 import HCS.DataBase.*;
 import HCS.server.model.ServerModelImpl;
 import HCS.shared.ClientCallBack;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.Role;
+import HCS.shared.transferObjects.User;
 import org.junit.jupiter.api.Test;
 
 import java.rmi.RemoteException;
@@ -36,7 +37,7 @@ class RMIServerImplInterfaceTest
 
   }
 
-  @Override public ArrayList<Role> GetUsers()
+  @Override public ArrayList<User> GetUsers()
   {
     return null;
   }
@@ -76,6 +77,12 @@ class RMIServerImplInterfaceTest
 
     }
 
+    @Override public void registerClient(ClientCallBack clientCallBack,
+        ClientReceptionCallBack clientReceptionCallBack) throws RemoteException
+    {
+
+    }
+
     @Override public void unregisterClient(ClientCallBack clientCallBack)
         throws RemoteException
     {
@@ -95,7 +102,7 @@ class RMIServerImplInterfaceTest
 
     }
 
-    @Override public ArrayList<Role> GetUsers() throws RemoteException
+    @Override public ArrayList<User> GetUsers() throws RemoteException
     {
       return null;
     }
@@ -110,12 +117,23 @@ class RMIServerImplInterfaceTest
 
     }
 
-    @Override public ArrayList<Patient> HCSGetPatients() throws RemoteException
+    @Override public void removePatient(String cprNumber) throws RemoteException
+    {
+
+    }
+
+    @Override public void updatePatient(String cprNumber, Patient patient)
+        throws RemoteException
+    {
+
+    }
+
+    @Override public ArrayList<Patient> GetPatients() throws RemoteException
     {
       return null;
     }
 
-    @Override public ArrayList<Patient> HCSGetSpecificPatients(String search)
+    @Override public ArrayList<Patient> GetSpecificPatients(String search)
         throws RemoteException
     {
       return null;
@@ -126,7 +144,7 @@ class RMIServerImplInterfaceTest
 
     }
 
-    @Override public ArrayList<Booking> HCSGetBookings() throws RemoteException
+    @Override public ArrayList<Booking> GetBookings() throws RemoteException
     {
       return null;
     }
@@ -137,10 +155,21 @@ class RMIServerImplInterfaceTest
 
     }
 
-    @Override public ArrayList<String> getTimeAvailable(Date date)
+    @Override public ArrayList<String> getAvailableTime(Date date)
         throws RemoteException
     {
       return null;
+    }
+
+    @Override public ArrayList<Booking> GetPatientBookings(String cprNumber)
+    {
+      return null;
+    }
+
+    @Override public boolean isPatientHasABooking(String cprNumber)
+        throws RemoteException
+    {
+      return false;
     }
 
     @Override public boolean UserExist(String username) throws RemoteException

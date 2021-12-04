@@ -1,8 +1,6 @@
 package HCS.client.ViewModel;
 
 import HCS.client.model.BookingModel;
-import HCS.client.model.DoctorModel;
-import HCS.client.model.ReceptionModel;
 import HCS.shared.transferObjects.Booking;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,7 +34,7 @@ public class BookingViewModel
   }
   public void getModelBookings()
   {
-    model.HCSGetBookings();
+    model.GetBookings();
   }
   public ObservableList<Booking> getTableViewBookings()
   {
@@ -46,9 +44,17 @@ public class BookingViewModel
   {
     model.removeBooking(bookingDate, bookingTime);
   }
-  public ArrayList<String> getTimeAvailable(Date date)
+  public ArrayList<String> getAvailableTime(Date date)
   {
-    return model.getTimeAvailable(date);
+    return model.getAvailableTime(date);
   }
+
+  ///////////
+  public void getPatientBookings(String cprNumber)
+  {
+    model.GetPatientBookings(cprNumber);
+  }
+
+  //////////
 
 }

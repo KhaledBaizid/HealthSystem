@@ -1,21 +1,18 @@
 package HCS.client.model;
 
-import HCS.client.network.ReceptionClient;
-import HCS.shared.transferObjects.Booking;
+import HCS.client.network.PatientClient;
 import HCS.shared.transferObjects.Patient;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.sql.Date;
-import java.util.ArrayList;
 
-public class ReceptionModelImpl implements ReceptionModel
+public class PatientModelImpl implements PatientModel
 {
-  private ReceptionClient clientReception;
+  private PatientClient clientReception;
   private PropertyChangeSupport support;
 
-  public ReceptionModelImpl(ReceptionClient clientReception)
+  public PatientModelImpl(PatientClient clientReception)
   {
     this.clientReception=clientReception;
     support = new PropertyChangeSupport(this);
@@ -23,6 +20,8 @@ public class ReceptionModelImpl implements ReceptionModel
     clientReception.addListener("HCSGetPatients",this::fireAll);
     clientReception.addListener("HCSGetRoles", this::fireAll);
     clientReception.addListener("HCSGetBookings",this::fireAll);
+   // clientReception.addListener("PtientHasBooking",this::fireAll);
+    clientReception.addListener("HCSGetPatients",this::fireAll);
 
   }
 
@@ -35,8 +34,21 @@ public class ReceptionModelImpl implements ReceptionModel
   {
     System.out.println("ReceptionModel");
    clientReception.createPatient(patient);
-   clientReception.HCSGetPatients();
+   clientReception.GetPatients();
   }
+
+  @Override public void removePatient(String cprNumber)
+  {
+    clientReception.removePatient(cprNumber);
+    clientReception.GetPatients();
+  }
+
+  @Override public void updatePatient(String cprNumber, Patient patient)
+  {
+    clientReception.updatePatient(cprNumber, patient);
+    clientReception.GetPatients();
+  }
+
   @Override
   public void addListener(String eventName, PropertyChangeListener listener) {
     support.addPropertyChangeListener(eventName, listener);
@@ -52,14 +64,14 @@ public class ReceptionModelImpl implements ReceptionModel
     clientReception.HCSGetRoles();
   }
 
-  @Override public void HCSGetPatients()
+  @Override public void GetPatients()
   {
-    clientReception.HCSGetPatients();
+    clientReception.GetPatients();
   }
 
-  @Override public void HCSGetSpecificPatients(String search)
+  @Override public void GetSpecificPatients(String search)
   {
-    clientReception.HCSGetSpecificPatients(search);
+    clientReception.GetSpecificPatients(search);
   }
 
  /* @Override public void createBooking(Booking booking)

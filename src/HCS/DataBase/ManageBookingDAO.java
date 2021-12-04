@@ -8,8 +8,11 @@ import java.util.ArrayList;
 public interface ManageBookingDAO
 {
   void createBooking(Booking booking);
-  ArrayList<Booking> HCSGetBookings();
+  ArrayList<Booking> GetBookings();
   void removeBooking(Date bookingDate,String bookingTime );
-  ArrayList<String> getTimeAvailable(Date date);
+  ArrayList<String> getAvailableTime(Date date);
   boolean bookingExist(Date bookingDate,String bookingTime );
+  boolean isPatientHasABooking(String cprNumber);
+
+  ArrayList<Booking> GetPatientBookings(String cprNumber);
 }
