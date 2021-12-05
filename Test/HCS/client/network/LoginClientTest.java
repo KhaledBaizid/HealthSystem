@@ -3,9 +3,12 @@ package HCS.client.network;
 import HCS.DataBase.BookingDAO;
 import HCS.DataBase.LoginDAO;
 import HCS.DataBase.PatientDAO;
+import HCS.DataBase.PrescriptionDAO;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
+import HCS.shared.transferObjects.Prescription;
 import org.junit.jupiter.api.BeforeEach;
+import org.w3c.dom.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -21,6 +24,7 @@ class LoginClientTest
   LoginDAO loginDAO;
   PatientDAO patientDAO;
   BookingDAO bookingDAO;
+  PrescriptionDAO prescriptionDAO;
   LoginClientImpl client = new LoginClientImpl();
 
   @BeforeEach
@@ -29,6 +33,7 @@ class LoginClientTest
  loginDAO= LoginDAO.getInstance();
  patientDAO=PatientDAO.getInstance();
  bookingDAO=BookingDAO.getInstance();
+ prescriptionDAO=PrescriptionDAO.getInstance();
   }
 
 
@@ -70,6 +75,15 @@ class LoginClientTest
       System.out.println(bookings.get(i).getBookingTime());
     }
 
+   // Text prescription="you" +"\n"+"should"+"\n"+"relax";
+
+
+   /* String prescriptionText="hi"+"\n"+"i am here"+"\n"+"what about you";
+    Prescription prescription=new Prescription(date1,"08:00","Scan",prescriptionText);
+    prescriptionDAO.createPrescription(prescription);*/
+
+    String s=prescriptionDAO.getSpecificPrescription(date1,"08:00","Scan");
+    System.out.println(s);
 
   }
 }

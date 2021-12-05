@@ -137,7 +137,7 @@
                             </Tab>
                           </tabs>
                         </TabPane>
-                        <TableView fx:id="bookingTableView" layoutX="4.0" layoutY="211.0" onMouseClicked="#bookingTableClicked" prefHeight="154.0" prefWidth="743.0">
+                        <TableView fx:id="bookingTableView" layoutX="4.0" layoutY="211.0" onMouseClicked="#bookingTableClicked" prefHeight="154.0" prefWidth="743.0" stylesheets="@../../Design/style1.css">
                           <columns>
                             <TableColumn fx:id="bookingDateColumn" prefWidth="92.0" text="BookingDate" />
                             <TableColumn fx:id="bookingTimeColumn" prefWidth="95.0" text="BookingTime" />
@@ -150,6 +150,7 @@
                           </columns>
                         </TableView>
                         <TextField fx:id="bookingSearch" layoutX="4.0" layoutY="187.0" onKeyTyped="#onBookingTyped" />
+                        <DatePicker fx:id="bookingSearchDatePicker" layoutX="210.0" layoutY="187.0" onMouseClicked="#onBookingSearchDatePicker" />
                      </children></AnchorPane>
             </content>
           </Tab>

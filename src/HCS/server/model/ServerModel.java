@@ -3,6 +3,7 @@ package HCS.server.model;
 //import HCS.shared.transferObjects.Message;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
+import HCS.shared.transferObjects.Prescription;
 import HCS.shared.transferObjects.User;
 //import HCS.shared.transferObjects.User;
 import HCS.shared.utility.Subject;
@@ -38,7 +39,12 @@ public interface ServerModel extends Subject {
     void removeBooking(Date bookingDate,String bookingTime );
     ArrayList<String> getAvailableTime(Date date);
     ArrayList<Booking> GetPatientBookings(String cprNumber);
+    ArrayList<Booking> GetPatientBookingsByDate(Date date);
 
     boolean isPatientHasABooking(String cprNumber);
+
+    ////
+    void createPrescription(Prescription prescription);
+    ArrayList<Prescription>  getPrescriptions();
 
 }

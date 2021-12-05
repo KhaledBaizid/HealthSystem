@@ -121,6 +121,7 @@ public class ServerModelImpl implements ServerModel
     //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
     // return userDAO.HCSGetRoles();
     support.firePropertyChange("HCSGetBookings",null,booking1);
+   // support.firePropertyChange("HCSGetPrescriptions",null,booking1);
 
   }
 
@@ -187,9 +188,29 @@ public class ServerModelImpl implements ServerModel
     return booking1;
   }
 
+  @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
+  {
+    ArrayList<Booking> booking1;
+    booking1=bookingDAO.GetPatientBookingsByDate(date);
+    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
+    // return userDAO.HCSGetRoles();
+    // support.firePropertyChange("HCSGetBookings",null,booking1);
+    return booking1;
+  }
+
   @Override public boolean isPatientHasABooking(String cprNumber)
   {
     return bookingDAO.isPatientHasABooking(cprNumber);
+  }
+
+  @Override public void createPrescription(Prescription prescription)
+  {
+    prescriptionDAO.createPrescription(prescription);
+  }
+
+  @Override public ArrayList<Prescription> getPrescriptions()
+  {
+    return prescriptionDAO.getPrescriptions();
   }
 
    /* private void updateActiveUsers(String username) {

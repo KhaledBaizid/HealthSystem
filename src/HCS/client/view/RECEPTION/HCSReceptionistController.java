@@ -95,6 +95,7 @@ public class HCSReceptionistController
   @FXML private TextField bookingLastname1;
   @FXML private TextField symptoms1;
 
+  @FXML private DatePicker bookingSearchDatePicker;
 
   /////////////////////
   @FXML
@@ -299,6 +300,11 @@ public class HCSReceptionistController
   public void onBookingTyped()
   {
     vm.getPatientBookings(bookingSearch.textProperty().getValue());
+  }
+
+  public void onBookingSearchDatePicker()
+  {
+    vm.GetPatientBookingsByDate(Date.valueOf(bookingSearchDatePicker.getValue()));
   }
 
   public void BookForPatient()

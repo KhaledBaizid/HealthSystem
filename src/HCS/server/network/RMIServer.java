@@ -5,6 +5,7 @@ import HCS.shared.ClientCallBack;
 //import HCS.shared.transferObjects.Message;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
+import HCS.shared.transferObjects.Prescription;
 import HCS.shared.transferObjects.User;
 //import HCS.shared.transferObjects.User;
 
@@ -43,9 +44,15 @@ public interface RMIServer extends Remote
  void removeBooking(Date bookingDate,String bookingTime ) throws RemoteException;
  ArrayList<String> getAvailableTime(Date date) throws RemoteException;
  ArrayList<Booking> GetPatientBookings(String cprNumber) throws RemoteException;
+ ArrayList<Booking> GetPatientBookingsByDate(Date date) throws RemoteException;
  boolean isPatientHasABooking(String cprNumber) throws  RemoteException;
 
+
  boolean UserExist(String username) throws RemoteException;
+
+ /////
+ void createPrescription(Prescription prescription) throws RemoteException;
+ ArrayList<Prescription>  getPrescriptions() throws  RemoteException;
 
 
 

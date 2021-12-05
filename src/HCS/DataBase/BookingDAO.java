@@ -196,4 +196,35 @@ public class BookingDAO implements ManageBookingDAO
 
     return bookings;
   }
+
+  @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
+  {
+    ArrayList<Booking> bookings=new ArrayList<>();
+    ///
+    try (Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber WHERE booking.bookingdate= ? ");
+      statement.setDate(1,date);
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        Date bookingDate = resultSet.getDate("bookingdate");
+        String bookingTime = resultSet.getString("bookingtime");
+        String cprNumber = resultSet.getString("cprNumber");
+        String firstname = resultSet.getString("firstname");
+        String lastname = resultSet.getString("lastname");
+        Date birthday = resultSet.getDate("birthday");
+        String sex = resultSet.getString("sex");
+        String symptoms= resultSet.getString("symptoms");
+
+        bookings.add(new Booking(bookingDate,bookingTime,cprNumber,firstname,lastname,birthday,sex,symptoms));
+        // System.out.println(patients.get(0).getUsername());
+
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    ///
+
+    return bookings;
+  }
 }

@@ -3,6 +3,7 @@ package HCS.client.network;
 import HCS.server.network.RMIServer;
 import HCS.shared.ClientCallBack;
 import HCS.shared.transferObjects.Booking;
+import HCS.shared.transferObjects.Prescription;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -46,6 +47,32 @@ public class DoctorClientImpl implements DoctorClient, ClientCallBack
       ArrayList<Booking> bookings;
       bookings= server.GetBookings();
       support.firePropertyChange("HCSGetBookings",null,bookings);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void createPrescription(Prescription prescription)
+  {
+    try
+    {
+      server.createPrescription(prescription);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void getPrescriptions()
+  {
+    try
+    {
+      ArrayList<Prescription> prescriptions;
+      prescriptions= server.getPrescriptions();
+      support.firePropertyChange("HCSGetPrescriptions",null,prescriptions);
     }
     catch (RemoteException e)
     {

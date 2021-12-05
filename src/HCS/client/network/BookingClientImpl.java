@@ -111,6 +111,21 @@ public class BookingClientImpl implements BookingClient, ClientCallBack
    // return null;
   }
 
+  @Override public void GetPatientBookingsByDate(Date date)
+  {
+    try
+    { ArrayList<Booking> bookings;
+      bookings= server.GetPatientBookingsByDate(date);
+      support.firePropertyChange("HCSGetBookings",null,bookings);
+      // return bookings;
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+
+  }
+
   @Override public void isPatientHasABooking(String cprNumber)
   {
     try

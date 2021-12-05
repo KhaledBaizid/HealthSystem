@@ -7,6 +7,7 @@ import HCS.shared.ClientCallBack;
 //import HCS.shared.transferObjects.RequestType;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
+import HCS.shared.transferObjects.Prescription;
 import HCS.shared.transferObjects.User;
 //import HCS.shared.transferObjects.User;
 
@@ -269,6 +270,12 @@ public class RMIServerImpl implements RMIServer
     return model.GetPatientBookings(cprNumber);
   }
 
+  @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
+      throws RemoteException
+  {
+    return model.GetPatientBookingsByDate(date);
+  }
+
   @Override public boolean isPatientHasABooking(String cprNumber)
       throws RemoteException
   {
@@ -278,6 +285,18 @@ public class RMIServerImpl implements RMIServer
   @Override public boolean UserExist(String username) throws RemoteException
   {
     return model.UserExist(username);
+  }
+
+  @Override public void createPrescription(Prescription prescription)
+      throws RemoteException
+  {
+    model.createPrescription(prescription);
+  }
+
+  @Override public ArrayList<Prescription> getPrescriptions()
+      throws RemoteException
+  {
+    return model.getPrescriptions();
   }
 
 }

@@ -14,5 +14,6 @@ public interface BookingModel extends Subject
   ArrayList<String> getAvailableTime(Date date);
 
   void GetPatientBookings(String cprNumber);
+  void GetPatientBookingsByDate(Date date);
   void isPatientHasABooking(String cprNumber);
 }

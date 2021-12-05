@@ -14,6 +14,7 @@ public interface BookingClient extends Subject
   void removeBooking(Date bookingDate,String bookingTime );
   ArrayList<String> getAvailableTime(Date date);
   void GetPatientBookings(String cprNumber);
+  void GetPatientBookingsByDate(Date date);
   void isPatientHasABooking(String cprNumber);
 
 }

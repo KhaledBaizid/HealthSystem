@@ -6,6 +6,7 @@ import HCS.server.model.ServerModelImpl;
 import HCS.shared.ClientCallBack;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
+import HCS.shared.transferObjects.Prescription;
 import HCS.shared.transferObjects.User;
 import org.junit.jupiter.api.Test;
 
@@ -166,6 +167,12 @@ class RMIServerImplInterfaceTest
       return null;
     }
 
+    @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
+        throws RemoteException
+    {
+      return null;
+    }
+
     @Override public boolean isPatientHasABooking(String cprNumber)
         throws RemoteException
     {
@@ -175,6 +182,18 @@ class RMIServerImplInterfaceTest
     @Override public boolean UserExist(String username) throws RemoteException
     {
       return false;
+    }
+
+    @Override public void createPrescription(Prescription prescription)
+        throws RemoteException
+    {
+
+    }
+
+    @Override public ArrayList<Prescription> getPrescriptions()
+        throws RemoteException
+    {
+      return null;
     }
   };
   ServerModelImpl serverModelImpl = new ServerModelImpl( userDAO,receptionDAO, loginDAO,bookingDAO,prescriptionDAO);

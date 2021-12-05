@@ -68,6 +68,11 @@ public class BookingModelImpl implements BookingModel
     clientBooking.GetPatientBookings(cprNumber);
   }
 
+  @Override public void GetPatientBookingsByDate(Date date)
+  {
+    clientBooking.GetPatientBookingsByDate(date);
+  }
+
   @Override public void isPatientHasABooking(String cprNumber)
   {
     clientBooking.isPatientHasABooking(cprNumber);

@@ -140,6 +140,10 @@ public class ReceptionViewModel implements Subject
   {
     bookingModel.GetPatientBookings(cprNumber);
   }
+  public void GetPatientBookingsByDate(Date date)
+  {
+    bookingModel.GetPatientBookingsByDate(date);
+  }
 
   public boolean isPatientHasAbooking(String cprNumber)
   {

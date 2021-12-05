@@ -1,6 +1,7 @@
 package HCS.client.model;
 
 import HCS.client.network.DoctorClient;
+import HCS.shared.transferObjects.Prescription;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -17,6 +18,7 @@ public class DoctorModelImpl implements DoctorModel
     this.support= new PropertyChangeSupport(this);
     clientDoctor.startClient();
     clientDoctor.addListener("HCSGetBookings",this::fireforward);
+    clientDoctor.addListener("HCSGetPrescriptions",this::fireforward);
   }
 
   private void fireforward(PropertyChangeEvent event)
@@ -38,5 +40,15 @@ public class DoctorModelImpl implements DoctorModel
   @Override public void HCSGetBookings()
   {
     clientDoctor.HCSGetBookings();
+  }
+
+  @Override public void createPrescription(Prescription prescription)
+  {
+    clientDoctor.createPrescription(prescription);
+  }
+
+  @Override public void getPrescriptions()
+  {
+    clientDoctor.getPrescriptions();
   }
 }
