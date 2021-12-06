@@ -81,5 +81,13 @@ public class User implements Serializable
   {
     this.username = username;
   }
+
+  public boolean equals(Object obj)
+  {
+    if (!(obj instanceof User))
+      return false;
+    User other = (User)obj;
+    return (firstname.equals(other.firstname) && lastname.equals(other.lastname) && birthday.equals(other.birthday) &&username.equals(other.username) && password.equals(other.password)&&(role.equals(other.role)));
+  }
 }
 

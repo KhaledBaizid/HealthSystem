@@ -74,4 +74,13 @@ public class Booking implements Serializable
   {
     return firstname;
   }
+
+  public boolean equals(Object obj)
+  {
+    if (!(obj instanceof Booking))
+      return false;
+    Booking other = (Booking)obj;
+    return (cprNumber.equals(other.cprNumber) && bookingDate.equals(other.bookingDate) && bookingTime.equals(other.bookingTime) &&symptoms.equals(other.symptoms) && sex.equals(other.sex)&&(lastname.equals(other.lastname))
+        &&(firstname.equals(other.firstname))&&(birthday.equals(other.birthday)));
+  }
 }

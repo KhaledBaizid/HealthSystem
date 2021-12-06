@@ -11,7 +11,7 @@ import HCS.shared.utility.Subject;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public interface ServerModel extends Subject {
+public interface ServerModel  {
    // boolean loginUser(User user);
 
    // ArrayList<String> sendActiveUsersToClient();
@@ -21,7 +21,7 @@ public interface ServerModel extends Subject {
   //  void disconnect(User userDisconnecting);
 
 
-    String Login(String username,String password);
+   /* String Login(String username,String password);
 
     boolean UserExist(String username);
     void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role);
@@ -45,6 +45,6 @@ public interface ServerModel extends Subject {
 
     ////
     void createPrescription(Prescription prescription);
-    ArrayList<Prescription>  getPrescriptions();
+    ArrayList<Prescription>  getPrescriptions();*/
 
 }

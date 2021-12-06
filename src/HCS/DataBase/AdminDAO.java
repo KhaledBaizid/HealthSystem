@@ -122,11 +122,11 @@ public class AdminDAO implements ManageAdminDAO
 
   @Override public ArrayList<User> GetUsers()
   {
-    System.out.println("HHHHHHHHHHHHHHHHHHHHHHHH");
+
     ArrayList<User> users =new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM userlogin  ");
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM userlogin ORDER BY username ASC  ");
 
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
@@ -137,7 +137,7 @@ public class AdminDAO implements ManageAdminDAO
         String password= resultSet.getString("password");
         String role=resultSet.getString("role");
         users.add(new User(firstname,lastname,birthday,username,password,role));
-        System.out.println(users.get(0).getUsername());
+
 
       }
     } catch (SQLException throwables) {
@@ -167,7 +167,7 @@ public class AdminDAO implements ManageAdminDAO
     try(Connection connection = jdbcController.getConnection()) {
       System.out.println(username+""+password);
       PreparedStatement statement = connection.prepareStatement
-          ("UPDATE userslogin SET firstname=?,lastname=?,birthday=?,username=?,password=?,role=role WHERE username = ? ");
+          ("UPDATE userlogin SET firstname=?,lastname=?,birthday=?,username=?,password=?,role=role WHERE username = ? ");
       statement.setString(1,username);
       statement.setString(2,password);
       ResultSet resultSet = statement.executeQuery();
@@ -177,6 +177,17 @@ public class AdminDAO implements ManageAdminDAO
       }
       System.out.println(role);
       // statement.executeUpdate();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  @Override public void deleteAllUsers()
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("DELETE FROM userlogin ");
+      statement.executeUpdate();
+
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }

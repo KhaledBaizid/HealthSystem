@@ -15,6 +15,8 @@ public interface ManageAdminDAO
   void RemoveUser(String username);
   void HCRUpdateRole(String firstname,String lastname, Date birthday,String username,String password,String role);
 
+  void deleteAllUsers();
+
   //void createPatient(String cprnumber ,String firstname,String lastname);
 
 }

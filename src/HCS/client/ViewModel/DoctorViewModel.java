@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeEvent;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class DoctorViewModel
@@ -14,6 +15,8 @@ public class DoctorViewModel
   private DoctorModel model;
   private ObservableList<Booking> bookings;
   private ObservableList<Prescription> prescriptions;
+   String radio="all";
+  Date specificDate=null;
 
   public DoctorViewModel(DoctorModel model)
   {
@@ -34,8 +37,27 @@ public class DoctorViewModel
 
   private void getBookings(PropertyChangeEvent event)
   {
-    bookings.clear();
-    bookings.addAll((ArrayList<Booking>)event.getNewValue());
+
+
+    if (getRadio().equals("all"))
+    { bookings.clear();
+      bookings.addAll((ArrayList<Booking>) event.getNewValue());
+    }
+     else{
+      bookings.clear();
+      ArrayList<Booking> bookingsradio = (ArrayList<Booking>) event.getNewValue();
+    for (int i=0;i<bookingsradio.size();i++)
+    {
+      if (bookingsradio.get(i).getBookingDate() != getSpecificDate())
+      {
+        System.out.println(bookingsradio.get(i).getBookingDate());
+        bookingsradio.remove(bookingsradio.get(i));
+
+
+      }
+    }
+    bookings.addAll(bookingsradio);
+  }
   }
 
   public void getModelBookings()
@@ -60,5 +82,20 @@ public class DoctorViewModel
     model.createPrescription(prescription);
   }
 
+  public void RadioButtonClicked(String s, Date date)
+  {
+   radio=s;
+   specificDate=date;
+    System.out.println(radio+" "+date);
+  }
 
+  public String getRadio()
+  {
+    return radio;
+  }
+
+  public Date getSpecificDate()
+  {
+    return specificDate;
+  }
 }

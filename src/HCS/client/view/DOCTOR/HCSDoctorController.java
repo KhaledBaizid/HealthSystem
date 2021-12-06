@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class HCSDoctorController
 {
@@ -51,6 +52,12 @@ public class HCSDoctorController
   @FXML private ComboBox prescriptionComboBox1;
   @FXML private TextArea prescreptionTextArea1;
 
+  ////radiobutton
+  @FXML private RadioButton allBookingsRadioButton;
+  @FXML private RadioButton specificBookingRadioButton;
+  @FXML private DatePicker specificDatePicker;
+  ////
+
 
 
   private ViewHandler vh;
@@ -62,6 +69,12 @@ public class HCSDoctorController
 
     prescriptionComboBox.getItems().addAll("Medicines","Scan","BloodTest");
     prescriptionComboBox1.getItems().addAll("Medicines","Scan","BloodTest");
+
+    ToggleGroup radioGroup = new ToggleGroup();
+    allBookingsRadioButton.setToggleGroup(radioGroup);
+    specificBookingRadioButton.setToggleGroup(radioGroup);
+    allBookingsRadioButton.setSelected(true);
+    specificDatePicker.setValue(LocalDate.now());
 
     bookingDateColumn.setCellValueFactory(new PropertyValueFactory<Booking,Date>("bookingDate"));
     bookingTimeColumn.setCellValueFactory(new PropertyValueFactory<Booking,String>("bookingTime"));
@@ -86,6 +99,10 @@ public class HCSDoctorController
     prescriptionTextColumn.setCellValueFactory(new PropertyValueFactory<Prescription,String>("prescriptionText"));
     vm.getPrescriptionsModel();
    PrescriptionTableView.setItems(vm.getPrescriptionsTableView());
+   /////////
+
+
+    ///////////
 
 
 
@@ -131,7 +148,18 @@ public class HCSDoctorController
     prescriptionComboBox1.getSelectionModel().select(prescription.getPrescriptionType());
     prescreptionTextArea1.setText(prescription.getPrescriptionText());
 
-
   }
+
+  public void onAllBookingsRadioButton()
+  {
+   // System.out.println("radiobuttonAll");
+    vm.RadioButtonClicked("all",null);
+  }
+  public void onSpecificBookingsRadioButton()
+  {
+  //  System.out.println("radiobuttonSpecific");
+    vm.RadioButtonClicked("specific",Date.valueOf(specificDatePicker.getValue()));
+  }
+
 
 }

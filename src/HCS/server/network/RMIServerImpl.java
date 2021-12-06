@@ -1,7 +1,7 @@
 package HCS.server.network;
 
+import HCS.server.model.*;
 import HCS.shared.ClientReceptionCallBack;
-import HCS.server.model.ServerModel;
 import HCS.shared.ClientCallBack;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
@@ -23,25 +23,35 @@ import java.util.List;
 
 public class RMIServerImpl implements RMIServer
 {
-  private final ServerModel model;
+ // private final ServerModel model;
+  private final LoginModelServer loginModelServer;
+  private final AdminModelServer adminModelServer;
+  private final PatientModelServer patientModelServer;
+  private final BookingModelServer bookingModelServer;
+  private PrescriptionModelServer prescriptionModelServer;
   private List<ClientCallBack> clients;
   private List<ClientReceptionCallBack> clients1;
   //private Object ClientloginCallBack;
-
-  public RMIServerImpl(ServerModel model) throws RemoteException
+ // public RMIServerImpl(ServerModel model) throws RemoteException
+  public RMIServerImpl(/*ServerModel model,*/ LoginModelServer loginModelServer,AdminModelServer adminModelServer, PatientModelServer patientModelServer,BookingModelServer bookingModelServer, PrescriptionModelServer prescriptionModelServer) throws RemoteException
   {
     UnicastRemoteObject.exportObject( this, 0);
-    this.model = model;
+    //this.model = model;
     clients= new ArrayList<>();
     clients1=new ArrayList<>();
+    this.loginModelServer = loginModelServer;
+    this.adminModelServer=adminModelServer;
+    this.patientModelServer=patientModelServer;
+    this.bookingModelServer=bookingModelServer;
+    this.prescriptionModelServer=prescriptionModelServer;
    // model.addListener(RequestType.RECEIVE_PUBLIC.toString(),this::publicMessageSent);
    // model.addListener(RequestType.GET_ACTIVE_USERS.toString(),this::userAdded);
   //  model.addListener(RequestType.UPDATE_ACTIVE_USERS.toString(),this::userdeleted);
  //   model.addListener("HCSLogin",this::HCS);
   //  model.addListener("HCSGetRoles",this::sharedRoles);
-    model.addListener("HCSGetBookings",this::sharedBookings);
+    bookingModelServer.addListener("HCSGetBookings",this::sharedBookings);
    // model.addListener("PtientHasBooking",this::patientHasBooking);
-    model.addListener("HCSGetPatients",this::sharedPatients);
+    patientModelServer.addListener("HCSGetPatients",this::sharedPatients);
 
 
   }
@@ -193,110 +203,110 @@ public class RMIServerImpl implements RMIServer
 
   @Override public String Login(String username, String password)
   {
-    return model.Login(username,password);
+    return loginModelServer.Login(username,password);
   }
 
   @Override public void CreateUser(String firstname, String lastname,
       Date birthday, String username, String password, String role)
 
   {
-     model.CreateUser(firstname, lastname, birthday, username, password, role);
+    adminModelServer.CreateUser(firstname, lastname, birthday, username, password, role);
   }
 
   @Override public ArrayList<User> GetUsers()
   {
     System.out.println("server");
-    return model.GetUsers();
+    return adminModelServer.GetUsers();
   }
 
   @Override public void RemoveUser(String username) throws RemoteException
   {
-    model.RemoveUser(username);
+    adminModelServer.RemoveUser(username);
   }
 
   @Override public void createPatient(Patient patient)
   {
     System.out.println("ReceptionServer");
-  model.createPatient(patient);
+    patientModelServer.createPatient(patient);
   }
 
   @Override public void removePatient(String cprNumber) throws RemoteException
   {
-    model.removePatient(cprNumber);
+    patientModelServer.removePatient(cprNumber);
   }
 
   @Override public void updatePatient(String cprNumber, Patient patient)
       throws RemoteException
   {
-    model.updatePatient(cprNumber, patient);
-    model.GetBookings();
+    patientModelServer.updatePatient(cprNumber, patient);
+    bookingModelServer.GetBookings();
   }
 
   @Override public ArrayList<Patient> GetPatients() throws RemoteException
   {
-    return model.GetPatients();
+    return patientModelServer.GetPatients();
   }
 
   @Override public ArrayList<Patient> GetSpecificPatients(String search)
       throws RemoteException
   {
-    return model.GetSpecificPatients(search);
+    return patientModelServer.GetSpecificPatients(search);
   }
 
   @Override public void createBooking(Booking booking) throws RemoteException
   {
     System.out.println("BookingServer");
-    model.createBooking(booking);
+    bookingModelServer.createBooking(booking);
   }
 
   @Override public ArrayList<Booking> GetBookings() throws RemoteException
   {
-    return model.GetBookings();
+    return bookingModelServer.GetBookings();
   }
 
   @Override public void removeBooking(Date bookingDate, String bookingTime)
       throws RemoteException
   {
-    model.removeBooking(bookingDate, bookingTime);
+    bookingModelServer.removeBooking(bookingDate, bookingTime);
   }
 
   @Override public ArrayList<String> getAvailableTime(Date date)
   {
-    return model.getAvailableTime(date);
+    return bookingModelServer.getAvailableTime(date);
   }
 
   @Override public ArrayList<Booking> GetPatientBookings(String cprNumber)
   {
-    return model.GetPatientBookings(cprNumber);
+    return bookingModelServer.GetPatientBookings(cprNumber);
   }
 
   @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
       throws RemoteException
   {
-    return model.GetPatientBookingsByDate(date);
+    return bookingModelServer.GetPatientBookingsByDate(date);
   }
 
   @Override public boolean isPatientHasABooking(String cprNumber)
       throws RemoteException
   {
-    return model.isPatientHasABooking(cprNumber);
+    return bookingModelServer.isPatientHasABooking(cprNumber);
   }
 
   @Override public boolean UserExist(String username) throws RemoteException
   {
-    return model.UserExist(username);
+    return adminModelServer.UserExist(username);
   }
 
   @Override public void createPrescription(Prescription prescription)
       throws RemoteException
   {
-    model.createPrescription(prescription);
+    prescriptionModelServer.createPrescription(prescription);
   }
 
   @Override public ArrayList<Prescription> getPrescriptions()
       throws RemoteException
   {
-    return model.getPrescriptions();
+    return prescriptionModelServer.getPrescriptions();
   }
 
 }
