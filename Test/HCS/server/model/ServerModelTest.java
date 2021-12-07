@@ -1,6 +1,8 @@
 package HCS.server.model;
 
 import HCS.DataBase.*;
+import HCS.shared.transferObjects.Booking;
+import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -129,10 +131,25 @@ class ServerModelTest
 
   @Test void createPatient()
   {
+    String str="2015-03-31";
+    Date date=Date.valueOf(str);
+    patientDAO.removePatient("11001122");
+    Patient patient=new Patient("11001122","bob","sep2",date,"M","anywhere","12101210","anymail");
+    patientDAO.createPatient(patient);
+    assertTrue(patientDAO.patientExist("11001122"));
+    patientDAO.removePatient("11001122");
   }
 
   @Test void removePatient()
   {
+    String str="2015-03-31";
+    Date date=Date.valueOf(str);
+    patientDAO.removePatient("11001122");
+    Patient patient=new Patient("11001122","bob","sep2",date,"M","anywhere","12101210","anymail");
+    patientDAO.createPatient(patient);
+    assertTrue(patientDAO.patientExist("11001122"));
+    patientDAO.removePatient("11001122");
+    assertFalse(patientDAO.patientExist("11001122"));
   }
 
   @Test void updatePatient()
@@ -150,6 +167,17 @@ class ServerModelTest
   ///
   @Test void createBooking()
   {
+    String str="1990-03-31";
+    Date date=Date.valueOf(str);
+    patientDAO.removePatient("11001122");
+    Patient patient=new Patient("11001122","bob","sep2",date,"M","anywhere","12101210","anymail");
+    patientDAO.createPatient(patient);
+    Booking booking=new Booking(date,"08:00","tired","11001122");
+    bookingDAO.createBooking(booking);
+    assertTrue(bookingDAO.bookingExist(date,"08:00"));
+    bookingDAO.removeBooking(date,"08:00");
+    patientDAO.removePatient("11001122");
+
   }
 
   @Test void getBookings()

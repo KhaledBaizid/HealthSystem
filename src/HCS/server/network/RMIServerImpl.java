@@ -50,8 +50,10 @@ public class RMIServerImpl implements RMIServer
  //   model.addListener("HCSLogin",this::HCS);
   //  model.addListener("HCSGetRoles",this::sharedRoles);
     bookingModelServer.addListener("HCSGetBookings",this::sharedBookings);
+    patientModelServer.addListener("HCSGetBookings",this::sharedBookings);
    // model.addListener("PtientHasBooking",this::patientHasBooking);
     patientModelServer.addListener("HCSGetPatients",this::sharedPatients);
+
 
 
   }

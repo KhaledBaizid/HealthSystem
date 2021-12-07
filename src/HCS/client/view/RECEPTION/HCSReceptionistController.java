@@ -162,7 +162,7 @@ public class HCSReceptionistController
     bookingTableView.setItems(vm.getTableViewBookings());
 
     // vm.addListener("HCSLogin",this::succesfulLogin);
-    System.out.println("ReceptionController");
+   /* System.out.println("ReceptionController");
     firstname1Column.setCellValueFactory(new PropertyValueFactory<User,String>("firstname"));
     lastname1Column.setCellValueFactory(new PropertyValueFactory<User,String>("lastname"));
     birthday1Column.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
@@ -170,12 +170,12 @@ public class HCSReceptionistController
     passwordColumn.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
     roleColumn.setCellValueFactory(new PropertyValueFactory<User,String>("role"));
     vm.getModelRoles();
-    RoleTableView.setItems(vm.getTableViewRoles());
+    RoleTableView.setItems(vm.getTableViewRoles());*/
 
-    vm.addListener("PtientHasBooking",this::errorRemoving);
+    vm.addListener("PtientHasBooking",this::removingError);
   }
 
-  private void errorRemoving(PropertyChangeEvent event)
+  private void removingError(PropertyChangeEvent event)
   { boolean s= (boolean) event.getNewValue();
     System.out.println(s);
     if (s)

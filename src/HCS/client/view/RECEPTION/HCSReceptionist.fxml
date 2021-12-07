@@ -156,7 +156,7 @@
           </Tab>
         </tabs>
       </TabPane>
-      <TableView fx:id="patientTableView" layoutX="28.0" layoutY="471.0" onMouseClicked="#patientTableClicked" prefHeight="200.0" prefWidth="729.0">
+      <TableView fx:id="patientTableView" layoutX="28.0" layoutY="471.0" onMouseClicked="#patientTableClicked" prefHeight="200.0" prefWidth="729.0" stylesheets="@../../Design/style2.css">
         <columns>
           <TableColumn fx:id="cprNumberColumn" prefWidth="75.0" text="CPRNumber" />
           <TableColumn fx:id="firstnameColumn" prefWidth="75.0" text="Firstname" />
