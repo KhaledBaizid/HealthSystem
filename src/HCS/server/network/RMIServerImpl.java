@@ -192,9 +192,16 @@ public class RMIServerImpl implements RMIServer
     adminModelServer.RemoveUser(username);
   }
 
+  @Override public boolean patientExist(String cprNumber)
+  {
+    return patientModelServer.patientExist(cprNumber);
+  }
+
   @Override public void createPatient(Patient patient)
   {
-    System.out.println("ReceptionServer");
+   // System.out.println("ReceptionServer");
+  //  boolean find=patientModelServer.patientExist(patient.getCprNumber());
+   // if ()
     patientModelServer.createPatient(patient);
   }
 
@@ -238,6 +245,12 @@ public class RMIServerImpl implements RMIServer
     bookingModelServer.removeBooking(bookingDate, bookingTime);
   }
 
+  @Override public void updateBooking(Date bookingDate, String bookingTime,
+      Booking booking) throws RemoteException
+  {
+    bookingModelServer.updateBooking(bookingDate, bookingTime, booking);
+  }
+
   @Override public ArrayList<String> getAvailableTime(Date date)
   {
     return bookingModelServer.getAvailableTime(date);
@@ -275,6 +288,12 @@ public class RMIServerImpl implements RMIServer
       throws RemoteException
   {
     return prescriptionModelServer.getPrescriptions();
+  }
+
+  @Override public boolean isBookingHasAPrescription(Date bookingDate,
+      String bookingTime) throws RemoteException
+  {
+    return bookingModelServer.isBookingHasAPrescription(bookingDate, bookingTime);
   }
 
 }

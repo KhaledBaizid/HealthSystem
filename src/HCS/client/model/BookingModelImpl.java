@@ -57,6 +57,12 @@ public class BookingModelImpl implements BookingModel
     clientBooking.removeBooking(bookingDate, bookingTime);
   }
 
+  @Override public void updateBooking(Date bookingDate, String bookingTime,
+      Booking booking)
+  {
+    clientBooking.updateBooking(bookingDate, bookingTime, booking);
+  }
+
   @Override public ArrayList<String> getAvailableTime(Date date)
   {
     return clientBooking.getAvailableTime(date);
@@ -72,8 +78,14 @@ public class BookingModelImpl implements BookingModel
     clientBooking.GetPatientBookingsByDate(date);
   }
 
-  @Override public void isPatientHasABooking(String cprNumber)
+  @Override public boolean isPatientHasABooking(String cprNumber)
   {
-    clientBooking.isPatientHasABooking(cprNumber);
+    return clientBooking.isPatientHasABooking(cprNumber);
+  }
+
+  @Override public boolean isBookingHasAPrescription(Date bookingDate,
+      String bookingTime)
+  {
+    return clientBooking.isBookingHasAPrescription(bookingDate, bookingTime);
   }
 }

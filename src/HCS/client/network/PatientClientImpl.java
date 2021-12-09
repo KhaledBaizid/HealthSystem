@@ -172,6 +172,19 @@ public class PatientClientImpl implements PatientClient,ClientCallBack,
     }
   }
 
+  @Override public boolean patientExist(String cprNumber)
+  {
+    try
+    {
+      return server.patientExist(cprNumber);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
  /* @Override public void createBooking(Booking booking)
   {
     try

@@ -11,9 +11,11 @@ public interface BookingModel extends Subject
   void createBooking(Booking booking);
   void GetBookings();
   void removeBooking(Date bookingDate,String bookingTime );
+  void updateBooking(Date bookingDate,String bookingTime,Booking booking);
   ArrayList<String> getAvailableTime(Date date);
 
   void GetPatientBookings(String cprNumber);
   void GetPatientBookingsByDate(Date date);
-  void isPatientHasABooking(String cprNumber);
+  boolean isPatientHasABooking(String cprNumber);
+  boolean isBookingHasAPrescription(Date bookingDate,String bookingTime);
 }

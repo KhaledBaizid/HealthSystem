@@ -139,4 +139,34 @@ public class PrescriptionDAO implements ManagePrescriptionDAO
 
     return prescriptions;
   }
+
+  @Override public boolean isBookingHasAPrescription(Date bookingDate,
+      String bookingTime)
+  {
+    boolean exist=false;
+    //System.out.println("CREATEUSERDATABASE");
+    try(Connection connection = jdbcController.getConnection()) {
+
+      // System.out.println(username+""+password);
+      PreparedStatement statement = connection.prepareStatement
+          ("SELECT * FROM prescription WHERE bookingdate = ? AND bookingtime = ?");
+      statement.setDate(1,bookingDate);
+      statement.setString(2,bookingTime);
+      // statement.setString(2,password);
+      ResultSet resultSet = statement.executeQuery();
+      if (resultSet.next())
+      {
+        String a=resultSet.getString("bookingtime");
+        System.out.println(a);
+        if (a.equals(bookingTime))
+          exist = true;
+      }
+      // System.out.println(role);
+      // statement.executeUpdate();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+    //System.out.println(role);
+    return exist;
+  }
 }

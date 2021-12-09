@@ -97,6 +97,26 @@ public class BookingDAO implements ManageBookingDAO
 
   }
 
+  @Override public void updateBooking(Date bookingDate, String bookingTime, Booking booking)
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("UPDATE  booking  SET bookingdate = ?, bookingtime = ?, symptoms = ?  where bookingdate = ? AND bookingtime = ?");
+      statement.setDate(1,booking.getBookingDate());
+      statement.setString(2,booking.getBookingTime());
+      statement.setString(3,booking.getSymptoms());
+      statement.setDate(4,bookingDate);
+      statement.setString(5,bookingTime);
+
+      statement.executeUpdate();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+
+
+  }
+
   @Override public ArrayList<String> getAvailableTime(Date date)
   {
     ArrayList<String> timeAvalable = new ArrayList<>();

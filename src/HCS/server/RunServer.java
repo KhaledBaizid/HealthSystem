@@ -22,7 +22,7 @@ public class RunServer {
         LoginModelServerImpl serverModelLogin=new LoginModelServerImpl(loginDAO);
         AdminModelServerImpl adminModelServer=new AdminModelServerImpl(adminDAO);
         PatientModelServerImpl patientModelServer=new PatientModelServerImpl(patientDAO,bookingDAO);
-        BookingModelServerImpl bookingModelServer=new BookingModelServerImpl((bookingDAO));
+        BookingModelServerImpl bookingModelServer=new BookingModelServerImpl(bookingDAO,prescriptionDAO);
         PrescriptionModelServerImpl prescriptionModelServer=new PrescriptionModelServerImpl(prescriptionDAO);
 
         RMIServerImpl rs = new RMIServerImpl(serverModelLogin,adminModelServer,patientModelServer,bookingModelServer,prescriptionModelServer);

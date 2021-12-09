@@ -7,12 +7,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class LoginClientImpl implements LoginClient, ClientCallBack
+public class LoginClientImpl implements LoginClient , Remote//, ClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
@@ -47,11 +48,11 @@ public class LoginClientImpl implements LoginClient, ClientCallBack
 
   }*/
 
-  @Override public void sharedBookings(PropertyChangeEvent event)
+ /* @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException
   {
 
-  }
+  }*/
 
   @Override public void startClient()
   {
@@ -59,7 +60,7 @@ public class LoginClientImpl implements LoginClient, ClientCallBack
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
-      server.registerClient(this);
+    //  server.registerClient(this);
       // System.out.println("StartClient");
 
     } catch (RemoteException | NotBoundException e) {

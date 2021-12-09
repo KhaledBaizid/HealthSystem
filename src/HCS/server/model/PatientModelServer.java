@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public interface PatientModelServer extends Subject
 {
+  boolean patientExist(String cprNumber);
   void createPatient(Patient patient);
   void removePatient(String cprNumber);
   void updatePatient(String cprNumber,Patient patient);

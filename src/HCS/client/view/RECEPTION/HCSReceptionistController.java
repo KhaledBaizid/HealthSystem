@@ -123,6 +123,9 @@ public class HCSReceptionistController
   private BookingViewModel vmb;
   private Object HCSBookingController;
 
+  Date dateToBeChanged=null;
+  String timeToBeChanged="";
+
   public void init(ViewHandler vh, ReceptionViewModel vm)
   {
     this.vh=vh;
@@ -173,6 +176,45 @@ public class HCSReceptionistController
     RoleTableView.setItems(vm.getTableViewRoles());*/
 
     vm.addListener("PtientHasBooking",this::removingError);
+    vm.addListener("PatientExists",this::patientCreationError);
+    vm.addListener("BookingHasPrescription",this::removeBookingError);
+  }
+
+  private void removeBookingError(PropertyChangeEvent event)
+  {
+    boolean s= (boolean) event.getNewValue();
+    System.out.println(s);
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "You can not remove The Booking because it has a Prescription ");
+        alert.showAndWait();
+
+      });
+    }
+  }
+
+  private void patientCreationError(PropertyChangeEvent event)
+  {
+    boolean s= (boolean) event.getNewValue();
+    System.out.println(s);
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "The CPR Number is already used");
+        alert.showAndWait();
+
+      });
+    }
+
   }
 
   private void removingError(PropertyChangeEvent event)
@@ -271,6 +313,7 @@ public class HCSReceptionistController
   public void bookingTableClicked()
   {
 
+
     Booking booking=bookingTableView.getSelectionModel().getSelectedItem();
     bookingDatePicker1.setValue(booking.getBookingDate().toLocalDate());
     bookingCPRNumber1.setText(booking.getCprNumber());
@@ -278,8 +321,12 @@ public class HCSReceptionistController
     bookingLastname1.setText(booking.getLastname());
     symptoms1.setText(booking.getSymptoms());
     bookingTimeComboBox1.getSelectionModel().select(booking.getBookingTime());
+
+    dateToBeChanged= booking.getBookingDate();
+    timeToBeChanged=booking.getBookingTime();
+
   }
-  public void bookingDateClicked()
+  public void bookingTimeClicked()
   {
     LocalDate localDate=bookingDatePicker.getValue();
     Date date2=Date.valueOf(localDate);
@@ -305,6 +352,31 @@ public class HCSReceptionistController
   public void onBookingSearchDatePicker()
   {
     vm.GetPatientBookingsByDate(Date.valueOf(bookingSearchDatePicker.getValue()));
+  }
+
+  public void updateBooking()
+  {
+    LocalDate localDate=bookingDatePicker1.getValue();
+    Date date1=Date.valueOf(localDate);
+    Booking booking = new Booking(date1,bookingTimeComboBox1.getSelectionModel().getSelectedItem().toString(),symptoms1.textProperty().getValue(),
+        bookingCPRNumber1.textProperty().getValue());
+    vm.updateBooking(dateToBeChanged,timeToBeChanged,booking);
+
+  }
+
+  public void bookingTime1Clicked()
+  {
+    LocalDate localDate=bookingDatePicker1.getValue();
+    Date date2=Date.valueOf(localDate);
+    System.out.println(bookingDatePicker1.getValue().toString());
+    ArrayList<String> time=vm.getAvailableTime(date2);
+    // vm.getTimeAvailable(date2);
+    bookingTimeComboBox1.getItems().clear();
+    bookingTimeComboBox1.getItems().addAll("08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45",
+        "11:00","11:15","11:30","11:45","12:00","12:15","12:30","12:45","13:00","13:15","13:30","13:45","14:00","14:15","14:30","14:45","15:00","15:15","15:30","15:45");
+    bookingTimeComboBox1.getItems().removeAll(time);
+
+
   }
 
   public void BookForPatient()

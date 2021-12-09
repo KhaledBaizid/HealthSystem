@@ -2,6 +2,7 @@ package HCS.server.model;
 
 import HCS.DataBase.ManageBookingDAO;
 import HCS.DataBase.ManageLoginDAO;
+import HCS.DataBase.PrescriptionDAO;
 import HCS.shared.transferObjects.Booking;
 
 import java.beans.PropertyChangeListener;
@@ -14,10 +15,12 @@ public class BookingModelServerImpl implements BookingModelServer
 
   private PropertyChangeSupport support;
   private ManageBookingDAO bookingDAO;
+  private PrescriptionDAO prescriptionDAO;
 
-  public BookingModelServerImpl(ManageBookingDAO bookingDAO)
+  public BookingModelServerImpl(ManageBookingDAO bookingDAO,PrescriptionDAO prescriptionDAO)
   {
     this.bookingDAO=bookingDAO;
+    this.prescriptionDAO=prescriptionDAO;
     support=new PropertyChangeSupport(this);
   }
   @Override
@@ -65,6 +68,17 @@ public class BookingModelServerImpl implements BookingModelServer
     support.firePropertyChange("HCSGetBookings",null,booking1);
   }
 
+  @Override public void updateBooking(Date bookingDate, String bookingTime,
+      Booking booking)
+  {
+    bookingDAO.updateBooking(bookingDate, bookingTime, booking);
+    ArrayList<Booking> booking1;
+    booking1=bookingDAO.GetBookings();
+
+    support.firePropertyChange("HCSGetBookings",null,booking1);
+
+  }
+
   @Override public ArrayList<String> getAvailableTime(Date date)
   {
     return bookingDAO.getAvailableTime(date);
@@ -94,6 +108,12 @@ public class BookingModelServerImpl implements BookingModelServer
   @Override public boolean isPatientHasABooking(String cprNumber)
   {
     return bookingDAO.isPatientHasABooking(cprNumber);
+  }
+
+  @Override public boolean isBookingHasAPrescription(Date bookingDate,
+      String bookingTime)
+  {
+    return prescriptionDAO.isBookingHasAPrescription(bookingDate, bookingTime);
   }
 
 }

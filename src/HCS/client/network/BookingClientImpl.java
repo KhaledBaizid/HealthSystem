@@ -83,6 +83,19 @@ public class BookingClientImpl implements BookingClient, ClientCallBack
 
   }
 
+  @Override public void updateBooking(Date bookingDate, String bookingTime,
+      Booking booking)
+  {
+    try
+    {
+      server.updateBooking(bookingDate, bookingTime, booking);
+    }
+    catch (RemoteException e)
+    {
+
+    }
+  }
+
   @Override public ArrayList<String> getAvailableTime(Date date)
   {
     try
@@ -126,17 +139,33 @@ public class BookingClientImpl implements BookingClient, ClientCallBack
 
   }
 
-  @Override public void isPatientHasABooking(String cprNumber)
+  @Override public boolean isPatientHasABooking(String cprNumber)
   {
     try
     {
-      boolean find=server.isPatientHasABooking(cprNumber);
-      support.firePropertyChange("PtientHasBooking",null,find);
+      return server.isPatientHasABooking(cprNumber);
+
+     // support.firePropertyChange("PtientHasBooking",null,find);
     }
     catch (RemoteException e)
     {
       e.printStackTrace();
     }
+    return false;
+  }
+
+  @Override public boolean isBookingHasAPrescription(Date bookingDate,
+      String bookingTime)
+  {
+    try
+    {
+      return server.isBookingHasAPrescription(bookingDate, bookingTime);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+    return false;
   }
 
   @Override public void addListener(String eventName,

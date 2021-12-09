@@ -13,4 +13,5 @@ public interface ManagePrescriptionDAO
   void createPrescription(Prescription prescription);
   String getSpecificPrescription(Date bookingDate,String bookingTime,String prescriptionType);
   ArrayList<Prescription>  getPrescriptions();
+  boolean isBookingHasAPrescription(Date bookingDate,String bookingTime);
 }

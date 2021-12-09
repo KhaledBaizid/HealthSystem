@@ -19,6 +19,8 @@ public interface PatientClient extends Subject
   void GetPatients();
   void GetSpecificPatients(String search);
 
+  boolean patientExist(String cprNumber);
+
  /* void createBooking(Booking booking);
   void HCSGetBookings();
   void removeBooking(Date bookingDate,String bookingTime );

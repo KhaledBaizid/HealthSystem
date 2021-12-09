@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -18,7 +19,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class AdminClientImpl implements AdminClient, ClientCallBack
+public class AdminClientImpl implements AdminClient, Remote //ClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
@@ -34,7 +35,7 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
-      server.registerClient(this);
+     // server.registerClient(this);
      // System.out.println("StartClient");
 
     } catch (RemoteException | NotBoundException e) {
@@ -200,9 +201,9 @@ public class AdminClientImpl implements AdminClient, ClientCallBack
     support.firePropertyChange(event);
   }*/
 
-  @Override public void sharedBookings(PropertyChangeEvent event)
+ /* @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException
   {
 
-  }
+  }*/
 }

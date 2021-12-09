@@ -36,10 +36,15 @@ public class PatientModelServerImpl implements PatientModelServer
 
   }
 
+  @Override public boolean patientExist(String cprNumber)
+  {
+    return patientDAO.patientExist(cprNumber);
+  }
 
   @Override public void createPatient(Patient patient)
   {
     System.out.println("ReceptionModelServer");
+   // if (!patientDAO.patientExist(patient.getCprNumber()))
     patientDAO.createPatient(patient);
     //  userDAO.createPatient(cprnumber, firstname, Lastname);
 

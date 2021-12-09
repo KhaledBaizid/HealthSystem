@@ -74,6 +74,11 @@ public class PatientModelImpl implements PatientModel
     patientClient.GetSpecificPatients(search);
   }
 
+  @Override public boolean patientExist(String cprNumber)
+  {
+    return patientClient.patientExist(cprNumber);
+  }
+
  /* @Override public void createBooking(Booking booking)
   {
     System.out.println("BookingModel");

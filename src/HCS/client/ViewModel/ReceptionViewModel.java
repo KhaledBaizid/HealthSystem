@@ -38,7 +38,7 @@ public class ReceptionViewModel implements Subject
     model.addListener("HCSGetRoles",this::getRoles);
    // model.addListener("HCSGetBookings",this::getBookings);
 
-    bookingModel.addListener("PtientHasBooking",this::patientHasBooking);
+  //  bookingModel.addListener("PtientHasBooking",this::patientHasBooking);
     bookingModel.addListener("HCSGetBookings",this::getBookings);
    // model.addListener("HCSGetPatients",this::fireAll);
 
@@ -95,13 +95,19 @@ public class ReceptionViewModel implements Subject
   public void createPatient(Patient patient)
   {
     System.out.println("ReceptionViewModel");
+    if (!model.patientExist(patient.getCprNumber()))
     model.createPatient(patient);
+    else
+      support.firePropertyChange("PatientExists",null,true);
 
   }
   public void removePatient(String cprNumber)
-  { //if (bookingModel.)
-    bookingModel.isPatientHasABooking(cprNumber);
+  {
+
+   if(! bookingModel.isPatientHasABooking(cprNumber))
     model.removePatient(cprNumber);
+   else
+     support.firePropertyChange("PtientHasBooking",null,true);
   }
   public void updatePatient(String cprNumber,Patient patient)
   {
@@ -130,7 +136,15 @@ public class ReceptionViewModel implements Subject
   }
   public void removeBooking(Date bookingDate, String bookingTime)
   {
+    if (!bookingModel.isBookingHasAPrescription(bookingDate, bookingTime))
     bookingModel.removeBooking(bookingDate, bookingTime);
+    else
+      support.firePropertyChange("BookingHasPrescription",null,true);
+
+  }
+  public  void updateBooking(Date bookingDate,String bookingTime,Booking booking)
+  {
+    bookingModel.updateBooking(bookingDate, bookingTime, booking);
   }
   public ArrayList<String> getAvailableTime(Date date)
   {
