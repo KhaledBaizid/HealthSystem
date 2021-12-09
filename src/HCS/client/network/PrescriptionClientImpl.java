@@ -15,12 +15,13 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class DoctorClientImpl implements DoctorClient, ClientCallBack
+public class PrescriptionClientImpl
+    implements PrescriptionClient, ClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
 
-  public DoctorClientImpl()
+  public PrescriptionClientImpl()
   {
     this.support=new PropertyChangeSupport(this);
   }

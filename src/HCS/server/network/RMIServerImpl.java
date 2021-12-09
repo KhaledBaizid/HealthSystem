@@ -28,7 +28,7 @@ public class RMIServerImpl implements RMIServer
   private final AdminModelServer adminModelServer;
   private final PatientModelServer patientModelServer;
   private final BookingModelServer bookingModelServer;
-  private PrescriptionModelServer prescriptionModelServer;
+  private final PrescriptionModelServer prescriptionModelServer;
   private List<ClientCallBack> clients;
   private List<ClientReceptionCallBack> clients1;
   //private Object ClientloginCallBack;
@@ -44,10 +44,7 @@ public class RMIServerImpl implements RMIServer
     this.patientModelServer=patientModelServer;
     this.bookingModelServer=bookingModelServer;
     this.prescriptionModelServer=prescriptionModelServer;
-   // model.addListener(RequestType.RECEIVE_PUBLIC.toString(),this::publicMessageSent);
-   // model.addListener(RequestType.GET_ACTIVE_USERS.toString(),this::userAdded);
-  //  model.addListener(RequestType.UPDATE_ACTIVE_USERS.toString(),this::userdeleted);
- //   model.addListener("HCSLogin",this::HCS);
+
   //  model.addListener("HCSGetRoles",this::sharedRoles);
     bookingModelServer.addListener("HCSGetBookings",this::sharedBookings);
     patientModelServer.addListener("HCSGetBookings",this::sharedBookings);
@@ -141,15 +138,7 @@ public class RMIServerImpl implements RMIServer
     }
   }*/
 
- /* private void publicMessageSent(PropertyChangeEvent event) {
-    for (ClientCallBack i : clients){
-      try {
-        i.publicMessageSent(event);
-      } catch (RemoteException e) {
-        e.printStackTrace();
-      }
-    }
-  }*/
+
 
 
   public void startServer() throws RemoteException, AlreadyBoundException
@@ -158,29 +147,6 @@ public class RMIServerImpl implements RMIServer
     registry.bind("HCS",  this);
     System.out.println("ServerStart");
   }
-
-/*  @Override public boolean loginUser(User user)
-  {
-    System.out.println("UserloginServer");
-    return model.loginUser(user);
-  }
-
-
-  @Override public ArrayList<String> sendActiveUsersToClient()
-  {
- return model.sendActiveUsersToClient();
-  }
-
-  @Override public void sendPublicMessage(Message message)
-  {
-  model.sendPublicMessage(message);
-  }
-
-  @Override public void disconnect(User userDisconnecting)
-  {
-  model.disconnect(userDisconnecting);
-
-  }*/
 
   @Override
   public void registerClient(ClientCallBack clientCallBack) {

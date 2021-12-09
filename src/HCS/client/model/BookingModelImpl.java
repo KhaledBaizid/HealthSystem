@@ -1,7 +1,6 @@
 package HCS.client.model;
 
 import HCS.client.network.BookingClient;
-import HCS.client.network.DoctorClient;
 import HCS.shared.transferObjects.Booking;
 
 import java.beans.PropertyChangeEvent;

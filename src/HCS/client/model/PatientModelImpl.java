@@ -9,19 +9,19 @@ import java.beans.PropertyChangeSupport;
 
 public class PatientModelImpl implements PatientModel
 {
-  private PatientClient clientReception;
+  private PatientClient patientClient;
   private PropertyChangeSupport support;
 
-  public PatientModelImpl(PatientClient clientReception)
+  public PatientModelImpl(PatientClient patientClient)
   {
-    this.clientReception=clientReception;
+    this.patientClient=patientClient;
     support = new PropertyChangeSupport(this);
-    clientReception.startClient();
-    clientReception.addListener("HCSGetPatients",this::fireAll);
-    clientReception.addListener("HCSGetRoles", this::fireAll);
-    clientReception.addListener("HCSGetBookings",this::fireAll);
+    patientClient.startClient();
+    patientClient.addListener("HCSGetPatients",this::fireAll);
+    patientClient.addListener("HCSGetRoles", this::fireAll);
+    patientClient.addListener("HCSGetBookings",this::fireAll);
    // clientReception.addListener("PtientHasBooking",this::fireAll);
-    clientReception.addListener("HCSGetPatients",this::fireAll);
+    patientClient.addListener("HCSGetPatients",this::fireAll);
 
   }
 
@@ -33,20 +33,20 @@ public class PatientModelImpl implements PatientModel
   @Override public void createPatient(Patient patient)
   {
     System.out.println("ReceptionModel");
-   clientReception.createPatient(patient);
-   clientReception.GetPatients();
+    patientClient.createPatient(patient);
+    patientClient.GetPatients();
   }
 
   @Override public void removePatient(String cprNumber)
   {
-    clientReception.removePatient(cprNumber);
-    clientReception.GetPatients();
+    patientClient.removePatient(cprNumber);
+    patientClient.GetPatients();
   }
 
   @Override public void updatePatient(String cprNumber, Patient patient)
   {
-    clientReception.updatePatient(cprNumber, patient);
-    clientReception.GetPatients();
+    patientClient.updatePatient(cprNumber, patient);
+    patientClient.GetPatients();
   }
 
   @Override
@@ -61,17 +61,17 @@ public class PatientModelImpl implements PatientModel
   @Override public void HCSGetRoles()
   {
     System.out.println("model");
-    clientReception.HCSGetRoles();
+    patientClient.HCSGetRoles();
   }
 
   @Override public void GetPatients()
   {
-    clientReception.GetPatients();
+    patientClient.GetPatients();
   }
 
   @Override public void GetSpecificPatients(String search)
   {
-    clientReception.GetSpecificPatients(search);
+    patientClient.GetSpecificPatients(search);
   }
 
  /* @Override public void createBooking(Booking booking)

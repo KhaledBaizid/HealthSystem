@@ -6,9 +6,9 @@ import HCS.client.network.*;
 public class ClientFactory
 {
      AdminClient clientAdmin;
-     PatientClient clientReception;
+     PatientClient clientPatient;
      LoginClient clientLogin;
-     DoctorClient clientDoctor;
+     PrescriptionClient clientPrescription;
      BookingClient clientBooking;
 
 
@@ -25,10 +25,10 @@ public class ClientFactory
 
 
     //
-    public PatientClient getReceptionClient()
+    public PatientClient getPatientClient()
     {
-        if (clientReception == null) clientReception = new PatientClientImpl();
-        return clientReception;
+        if (clientPatient == null) clientPatient = new PatientClientImpl();
+        return clientPatient;
     }
     //
     public LoginClient getLoginClient()
@@ -37,9 +37,9 @@ public class ClientFactory
         return clientLogin;
     }
     //
-    public DoctorClient getDoctorClient()
+    public PrescriptionClient getPrescriptionClient()
     {
-        if (clientDoctor==null)clientDoctor=new DoctorClientImpl();
-        return clientDoctor;
+        if (clientPrescription==null)clientPrescription=new PrescriptionClientImpl();
+        return clientPrescription;
     }
 }

@@ -5,7 +5,7 @@ import HCS.shared.utility.Subject;
 
 import java.util.ArrayList;
 
-public interface DoctorClient extends Subject
+public interface PrescriptionClient extends Subject
 {
   void startClient();
   void HCSGetBookings();

@@ -12,16 +12,16 @@ import java.sql.Date;
 
 public class AdminModelImpl implements AdminModel
 {
-    private AdminClient client;
+    private AdminClient adminClient;
     private PropertyChangeSupport support;
 
     //private User user;
 
 
-    public AdminModelImpl(AdminClient client) {
+    public AdminModelImpl(AdminClient adminClient) {
         support = new PropertyChangeSupport(this);
-        this.client = client;
-        client.startClient();
+        this.adminClient = adminClient;
+        adminClient.startClient();
       //  user = new User();
 
        /* client.addListener(RequestType.SUCCESSFUL_LOGIN.toString(), this::fireAll);
@@ -30,8 +30,8 @@ public class AdminModelImpl implements AdminModel
         client.addListener(RequestType.GET_ACTIVE_USERS.toString(), this::fireAll);
         client.addListener(RequestType.RECEIVE_PUBLIC.toString(), this::fireAll);*/
 /////////////////////
-        client.addListener("HCSLogin", this::fireAll);
-        client.addListener("HCSGetRoles", this::fireAll);
+        adminClient.addListener("HCSLogin", this::fireAll);
+        adminClient.addListener("HCSGetRoles", this::fireAll);
 
         ////////////////////
 
@@ -84,18 +84,18 @@ public class AdminModelImpl implements AdminModel
     @Override public void CreateUser(String firstname, String lastname,
         Date birthday, String username, String password, String role)
     {
-        client.CreateUser(firstname, lastname, birthday, username, password, role);
-       client.GetUsers();
+        adminClient.CreateUser(firstname, lastname, birthday, username, password, role);
+        adminClient.GetUsers();
     }
 
     @Override public void GetUsers()
     {
         System.out.println("model");
-        client.GetUsers();
+        adminClient.GetUsers();
     }
 
     @Override public void RemoveUser(String username)
     {
-        client.RemoveUser(username);
+        adminClient.RemoveUser(username);
     }
 }

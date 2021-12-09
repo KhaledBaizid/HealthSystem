@@ -47,7 +47,7 @@ public class ViewModelFactory
   {
     if (receptionViewModel ==null)
       receptionViewModel = new ReceptionViewModel(
-           mf.getModelReception(), mf.getModelBooking());
+           mf.getModelPatient(), mf.getModelBooking());
     return receptionViewModel;
   }
 
@@ -60,7 +60,7 @@ public class ViewModelFactory
 
   public DoctorViewModel getHcsDoctorViewModel()
   {
-    if (doctorViewModel ==null) doctorViewModel =new DoctorViewModel(mf.getModelDoctor());
+    if (doctorViewModel ==null) doctorViewModel =new DoctorViewModel(mf.getModelPrescription(),mf.getModelBooking());
     return doctorViewModel;
   }
 

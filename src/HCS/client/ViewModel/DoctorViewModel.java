@@ -1,6 +1,7 @@
 package HCS.client.ViewModel;
 
-import HCS.client.model.DoctorModel;
+import HCS.client.model.BookingModel;
+import HCS.client.model.PrescriptionModel;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Prescription;
 import javafx.collections.FXCollections;
@@ -12,20 +13,23 @@ import java.util.ArrayList;
 
 public class DoctorViewModel
 {
-  private DoctorModel model;
+  private PrescriptionModel prescriptionModel;
+  private BookingModel bookingModel;
   private ObservableList<Booking> bookings;
   private ObservableList<Prescription> prescriptions;
-   String radio="all";
-  Date specificDate=null;
+  private  String radio;
+ private  Date specificDate;
 
-  public DoctorViewModel(DoctorModel model)
+  public DoctorViewModel(PrescriptionModel prescriptionModel, BookingModel bookingModel)
   {
-    this.model=model;
+    this.prescriptionModel=prescriptionModel;
+    this.bookingModel=bookingModel;
     bookings= FXCollections.observableArrayList();
     prescriptions=FXCollections.observableArrayList();
-
-    model.addListener("HCSGetBookings",this::getBookings);
-    model.addListener("HCSGetPrescriptions",this::getPrescriptions);
+    radio="all";
+    specificDate=null;
+    bookingModel.addListener("HCSGetBookings",this::getBookings);
+    prescriptionModel.addListener("HCSGetPrescriptions",this::getPrescriptions);
 
   }
 
@@ -39,16 +43,17 @@ public class DoctorViewModel
   {
 
 
-    if (getRadio().equals("all"))
-    { bookings.clear();
+   // if (getRadio().equals("all"))
+    //{
+      bookings.clear();
       bookings.addAll((ArrayList<Booking>) event.getNewValue());
-    }
+  /*  }
      else{
       bookings.clear();
       ArrayList<Booking> bookingsradio = (ArrayList<Booking>) event.getNewValue();
     for (int i=0;i<bookingsradio.size();i++)
     {
-      if (bookingsradio.get(i).getBookingDate() != getSpecificDate())
+      if (!bookingsradio.get(i).getBookingDate().toString().equals(getSpecificDate().toString()))
       {
         System.out.println(bookingsradio.get(i).getBookingDate());
         bookingsradio.remove(bookingsradio.get(i));
@@ -57,12 +62,13 @@ public class DoctorViewModel
       }
     }
     bookings.addAll(bookingsradio);
-  }
+  }*/
   }
 
   public void getModelBookings()
   {
-    model.HCSGetBookings();
+   // model.HCSGetBookings();
+    bookingModel.GetBookings();
   }
   public ObservableList<Booking> getTableViewBookings()
   {
@@ -74,27 +80,40 @@ public class DoctorViewModel
   }
   public void getPrescriptionsModel()
   {
-    model.getPrescriptions();
+    prescriptionModel.getPrescriptions();
   }
 
 
   public void createPrescription(Prescription prescription){
-    model.createPrescription(prescription);
+    prescriptionModel.createPrescription(prescription);
   }
 
   public void RadioButtonClicked(String s, Date date)
   {
-   radio=s;
-   specificDate=date;
+    this.setRadio(s);
+    this.setSpecificDate(date);
+  // radio=s;
+  // specificDate=date;
     System.out.println(radio+" "+date);
   }
 
-  public String getRadio()
+  public void setRadio(String radio)
+  {
+    this.radio = radio;
+  }
+
+  public void setSpecificDate(Date specificDate)
+  {
+    this.specificDate = specificDate;
+
+  }
+
+  private String getRadio()
   {
     return radio;
   }
 
-  public Date getSpecificDate()
+  private Date getSpecificDate()
   {
     return specificDate;
   }

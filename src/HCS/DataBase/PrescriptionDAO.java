@@ -127,7 +127,7 @@ public class PrescriptionDAO implements ManagePrescriptionDAO
 
 
         prescriptions.add(new Prescription(bookingDate,bookingTime,cprNumber,firstname,lastname,birthday,sex,symptoms,typeName,prescriptionText));
-        System.out.println(symptoms);
+      //  System.out.println(symptoms);
         // System.out.println(patients.get(0).getUsername());
 
       }

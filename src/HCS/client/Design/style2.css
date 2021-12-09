@@ -10,7 +10,7 @@
 }
 
 .table-view .column-header-background{
-    -fx-background-color: 	#EF5C8A;
+    -fx-background-color: 	#e07552;
     -fx-background-radius: 7px 7px 0px 0px;
     -fx-background-insets: 0 11px 0 0;
     -fx-padding: 0 0 5px 0;
@@ -27,13 +27,13 @@
 }
 
 .table-row-cell:odd{
-    -fx-background-color: 	#E9D1D8;
+    -fx-background-color: 	#f1cd7d;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }
 
 .table-row-cell:even{
-    -fx-background-color: #DCB9C4;
+    -fx-background-color: #f6da98;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }

@@ -5,10 +5,10 @@ import HCS.client.model.*;
 public class ModelFactory
 {
   private ClientFactory cf;
-  AdminModel model;
-  PatientModel modelReceptionInterface;
-  LoginModel modelLoginInterface;
-  DoctorModel modelDoctorInterface;
+  AdminModel adminModel;
+  PatientModel patientModel;
+  LoginModel loginModel;
+  PrescriptionModel prescriptionModel;
   BookingModel bookingModel;
 
   public ModelFactory(ClientFactory cf)
@@ -18,8 +18,8 @@ public class ModelFactory
 
   public AdminModel getModelAdmin()
   {
-    if (model == null) model = new AdminModelImpl(cf.getAdminClient());
-    return model;
+    if (adminModel == null) adminModel = new AdminModelImpl(cf.getAdminClient());
+    return adminModel;
   }
   public BookingModel getModelBooking()
   {
@@ -28,22 +28,22 @@ public class ModelFactory
   }
 
 
-  public PatientModel getModelReception()
+  public PatientModel getModelPatient()
   {
-    if (modelReceptionInterface == null) modelReceptionInterface = new PatientModelImpl(cf.getReceptionClient());
-    return modelReceptionInterface;
+    if (patientModel == null) patientModel = new PatientModelImpl(cf.getPatientClient());
+    return patientModel;
   }
 
   public LoginModel getModelLogin()
   {
-    if (modelLoginInterface==null) modelLoginInterface=new LoginModelImpl(cf.getLoginClient());
-        return modelLoginInterface;
+    if (loginModel==null) loginModel=new LoginModelImpl(cf.getLoginClient());
+        return loginModel;
   }
 
-  public DoctorModel getModelDoctor()
+  public PrescriptionModel getModelPrescription()
   {
-    if (modelDoctorInterface==null) modelDoctorInterface=new DoctorModelImpl(cf.getDoctorClient());
-    return modelDoctorInterface;
+    if (prescriptionModel==null) prescriptionModel=new PrescriptionModelImpl(cf.getPrescriptionClient());
+    return prescriptionModel;
   }
 
 
