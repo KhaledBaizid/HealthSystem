@@ -5,7 +5,7 @@ import java.sql.*;
 public class LoginDAO implements ManageLoginDAO
 {
   private JDBCController jdbcController;
-  private static  LoginDAO instance;
+  private static LoginDAO instance;
 
   private LoginDAO()
   {

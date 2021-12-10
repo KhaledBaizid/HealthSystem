@@ -86,20 +86,29 @@ public class ReceptionViewModel implements Subject
 
     return roles1;
   }
-  public void getModelRoles()
+ /* public void getModelRoles()
   {
     System.out.println("viewmodel");
     model.HCSGetRoles();
-  }
+  }*/
+   public boolean isPatientExist(String cprNumber)
+   {
+     return model.patientExist(cprNumber);
+   }
 
   public void createPatient(Patient patient)
   {
     System.out.println("ReceptionViewModel");
-    if (!model.patientExist(patient.getCprNumber()))
-    model.createPatient(patient);
+  //  if (!model.patientExist(patient.getCprNumber()))
+      if (!isPatientExist( patient.getCprNumber()))
+     addPatient(patient);
     else
       support.firePropertyChange("PatientExists",null,true);
 
+  }
+  public void addPatient(Patient patient)
+  {
+    model.createPatient(patient);
   }
   public void removePatient(String cprNumber)
   {
@@ -150,9 +159,9 @@ public class ReceptionViewModel implements Subject
   {
     return bookingModel.getAvailableTime(date);
   }
-  public void getPatientBookings(String cprNumber)
+  public void GetBookingsBYCprNumber(String cprNumber)
   {
-    bookingModel.GetPatientBookings(cprNumber);
+    bookingModel.GetBookingsBYCprNumber(cprNumber);
   }
   public void GetPatientBookingsByDate(Date date)
   {

@@ -45,7 +45,7 @@ public interface RMIServer extends Remote
  void removeBooking(Date bookingDate,String bookingTime ) throws RemoteException;
  void updateBooking(Date bookingDate,String bookingTime,Booking booking) throws RemoteException;
  ArrayList<String> getAvailableTime(Date date) throws RemoteException;
- ArrayList<Booking> GetPatientBookings(String cprNumber) throws RemoteException;
+ ArrayList<Booking> GetBookingsBYCprNumber(String cprNumber) throws RemoteException;
  ArrayList<Booking> GetPatientBookingsByDate(Date date) throws RemoteException;
  boolean isPatientHasABooking(String cprNumber) throws  RemoteException;
 
@@ -56,6 +56,8 @@ public interface RMIServer extends Remote
  void createPrescription(Prescription prescription) throws RemoteException;
  ArrayList<Prescription>  getPrescriptions() throws  RemoteException;
  boolean isBookingHasAPrescription(Date bookingDate,String bookingTime) throws RemoteException;
+ void removePrescription(Prescription prescription) throws RemoteException;
+ void updatePrescription(Date bookingDate,String bookingTime, String prescriptionType, String newPrescriptionType,String prescriptionText) throws RemoteException;
 
 
 

@@ -109,11 +109,11 @@ public class BookingClientImpl implements BookingClient, ClientCallBack
     return null;
   }
 
-  @Override public void GetPatientBookings(String cprNumber)
+  @Override public void GetBookingsBYCprNumber(String cprNumber)
   {
     try
     { ArrayList<Booking> bookings;
-      bookings= server.GetPatientBookings(cprNumber);
+      bookings= server.GetBookingsBYCprNumber(cprNumber);
       support.firePropertyChange("HCSGetBookings",null,bookings);
     // return bookings;
     }

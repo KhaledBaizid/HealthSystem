@@ -15,7 +15,7 @@ public class RunServer {
     {
         AdminDAO adminDAO = AdminDAO.getInstance();
         PatientDAO patientDAO= PatientDAO.getInstance();
-        LoginDAO loginDAO=LoginDAO.getInstance();
+        LoginDAO loginDAO = LoginDAO.getInstance();
         BookingDAO bookingDAO= BookingDAO.getInstance();
         PrescriptionDAO prescriptionDAO=PrescriptionDAO.getInstance();
        // MainDAO mainDAO=MainDAO.getInstance();

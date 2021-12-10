@@ -169,4 +169,49 @@ public class PrescriptionDAO implements ManagePrescriptionDAO
     //System.out.println(role);
     return exist;
   }
+
+  @Override public void removePrescription(Prescription prescription)
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("DELETE FROM prescription where bookingdate = ? AND bookingtime = ? AND typeName = ?");
+      statement.setDate(1,prescription.getBookingDate());
+      statement.setString(2,prescription.getBookingTime());
+      statement.setString(3,prescription.getPrescriptionType());
+      statement.executeUpdate();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
+  @Override public void updatePrescription(Date bookingDate, String bookingTime,
+      String prescriptionType, String newPrescriptionType,
+      String prescriptionText)
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("UPDATE  prescription  SET typeName = ?, prescriptionText = ? where bookingdate = ? AND bookingtime = ? AND typeName = ?");
+      statement.setString(1,newPrescriptionType);
+      statement.setString(2,prescriptionText);
+      statement.setDate(3,bookingDate);
+      statement.setString(4,bookingTime);
+      statement.setString(5,prescriptionType);
+
+      statement.executeUpdate();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+  }
+
+  @Override public ArrayList<Prescription> getPrescriptionsByPatient(
+      String cprNumber)
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Prescription> getPrescriptionsByDate()
+  {
+    return null;
+  }
 }

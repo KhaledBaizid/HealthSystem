@@ -176,7 +176,7 @@ public class HCSReceptionistController
     RoleTableView.setItems(vm.getTableViewRoles());*/
 
     vm.addListener("PtientHasBooking",this::removingError);
-    vm.addListener("PatientExists",this::patientCreationError);
+    vm.addListener("PatientExists",this::patientExists);
     vm.addListener("BookingHasPrescription",this::removeBookingError);
   }
 
@@ -198,7 +198,7 @@ public class HCSReceptionistController
     }
   }
 
-  private void patientCreationError(PropertyChangeEvent event)
+  private void patientExists(PropertyChangeEvent event)
   {
     boolean s= (boolean) event.getNewValue();
     System.out.println(s);
@@ -346,7 +346,7 @@ public class HCSReceptionistController
   }
   public void onBookingTyped()
   {
-    vm.getPatientBookings(bookingSearch.textProperty().getValue());
+    vm.GetBookingsBYCprNumber(bookingSearch.textProperty().getValue());
   }
 
   public void onBookingSearchDatePicker()

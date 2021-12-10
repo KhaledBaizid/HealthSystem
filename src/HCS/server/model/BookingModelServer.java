@@ -13,7 +13,7 @@ public interface BookingModelServer extends Subject
   void removeBooking(Date bookingDate,String bookingTime );
   void updateBooking(Date bookingDate,String bookingTime,Booking booking);
   ArrayList<String> getAvailableTime(Date date);
-  ArrayList<Booking> GetPatientBookings(String cprNumber);
+  ArrayList<Booking> GetBookingsBYCprNumber(String cprNumber);
   ArrayList<Booking> GetPatientBookingsByDate(Date date);
 
   boolean isPatientHasABooking(String cprNumber);

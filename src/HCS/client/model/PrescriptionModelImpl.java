@@ -6,6 +6,7 @@ import HCS.shared.transferObjects.Prescription;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.sql.Date;
 
 public class PrescriptionModelImpl implements PrescriptionModel
 {
@@ -17,13 +18,19 @@ public class PrescriptionModelImpl implements PrescriptionModel
     this.prescriptionClient=prescriptionClient;
     this.support= new PropertyChangeSupport(this);
     prescriptionClient.startClient();
-    prescriptionClient.addListener("HCSGetBookings",this::fireforward);
-    prescriptionClient.addListener("HCSGetPrescriptions",this::fireforward);
+    prescriptionClient.addListener("HCSGetBookings",this::fireBookings);
+    prescriptionClient.addListener("HCSGetPrescriptions",this::firePrescriptions);
   }
 
-  private void fireforward(PropertyChangeEvent event)
+  private void fireBookings(PropertyChangeEvent event)
+  {
+    support.firePropertyChange(event);
+  }
+
+  private void firePrescriptions(PropertyChangeEvent event)
   {support.firePropertyChange(event);
   }
+
 
   @Override public void addListener(String eventName,
       PropertyChangeListener listener)
@@ -49,6 +56,20 @@ public class PrescriptionModelImpl implements PrescriptionModel
 
   @Override public void getPrescriptions()
   {
+    prescriptionClient.getPrescriptions();
+  }
+
+  @Override public void removePrescription(Prescription prescription)
+  {
+    prescriptionClient.removePrescription(prescription);
+    prescriptionClient.getPrescriptions();
+  }
+
+  @Override public void updatePrescription(Date bookingDate, String bookingTime,
+      String prescriptionType, String newPrescriptionType,
+      String prescriptionText)
+  {
+    prescriptionClient.updatePrescription(bookingDate, bookingTime, prescriptionType, newPrescriptionType, prescriptionText);
     prescriptionClient.getPrescriptions();
   }
 }

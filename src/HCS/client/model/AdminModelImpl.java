@@ -30,14 +30,14 @@ public class AdminModelImpl implements AdminModel
         client.addListener(RequestType.GET_ACTIVE_USERS.toString(), this::fireAll);
         client.addListener(RequestType.RECEIVE_PUBLIC.toString(), this::fireAll);*/
 /////////////////////
-        adminClient.addListener("HCSLogin", this::fireAll);
-        adminClient.addListener("HCSGetRoles", this::fireAll);
+      //  adminClient.addListener("HCSLogin", this::fireAll);
+        adminClient.addListener("HCSGetRoles", this::fireUsers);
 
         ////////////////////
 
     }
 
-    private void fireAll(PropertyChangeEvent event) {
+    private void fireUsers(PropertyChangeEvent event) {
        support.firePropertyChange(event);
     }
 

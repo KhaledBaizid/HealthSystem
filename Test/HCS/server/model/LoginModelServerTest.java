@@ -17,7 +17,7 @@ class LoginModelServerTest
   @BeforeEach
   public void arrange() {
 
-    loginDAO= LoginDAO.getInstance();
+    loginDAO = LoginDAO.getInstance();
      adminDAO=AdminDAO.getInstance();
   }
 
@@ -31,16 +31,16 @@ class LoginModelServerTest
     adminDAO.CreateUser("receptionist","receptionist",date,"receptionist","receptionist","RECEPTION");
     adminDAO.CreateUser("Doc","Doc",date,"Doc","Doc","DOCTOR");
 
-    String role=loginDAO.Login("administrator","adminstrator");
+    String role= loginDAO.Login("administrator","adminstrator");
     assertTrue(role.equals("ADMIN"));
 
-    role=loginDAO.Login("receptionist","receptionist");
+    role= loginDAO.Login("receptionist","receptionist");
     assertTrue(role.equals("RECEPTION"));
 
-    role=loginDAO.Login("Doc","Doc");
+    role= loginDAO.Login("Doc","Doc");
     assertTrue(role.equals("DOCTOR"));
 
-    role=loginDAO.Login("bbbb","abbb");
+    role= loginDAO.Login("bbbb","abbb");
     assertTrue(role==null);
     adminDAO.RemoveUser("administrator");
     adminDAO.RemoveUser("receptionist");

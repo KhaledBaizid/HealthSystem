@@ -84,11 +84,11 @@ public class BookingModelServerImpl implements BookingModelServer
     return bookingDAO.getAvailableTime(date);
   }
 
-  @Override public ArrayList<Booking> GetPatientBookings(String cprNumber)
+  @Override public ArrayList<Booking> GetBookingsBYCprNumber(String cprNumber)
   {
     // return bookingDAO.GetPatientBookings(cprNumber);
     ArrayList<Booking> booking1;
-    booking1=bookingDAO.GetPatientBookings(cprNumber);
+    booking1=bookingDAO.GetBookingsBYCprNumber(cprNumber);
     //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
     // return userDAO.HCSGetRoles();
     // support.firePropertyChange("HCSGetBookings",null,booking1);

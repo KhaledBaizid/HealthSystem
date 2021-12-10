@@ -19,11 +19,11 @@ public class AdminViewModel
   {
     this.model=model;
     roles1= FXCollections.observableArrayList();
-    model.addListener("HCSGetRoles",this::getRoles);
+    model.addListener("HCSGetRoles",this::getUsers);
 
   }
 
-  private void getRoles(PropertyChangeEvent event)
+  private void getUsers(PropertyChangeEvent event)
   {
     roles1.clear();
     ArrayList<User> users =(ArrayList<User>) event.getNewValue();

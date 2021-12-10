@@ -14,4 +14,10 @@ public interface ManagePrescriptionDAO
   String getSpecificPrescription(Date bookingDate,String bookingTime,String prescriptionType);
   ArrayList<Prescription>  getPrescriptions();
   boolean isBookingHasAPrescription(Date bookingDate,String bookingTime);
+  void removePrescription(Prescription prescription);
+  void updatePrescription(Date bookingDate,String bookingTime, String prescriptionType, String newPrescriptionType,String prescriptionText);
+
+  ArrayList<Prescription> getPrescriptionsByPatient(String cprNumber);
+  ArrayList<Prescription> getPrescriptionsByDate();
+
 }

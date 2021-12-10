@@ -58,7 +58,7 @@ public class HCSDoctorController
   @FXML private DatePicker specificDatePicker;
   ////
 
-
+  String oldPrescriptionType="";
 
   private ViewHandler vh;
   private DoctorViewModel vm;
@@ -142,11 +142,13 @@ public class HCSDoctorController
     Prescription prescription= PrescriptionTableView.getSelectionModel().getSelectedItem();
     bookingDatePicker1.setValue(prescription.getBookingDate().toLocalDate());
     bookingTime1.setText(prescription.getBookingTime());
-    CPRNumberTextField1.setText(prescription.getFirstname());
+    CPRNumberTextField1.setText(prescription.getCprNumber());
     firstnameTextField1.setText(prescription.getFirstname());
     lastnameTextField1.setText(prescription.getLastname());
     prescriptionComboBox1.getSelectionModel().select(prescription.getPrescriptionType());
     prescreptionTextArea1.setText(prescription.getPrescriptionText());
+
+    oldPrescriptionType=prescription.getPrescriptionType();
 
   }
 
@@ -154,11 +156,32 @@ public class HCSDoctorController
   {
    // System.out.println("radiobuttonAll");
     vm.RadioButtonClicked("all",null);
+    vm.getModelBookings();
   }
   public void onSpecificBookingsRadioButton()
   {
   //  System.out.println("radiobuttonSpecific");
     vm.RadioButtonClicked("specific",Date.valueOf(specificDatePicker.getValue()));
+  }
+
+  public void removePrescription()
+  {
+    Prescription prescription=new Prescription(Date.valueOf(bookingDatePicker1.getValue()),bookingTime1.textProperty().getValue(),
+        prescriptionComboBox1.getSelectionModel().getSelectedItem().toString(),
+      prescreptionTextArea1.textProperty().getValue());
+    vm.removePrescription(prescription);
+    //vm.removePrescription();
+  }
+
+  public void updatePrescription()
+  {
+    vm.updatePrescription(Date.valueOf(bookingDatePicker1.getValue()),bookingTime1.textProperty().getValue(),oldPrescriptionType,
+        prescriptionComboBox1.getSelectionModel().getSelectedItem().toString(),prescreptionTextArea1.textProperty().getValue());
+  }
+
+  public void onBookingSearchDatePicker()
+  {
+    vm.GetPatientBookingsByDate(Date.valueOf(specificDatePicker.getValue()));
   }
 
 

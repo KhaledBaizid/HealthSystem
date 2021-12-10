@@ -21,7 +21,7 @@ class PatientModelServerTest
   @BeforeEach
   public void arrange() {
 
-    loginDAO= LoginDAO.getInstance();
+    loginDAO = LoginDAO.getInstance();
     adminDAO=AdminDAO.getInstance();
     patientDAO=PatientDAO.getInstance();
 

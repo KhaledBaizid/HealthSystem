@@ -17,15 +17,15 @@ public class PatientModelImpl implements PatientModel
     this.patientClient=patientClient;
     support = new PropertyChangeSupport(this);
     patientClient.startClient();
-    patientClient.addListener("HCSGetPatients",this::fireAll);
-    patientClient.addListener("HCSGetRoles", this::fireAll);
-    patientClient.addListener("HCSGetBookings",this::fireAll);
+    patientClient.addListener("HCSGetPatients",this::fireForward);
+   // patientClient.addListener("HCSGetRoles", this::fireForward);
+    patientClient.addListener("HCSGetBookings",this::fireForward);
    // clientReception.addListener("PtientHasBooking",this::fireAll);
-    patientClient.addListener("HCSGetPatients",this::fireAll);
+    patientClient.addListener("HCSGetPatients",this::fireForward);
 
   }
 
-  private void fireAll(PropertyChangeEvent event)
+  private void fireForward(PropertyChangeEvent event)
   {
     support.firePropertyChange(event);
   }
@@ -58,11 +58,11 @@ public class PatientModelImpl implements PatientModel
   public void removeListener(String eventName, PropertyChangeListener listener) {
     support.removePropertyChangeListener(eventName, listener);
   }
-  @Override public void HCSGetRoles()
+ /* @Override public void HCSGetRoles()
   {
     System.out.println("model");
     patientClient.HCSGetRoles();
-  }
+  }*/
 
   @Override public void GetPatients()
   {

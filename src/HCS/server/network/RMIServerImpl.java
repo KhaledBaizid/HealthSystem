@@ -256,9 +256,9 @@ public class RMIServerImpl implements RMIServer
     return bookingModelServer.getAvailableTime(date);
   }
 
-  @Override public ArrayList<Booking> GetPatientBookings(String cprNumber)
+  @Override public ArrayList<Booking> GetBookingsBYCprNumber(String cprNumber)
   {
-    return bookingModelServer.GetPatientBookings(cprNumber);
+    return bookingModelServer.GetBookingsBYCprNumber(cprNumber);
   }
 
   @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
@@ -294,6 +294,19 @@ public class RMIServerImpl implements RMIServer
       String bookingTime) throws RemoteException
   {
     return bookingModelServer.isBookingHasAPrescription(bookingDate, bookingTime);
+  }
+
+  @Override public void removePrescription(Prescription prescription)
+      throws RemoteException
+  {
+    prescriptionModelServer.removePrescription(prescription);
+  }
+
+  @Override public void updatePrescription(Date bookingDate, String bookingTime,
+      String prescriptionType, String newPrescriptionType,
+      String prescriptionText) throws RemoteException
+  {
+    prescriptionModelServer.updatePrescription(bookingDate, bookingTime, prescriptionType, newPrescriptionType, prescriptionText);
   }
 
 }

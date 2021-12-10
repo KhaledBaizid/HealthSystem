@@ -13,7 +13,7 @@ public interface PatientModel extends Subject
   void createPatient(Patient patient);
   void removePatient(String cprNumber);
   void updatePatient(String cprNumber,Patient patient);
-  void HCSGetRoles();
+//  void HCSGetRoles();
   void GetPatients();
   void GetSpecificPatients(String search);
 

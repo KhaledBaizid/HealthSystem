@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class PrescriptionClientImpl
@@ -41,7 +42,7 @@ public class PrescriptionClientImpl
     
   }
 
-  @Override public void HCSGetBookings()
+ /* @Override public void HCSGetBookings()
   {
     try
     {
@@ -53,7 +54,7 @@ public class PrescriptionClientImpl
     {
       e.printStackTrace();
     }
-  }
+  }*/
 
   @Override public void createPrescription(Prescription prescription)
   {
@@ -74,6 +75,32 @@ public class PrescriptionClientImpl
       ArrayList<Prescription> prescriptions;
       prescriptions= server.getPrescriptions();
       support.firePropertyChange("HCSGetPrescriptions",null,prescriptions);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void removePrescription(Prescription prescription)
+  {
+    try
+    {
+      server.removePrescription(prescription);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void updatePrescription(Date bookingDate, String bookingTime,
+      String prescriptionType, String newPrescriptionType,
+      String prescriptionText)
+  {
+    try
+    {
+      server.updatePrescription(bookingDate, bookingTime, prescriptionType, newPrescriptionType, prescriptionText);
     }
     catch (RemoteException e)
     {

@@ -22,7 +22,7 @@ class BookingModelServerTest
   @BeforeEach
   public void arrange() {
 
-    loginDAO= LoginDAO.getInstance();
+    loginDAO = LoginDAO.getInstance();
     adminDAO=AdminDAO.getInstance();
     patientDAO=PatientDAO.getInstance();
     bookingDAO=BookingDAO.getInstance();
@@ -51,6 +51,19 @@ class BookingModelServerTest
 
   @Test void removeBooking()
   {
+    String str = "1990-03-31";
+    Date date = Date.valueOf(str);
+    patientDAO.removePatient("11001122");
+    Patient patient = new Patient("11001122", "bob", "sep2", date, "M",
+        "anywhere", "12101210", "anymail");
+    patientDAO.createPatient(patient);
+    Booking booking = new Booking(date, "08:00", "tired", "11001122");
+    bookingDAO.createBooking(booking);
+  //  assertTrue(bookingDAO.bookingExist(date, "08:00"));
+    bookingDAO.removeBooking(date, "08:00");
+    assertFalse(bookingDAO.bookingExist(date, "08:00"));
+    patientDAO.removePatient("11001122");
+
   }
 
   @Test void updateBooking()
@@ -61,7 +74,7 @@ class BookingModelServerTest
   {
   }
 
-  @Test void getPatientBookings()
+  @Test void GetBookingsBYCprNumber()
   {
   }
 
@@ -71,9 +84,23 @@ class BookingModelServerTest
 
   @Test void isPatientHasABooking()
   {
+    String str = "1990-03-31";
+    Date date = Date.valueOf(str);
+    patientDAO.removePatient("11001122");
+    Patient patient = new Patient("11001122", "bob", "sep2", date, "M",
+        "anywhere", "12101210", "anymail");
+    patientDAO.createPatient(patient);
+    Booking booking = new Booking(date, "08:00", "tired", "11001122");
+    bookingDAO.createBooking(booking);
+    assertTrue(bookingDAO.isPatientHasABooking("11001122"));
+    //  assertTrue(bookingDAO.bookingExist(date, "08:00"));
+    bookingDAO.removeBooking(date, "08:00");
+   // assertFalse(bookingDAO.bookingExist(date, "08:00"));
+    patientDAO.removePatient("11001122");
   }
 
   @Test void isBookingHasAPrescription()
   {
+
   }
 }

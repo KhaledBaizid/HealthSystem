@@ -186,7 +186,7 @@ public class BookingDAO implements ManageBookingDAO
     return find;
   }
 
-  @Override public ArrayList<Booking> GetPatientBookings(String cprNumber1)
+  @Override public ArrayList<Booking> GetBookingsBYCprNumber(String cprNumber1)
   {
     ArrayList<Booking> bookings=new ArrayList<>();
     ///

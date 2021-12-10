@@ -52,7 +52,7 @@ public class BookingViewModel
   ///////////
   public void getPatientBookings(String cprNumber)
   {
-    model.GetPatientBookings(cprNumber);
+    model.GetBookingsBYCprNumber(cprNumber);
   }
 
   //////////

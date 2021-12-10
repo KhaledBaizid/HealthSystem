@@ -20,12 +20,12 @@ public class LoginViewModel implements Subject
   public LoginViewModel(LoginModel model)
   {support = new PropertyChangeSupport(this);
     this.model=model;
-    model.addListener("HCSLogin", this::firePropertyForward);
+    model.addListener("HCSLogin", this::fireRole);
     //model.addListener(RequestType.EXISTING_USERNAME.toString(), this::updateErrorLabel);
     this.error = new SimpleStringProperty("");
   }
 
-  private void firePropertyForward(PropertyChangeEvent event)
+  private void fireRole(PropertyChangeEvent event)
   {
     if (event.getNewValue()!=null)
     support.firePropertyChange(event);

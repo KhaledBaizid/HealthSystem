@@ -17,8 +17,10 @@ public class DoctorViewModel
   private BookingModel bookingModel;
   private ObservableList<Booking> bookings;
   private ObservableList<Prescription> prescriptions;
-  private  String radio;
- private  Date specificDate;
+    String radio;
+   Date specificDate;
+  ArrayList<Booking> bookingsradio;
+  ArrayList<Booking> bookingsradio1;
 
   public DoctorViewModel(PrescriptionModel prescriptionModel, BookingModel bookingModel)
   {
@@ -28,6 +30,8 @@ public class DoctorViewModel
     prescriptions=FXCollections.observableArrayList();
     radio="all";
     specificDate=null;
+    bookingsradio=new ArrayList<>();
+    bookingsradio1=new ArrayList<>();
     bookingModel.addListener("HCSGetBookings",this::getBookings);
     prescriptionModel.addListener("HCSGetPrescriptions",this::getPrescriptions);
 
@@ -42,27 +46,35 @@ public class DoctorViewModel
   private void getBookings(PropertyChangeEvent event)
   {
 
+    System.out.println("GETBOOKINGSSSSSSSSSSSSSSSSS"+specificDate);
 
-   // if (getRadio().equals("all"))
-    //{
+    if (radio.equals("all"))
+    {
       bookings.clear();
       bookings.addAll((ArrayList<Booking>) event.getNewValue());
-  /*  }
-     else{
-      bookings.clear();
-      ArrayList<Booking> bookingsradio = (ArrayList<Booking>) event.getNewValue();
-    for (int i=0;i<bookingsradio.size();i++)
-    {
-      if (!bookingsradio.get(i).getBookingDate().toString().equals(getSpecificDate().toString()))
-      {
-        System.out.println(bookingsradio.get(i).getBookingDate());
-        bookingsradio.remove(bookingsradio.get(i));
-
-
-      }
+      System.out.println("ALLLLLL");
     }
-    bookings.addAll(bookingsradio);
-  }*/
+     else if (radio.equals("specific")){
+
+
+      bookingsradio1.clear();
+      bookingsradio.clear();
+     bookingsradio.addAll((ArrayList<Booking>) event.getNewValue());
+      for (Booking booking : bookingsradio)
+      {
+        if (booking.getBookingDate().toString()
+            .equals(specificDate.toString()))
+        {
+          bookingsradio1.add(booking);
+          System.out.println("bookingradioremooooooooove");
+        }
+        System.out.println(
+            "Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+      }
+      bookings.clear();
+      bookings.addAll( bookingsradio1);
+
+  } else {}
   }
 
   public void getModelBookings()
@@ -92,9 +104,10 @@ public class DoctorViewModel
   {
     this.setRadio(s);
     this.setSpecificDate(date);
-  // radio=s;
+   // specificDate=date;
+   radio=s;
   // specificDate=date;
-    System.out.println(radio+" "+date);
+   // System.out.println(radio+" "+date);
   }
 
   public void setRadio(String radio)
@@ -116,5 +129,21 @@ public class DoctorViewModel
   private Date getSpecificDate()
   {
     return specificDate;
+  }
+
+  public void removePrescription(Prescription prescription)
+  {
+    prescriptionModel.removePrescription(prescription);
+  }
+
+  public void updatePrescription(Date bookingDate,String bookingTime, String prescriptionType, String newPrescriptionType,String prescriptionText)
+  {
+    prescriptionModel.updatePrescription(bookingDate, bookingTime, prescriptionType, newPrescriptionType, prescriptionText);
+  }
+  public void GetPatientBookingsByDate(Date date)
+  {
+    specificDate=date;
+    bookingModel.GetPatientBookingsByDate(date);
+
   }
 }
