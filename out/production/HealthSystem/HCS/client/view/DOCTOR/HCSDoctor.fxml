@@ -113,8 +113,20 @@
          </font>
       </Label>
       <Separator layoutX="3.0" layoutY="545.0" prefHeight="0.0" prefWidth="1165.0" />
-      <RadioButton fx:id="allBookingsRadioButton" layoutX="83.0" layoutY="557.0" mnemonicParsing="false" onMouseClicked="#onAllBookingsRadioButton" text="RadioButton" />
-      <RadioButton fx:id="specificBookingRadioButton" layoutX="194.0" layoutY="557.0" mnemonicParsing="false" onMouseClicked="#onSpecificBookingsRadioButton" text="RadioButton" />
+      <RadioButton fx:id="allBookingsRadioButton" layoutX="77.0" layoutY="557.0" mnemonicParsing="false" onMouseClicked="#onAllBookingsRadioButton" text="All Bookings" />
+      <RadioButton fx:id="specificBookingRadioButton" layoutX="194.0" layoutY="557.0" mnemonicParsing="false" onMouseClicked="#onSpecificBookingsRadioButton" text="Specific Date" />
       <DatePicker fx:id="specificDatePicker" layoutX="287.0" layoutY="553.0" onMouseClicked="#onBookingSearchDatePicker" />
+      <TextField fx:id="searchByCprNumber" layoutX="87.0" layoutY="279.0" onKeyTyped="#getPrescriptionsByCptNumber" promptText="By CPR Number" />
+      <DatePicker fx:id="prescriptionSearchByDate" layoutX="267.0" layoutY="279.0" onMouseClicked="#onPrescriptionDatePickerClicked" />
+      <Label layoutX="240.0" layoutY="283.0" text="OR">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="170.0" layoutY="557.0" text="OR">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

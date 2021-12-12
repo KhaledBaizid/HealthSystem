@@ -1,6 +1,6 @@
 package HCS.client.model;
 
-import HCS.client.network.AdminClient;
+import HCS.client.network.UserClient;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
 //import HCS.shared.transferObjects.User;
@@ -10,18 +10,18 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.Date;
 
-public class AdminModelImpl implements AdminModel
+public class UserModelImpl implements UserModel
 {
-    private AdminClient adminClient;
+    private UserClient userClient;
     private PropertyChangeSupport support;
 
     //private User user;
 
 
-    public AdminModelImpl(AdminClient adminClient) {
+    public UserModelImpl(UserClient userClient) {
         support = new PropertyChangeSupport(this);
-        this.adminClient = adminClient;
-        adminClient.startClient();
+        this.userClient = userClient;
+        userClient.startClient();
       //  user = new User();
 
        /* client.addListener(RequestType.SUCCESSFUL_LOGIN.toString(), this::fireAll);
@@ -31,7 +31,7 @@ public class AdminModelImpl implements AdminModel
         client.addListener(RequestType.RECEIVE_PUBLIC.toString(), this::fireAll);*/
 /////////////////////
       //  adminClient.addListener("HCSLogin", this::fireAll);
-        adminClient.addListener("HCSGetRoles", this::fireUsers);
+        userClient.addListener("HCSGetRoles", this::fireUsers);
 
         ////////////////////
 
@@ -84,18 +84,19 @@ public class AdminModelImpl implements AdminModel
     @Override public void CreateUser(String firstname, String lastname,
         Date birthday, String username, String password, String role)
     {
-        adminClient.CreateUser(firstname, lastname, birthday, username, password, role);
-        adminClient.GetUsers();
+        userClient
+            .CreateUser(firstname, lastname, birthday, username, password, role);
+        userClient.GetUsers();
     }
 
     @Override public void GetUsers()
     {
         System.out.println("model");
-        adminClient.GetUsers();
+        userClient.GetUsers();
     }
 
     @Override public void RemoveUser(String username)
     {
-        adminClient.RemoveUser(username);
+        userClient.RemoveUser(username);
     }
 }

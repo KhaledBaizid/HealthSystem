@@ -5,7 +5,7 @@ import HCS.shared.transferObjects.User;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public interface ManageAdminDAO
+public interface ManageUserDAO
 {
  // void createUser(String username);
   //String HCSLogin(String username,String password);

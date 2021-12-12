@@ -1,6 +1,6 @@
 package HCS.server.model;
 
-import HCS.DataBase.AdminDAO;
+import HCS.DataBase.UserDAO;
 import HCS.DataBase.LoginDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class LoginModelServerTest
 {
   LoginDAO loginDAO;
-  AdminDAO adminDAO;
+  UserDAO adminDAO;
   Date date= new Date(-1970);
   @BeforeEach
   public void arrange() {
 
     loginDAO = LoginDAO.getInstance();
-     adminDAO=AdminDAO.getInstance();
+     adminDAO= UserDAO.getInstance();
   }
 
   @Test void login()

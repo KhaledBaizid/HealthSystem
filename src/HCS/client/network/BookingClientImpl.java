@@ -1,7 +1,7 @@
 package HCS.client.network;
 
 import HCS.server.network.RMIServer;
-import HCS.shared.ClientCallBack;
+import HCS.shared.BookingClientCallBack;
 import HCS.shared.transferObjects.Booking;
 
 import java.beans.PropertyChangeEvent;
@@ -14,9 +14,9 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.stream.BaseStream;
 
-public class BookingClientImpl implements BookingClient, ClientCallBack
+public class BookingClientImpl
+    implements BookingClient, BookingClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;

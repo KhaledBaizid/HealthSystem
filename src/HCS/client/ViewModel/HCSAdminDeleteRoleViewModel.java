@@ -1,12 +1,12 @@
 package HCS.client.ViewModel;
 
-import HCS.client.model.AdminModel;
+import HCS.client.model.UserModel;
 
 public class HCSAdminDeleteRoleViewModel
 {
-  private AdminModel model;
+  private UserModel model;
 
-  public HCSAdminDeleteRoleViewModel(AdminModel model)
+  public HCSAdminDeleteRoleViewModel(UserModel model)
   {
     this.model=model;
   }

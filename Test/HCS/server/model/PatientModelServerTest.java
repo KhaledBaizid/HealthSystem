@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PatientModelServerTest
 {
   LoginDAO loginDAO;
-  AdminDAO adminDAO;
+  UserDAO adminDAO;
   PatientDAO patientDAO;
 
   Date date= new Date(-1970);
@@ -22,7 +22,7 @@ class PatientModelServerTest
   public void arrange() {
 
     loginDAO = LoginDAO.getInstance();
-    adminDAO=AdminDAO.getInstance();
+    adminDAO= UserDAO.getInstance();
     patientDAO=PatientDAO.getInstance();
 
 

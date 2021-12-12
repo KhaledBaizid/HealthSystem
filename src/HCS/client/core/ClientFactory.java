@@ -5,16 +5,16 @@ import HCS.client.network.*;
 
 public class ClientFactory
 {
-     AdminClient clientAdmin;
+     UserClient clientAdmin;
      PatientClient clientPatient;
      LoginClient clientLogin;
      PrescriptionClient clientPrescription;
      BookingClient clientBooking;
 
 
-    public AdminClient getAdminClient()
+    public UserClient getAdminClient()
     {
-        if (clientAdmin == null) clientAdmin = new AdminClientImpl();
+        if (clientAdmin == null) clientAdmin = new UserClientImpl();
         return clientAdmin;
     }
     public BookingClient getBookingClient()

@@ -108,9 +108,9 @@ public class PrescriptionDAO implements ManagePrescriptionDAO
     ArrayList<Prescription> prescriptions=new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement(" select patient.cprnumber,patient.firstname,patient.lastname,patient.birthday,patient.sex,booking.bookingdate,booking.bookingtime,booking.symptoms,prescription.typename,prescription.prescriptiontext \n"
-          + "from prescription inner join booking on prescription.bookingdate=booking.bookingdate and prescription.bookingtime=booking.bookingtime\n"
-          + "inner join patient on patient.cprNumber=booking.cprNumber");
+      PreparedStatement statement = connection.prepareStatement(" SELECT patient.cprnumber,patient.firstname,patient.lastname,patient.birthday,patient.sex,booking.bookingdate,booking.bookingtime,booking.symptoms,prescription.typename,prescription.prescriptiontext \n"
+          + "FROM prescription INNER JOIN booking on prescription.bookingdate=booking.bookingdate and prescription.bookingtime=booking.bookingtime\n"
+          + "INNER JOIN patient on patient.cprNumber=booking.cprNumber    ORDER BY booking.bookingdate DESC , booking.bookingtime DESC ");
 
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
@@ -207,11 +207,71 @@ public class PrescriptionDAO implements ManagePrescriptionDAO
   @Override public ArrayList<Prescription> getPrescriptionsByPatient(
       String cprNumber)
   {
-    return null;
+    ArrayList<Prescription> prescriptions=new ArrayList<>();
+    ///
+    try (Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement(" SELECT patient.cprnumber,patient.firstname,patient.lastname,patient.birthday,patient.sex,booking.bookingdate,booking.bookingtime,booking.symptoms,prescription.typename,prescription.prescriptiontext \n"
+              + "FROM prescription INNER JOIN booking on prescription.bookingdate=booking.bookingdate and prescription.bookingtime=booking.bookingtime\n"
+              + "INNER JOIN patient on patient.cprNumber=booking.cprNumber WHERE patient.cprnumber LIKE ?      ORDER BY booking.bookingdate DESC , booking.bookingtime DESC  ");
+      statement.setString(1,cprNumber+"%");
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        Date bookingDate = resultSet.getDate("bookingdate");
+        String bookingTime = resultSet.getString("bookingtime");
+        String cprnumber = resultSet.getString("cprnumber");
+        String firstname = resultSet.getString("firstname");
+        String lastname = resultSet.getString("lastname");
+        Date birthday = resultSet.getDate("birthday");
+        String sex = resultSet.getString("sex");
+        String symptoms= resultSet.getString("symptoms");
+        String typeName=resultSet.getString("typename");
+        String prescriptionText=resultSet.getString("prescriptiontext");
+
+        prescriptions.add(new Prescription(bookingDate,bookingTime,cprnumber,firstname,lastname,birthday,sex,symptoms,typeName,prescriptionText));
+        // System.out.println(patients.get(0).getUsername());
+
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    ///
+
+    return prescriptions;
   }
 
-  @Override public ArrayList<Prescription> getPrescriptionsByDate()
+  @Override public ArrayList<Prescription> getPrescriptionsByDate(Date date)
   {
-    return null;
+    ArrayList<Prescription> prescriptions=new ArrayList<>();
+    ///
+    try (Connection connection = jdbcController.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement(" SELECT patient.cprnumber,patient.firstname,patient.lastname,patient.birthday,patient.sex,booking.bookingdate,booking.bookingtime,booking.symptoms,prescription.typename,prescription.prescriptiontext \n"
+          + "FROM prescription INNER JOIN booking on prescription.bookingdate=booking.bookingdate and prescription.bookingtime=booking.bookingtime\n"
+          + "INNER JOIN patient on patient.cprNumber=booking.cprNumber WHERE booking.bookingdate = ?     ORDER BY booking.bookingdate DESC , booking.bookingtime DESC ");
+      statement.setDate(1,date);
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        Date bookingDate = resultSet.getDate("bookingdate");
+        String bookingTime = resultSet.getString("bookingtime");
+        String cprnumber = resultSet.getString("cprnumber");
+        String firstname = resultSet.getString("firstname");
+        String lastname = resultSet.getString("lastname");
+        Date birthday = resultSet.getDate("birthday");
+        String sex = resultSet.getString("sex");
+        String symptoms= resultSet.getString("symptoms");
+        String typeName=resultSet.getString("typename");
+        String prescriptionText=resultSet.getString("prescriptiontext");
+
+        prescriptions.add(new Prescription(bookingDate,bookingTime,cprnumber,firstname,lastname,birthday,sex,symptoms,typeName,prescriptionText));
+        // System.out.println(patients.get(0).getUsername());
+
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    ///
+
+    return prescriptions;
   }
 }

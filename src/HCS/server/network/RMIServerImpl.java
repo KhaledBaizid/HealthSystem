@@ -1,14 +1,11 @@
 package HCS.server.network;
 
 import HCS.server.model.*;
-import HCS.shared.ClientReceptionCallBack;
-import HCS.shared.ClientCallBack;
+import HCS.shared.PatientClientCallBack;
+import HCS.shared.BookingClientCallBack;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
-import HCS.shared.transferObjects.Booking;
-import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.Prescription;
-import HCS.shared.transferObjects.User;
+import HCS.shared.transferObjects.*;
 //import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeEvent;
@@ -29,8 +26,8 @@ public class RMIServerImpl implements RMIServer
   private final PatientModelServer patientModelServer;
   private final BookingModelServer bookingModelServer;
   private final PrescriptionModelServer prescriptionModelServer;
-  private List<ClientCallBack> clients;
-  private List<ClientReceptionCallBack> clients1;
+  private List<BookingClientCallBack> clients;
+  private List<PatientClientCallBack> clients1;
   //private Object ClientloginCallBack;
  // public RMIServerImpl(ServerModel model) throws RemoteException
   public RMIServerImpl(/*ServerModel model,*/ LoginModelServer loginModelServer,AdminModelServer adminModelServer, PatientModelServer patientModelServer,BookingModelServer bookingModelServer, PrescriptionModelServer prescriptionModelServer) throws RemoteException
@@ -57,7 +54,7 @@ public class RMIServerImpl implements RMIServer
 
   private void sharedPatients(PropertyChangeEvent event)
   {
-    for (ClientReceptionCallBack i:clients1)
+    for (PatientClientCallBack i:clients1)
     {
       try {
         i.sharedPatients(event);
@@ -84,7 +81,7 @@ public class RMIServerImpl implements RMIServer
 
   private void sharedBookings(PropertyChangeEvent event)
   {
-    for (ClientCallBack i:clients
+    for (BookingClientCallBack i:clients
     ) {
       try {
         i.sharedBookings(event);
@@ -149,23 +146,25 @@ public class RMIServerImpl implements RMIServer
   }
 
   @Override
-  public void registerClient(ClientCallBack clientCallBack) {
-    clients.add(clientCallBack);
+  public void registerClient(BookingClientCallBack bookingClientCallBack) {
+    clients.add(bookingClientCallBack);
 
 
   }
 
-  @Override public void registerClient(ClientCallBack clientCallBack,
-      ClientReceptionCallBack clientReceptionCallBack) throws RemoteException
+  @Override public void registerClient(
+      BookingClientCallBack bookingClientCallBack,
+      PatientClientCallBack patientClientCallBack) throws RemoteException
   {
-    clients.add(clientCallBack);
-    clients1.add(clientReceptionCallBack);
+    clients.add(bookingClientCallBack);
+    clients1.add(patientClientCallBack);
   }
 
-  @Override public void unregisterClient(ClientCallBack clientCallBack)
+  @Override public void unregisterClient(
+      BookingClientCallBack bookingClientCallBack)
 
   {
-    clients.remove(clientCallBack);
+    clients.remove(bookingClientCallBack);
 
   }
 
@@ -307,6 +306,24 @@ public class RMIServerImpl implements RMIServer
       String prescriptionText) throws RemoteException
   {
     prescriptionModelServer.updatePrescription(bookingDate, bookingTime, prescriptionType, newPrescriptionType, prescriptionText);
+  }
+
+  @Override public ArrayList<Prescription> getPrescriptionsByPatient(
+      String cprNumber) throws RemoteException
+  {
+    return prescriptionModelServer.getPrescriptionsByPatient(cprNumber);
+  }
+
+  @Override public ArrayList<Prescription> getPrescriptionsByDate(Date date)
+      throws RemoteException
+  {
+    return prescriptionModelServer.getPrescriptionsByDate(date);
+  }
+
+  @Override public ArrayList<String> getPrescriptionsType()
+      throws RemoteException
+  {
+    return prescriptionModelServer.getPrescriptionsType();
   }
 
 }

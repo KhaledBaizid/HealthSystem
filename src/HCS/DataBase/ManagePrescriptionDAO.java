@@ -18,6 +18,6 @@ public interface ManagePrescriptionDAO
   void updatePrescription(Date bookingDate,String bookingTime, String prescriptionType, String newPrescriptionType,String prescriptionText);
 
   ArrayList<Prescription> getPrescriptionsByPatient(String cprNumber);
-  ArrayList<Prescription> getPrescriptionsByDate();
+  ArrayList<Prescription> getPrescriptionsByDate(Date date);
 
 }

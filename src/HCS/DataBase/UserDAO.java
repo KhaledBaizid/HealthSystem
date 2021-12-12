@@ -5,13 +5,13 @@ import HCS.shared.transferObjects.User;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AdminDAO implements ManageAdminDAO
+public class UserDAO implements ManageUserDAO
 {
 
- private static AdminDAO instance;
+ private static UserDAO instance;
   private JDBCController jdbcController;
 
-  private AdminDAO()
+  private UserDAO()
   {
     try
     {
@@ -25,11 +25,11 @@ public class AdminDAO implements ManageAdminDAO
 
   }
 
-  public static synchronized AdminDAO getInstance()
+  public static synchronized UserDAO getInstance()
   {
     if (instance == null)
     {
-      instance = new AdminDAO();
+      instance = new UserDAO();
     }
     return instance;
   }

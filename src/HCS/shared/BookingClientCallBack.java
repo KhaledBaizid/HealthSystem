@@ -4,7 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface ClientCallBack extends Remote {
+public interface BookingClientCallBack extends Remote {
   //  void publicMessageSent(PropertyChangeEvent event) throws RemoteException;
 
    // void userAdded(PropertyChangeEvent event) throws RemoteException;

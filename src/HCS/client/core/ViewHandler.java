@@ -2,7 +2,7 @@ package HCS.client.core;
 
 //import HCS.client.view.*;
 import HCS.client.view.ADMIN.HCSAdminController;
-import HCS.client.view.Booking.HCSBookingController;
+//import HCS.client.view.Booking.HCSBookingController;
 import HCS.client.view.DOCTOR.HCSDoctorController;
 import HCS.client.view.LOGIN.HCSLoginController;
 import HCS.client.view.RECEPTION.HCSReceptionistController;
@@ -19,7 +19,7 @@ public class ViewHandler
 
   private Stage primaryStage;
    Scene loginScene;
-   Scene UserChatScene;
+   Scene AdmintScene;
    Scene DeleteRole;
    Scene ReceptionScene;
    Scene DoctorScene;
@@ -119,7 +119,7 @@ public class ViewHandler
   public void openHCSAdmin(String username)
   {
 
-    if (UserChatScene  == null)
+    if (AdmintScene  == null)
     {
       try {
         FXMLLoader loader = new FXMLLoader();
@@ -127,7 +127,7 @@ public class ViewHandler
         Parent root = loader.load();
         HCSAdminController ctrl = loader.getController();
         ctrl.init(this,vmf.getHcsAdminViewModel());
-        UserChatScene  = new Scene(root);
+        AdmintScene  = new Scene(root);
 
       } catch (IOException e) {
         e.printStackTrace();
@@ -135,7 +135,7 @@ public class ViewHandler
 
     }
     primaryStage.setTitle("ADMIN: "+username);
-    primaryStage.setScene(UserChatScene);
+    primaryStage.setScene(AdmintScene);
     primaryStage.show();
   }
 ///////////
@@ -210,7 +210,7 @@ public class ViewHandler
     primaryStage.show();
   }*/
 
-  public void openHCSBooking (String cprNumber,String firstname,String lastname)
+  /*public void openHCSBooking (String cprNumber,String firstname,String lastname)
   {
 
     if (BookingScene  == null)
@@ -231,8 +231,9 @@ public class ViewHandler
     primaryStage.setTitle("BOOKING:" );
     primaryStage.setScene(BookingScene);
     primaryStage.show();
-  }
-  public void openHCSBooking ()
+  }*/
+
+ /* public void openHCSBooking ()
   {
 
     if (BookingScene  == null)
@@ -253,7 +254,7 @@ public class ViewHandler
     primaryStage.setTitle("BOOKING:" );
     primaryStage.setScene(BookingScene);
     primaryStage.show();
-  }
+  }*/
 
 
 

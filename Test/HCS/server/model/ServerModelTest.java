@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ServerModelTest
 {
   LoginDAO loginDAO;
-  AdminDAO adminDAO;
+  UserDAO adminDAO;
   PatientDAO patientDAO;
   BookingDAO bookingDAO;
   PrescriptionDAO prescriptionDAO;
@@ -35,7 +35,7 @@ class ServerModelTest
   public void arrange() {
 
     loginDAO = LoginDAO.getInstance();
-    adminDAO=AdminDAO.getInstance();
+    adminDAO= UserDAO.getInstance();
     patientDAO=PatientDAO.getInstance();
     bookingDAO=BookingDAO.getInstance();
     prescriptionDAO=PrescriptionDAO.getInstance();

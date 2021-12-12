@@ -5,12 +5,14 @@ import HCS.client.core.ViewHandler;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Prescription;
+import HCS.shared.transferObjects.PrescriptionType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class HCSDoctorController
 {
@@ -29,6 +31,7 @@ public class HCSDoctorController
   @FXML private TextField CPRNumberTextField;
   @FXML private TextField firstnameTextField;
   @FXML private TextField lastnameTextField;
+ // @FXML private ComboBox prescriptionComboBox;
   @FXML private ComboBox prescriptionComboBox;
   @FXML private TextArea prescreptionTextArea;
 
@@ -57,6 +60,8 @@ public class HCSDoctorController
   @FXML private RadioButton specificBookingRadioButton;
   @FXML private DatePicker specificDatePicker;
   ////
+  @FXML private TextField  searchByCprNumber;
+  @FXML private DatePicker prescriptionSearchByDate;
 
   String oldPrescriptionType="";
 
@@ -67,8 +72,13 @@ public class HCSDoctorController
     this.vh=vh;
     this.vm=vm;
 
-    prescriptionComboBox.getItems().addAll("Medicines","Scan","BloodTest");
-    prescriptionComboBox1.getItems().addAll("Medicines","Scan","BloodTest");
+   // prescriptionComboBox.getItems().addAll("Medicines","Scan","BloodTest");
+   // prescriptionComboBox1.getItems().addAll("Medicines","Scan","BloodTest");
+
+
+    prescriptionComboBox.getItems().addAll(vm.getPrescriptionsTypeModel());
+    prescriptionComboBox1.getItems().addAll(vm.getPrescriptionsTypeModel());
+
 
     ToggleGroup radioGroup = new ToggleGroup();
     allBookingsRadioButton.setToggleGroup(radioGroup);
@@ -182,6 +192,20 @@ public class HCSDoctorController
   public void onBookingSearchDatePicker()
   {
     vm.GetPatientBookingsByDate(Date.valueOf(specificDatePicker.getValue()));
+  }
+
+  public void getPrescriptionsByCptNumber()
+  {
+   // if (!searchByCprNumber.getText().isBlank())
+    vm.getPrescriptionsByPatient(searchByCprNumber.textProperty().getValue());
+    //else
+     // vm.getPrescriptionsModel();
+  }
+
+  public void onPrescriptionDatePickerClicked()
+  {
+    vm.getPrescriptionsByDate(Date.valueOf(prescriptionSearchByDate.getValue()));
+
   }
 
 

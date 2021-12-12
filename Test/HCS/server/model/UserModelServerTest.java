@@ -10,16 +10,16 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AdminModelServerTest
+class UserModelServerTest
 {
 
-  AdminDAO adminDAO;
+  UserDAO adminDAO;
   Date date= new Date(-1970);
 
   @BeforeEach
   public void arrange() {
 
-    adminDAO= AdminDAO.getInstance();
+    adminDAO= UserDAO.getInstance();
 
   }
 

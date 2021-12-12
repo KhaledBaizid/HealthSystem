@@ -1,6 +1,6 @@
 package HCS.server.model;
 
-import HCS.DataBase.ManageAdminDAO;
+import HCS.DataBase.ManageUserDAO;
 import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeListener;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class AdminModelServerImpl implements AdminModelServer
 {
   private PropertyChangeSupport support;
-  private ManageAdminDAO adminDAO;
+  private ManageUserDAO adminDAO;
 
-  public AdminModelServerImpl(ManageAdminDAO adminDAO)
+  public AdminModelServerImpl(ManageUserDAO adminDAO)
   {
     this.adminDAO=adminDAO;
     support = new PropertyChangeSupport(this);

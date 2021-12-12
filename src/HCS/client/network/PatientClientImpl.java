@@ -1,10 +1,9 @@
 package HCS.client.network;
 
-import HCS.shared.ClientReceptionCallBack;
+import HCS.shared.PatientClientCallBack;
 import HCS.server.network.RMIServer;
-import HCS.shared.ClientCallBack;
+import HCS.shared.BookingClientCallBack;
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -16,8 +15,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class PatientClientImpl implements PatientClient,ClientCallBack,
-    ClientReceptionCallBack
+public class PatientClientImpl
+    implements PatientClient, BookingClientCallBack, PatientClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
@@ -35,7 +34,7 @@ public class PatientClientImpl implements PatientClient,ClientCallBack,
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
-    //  server.registerClient(this);
+     // server.registerClient(this);
       server.registerClient(this,this);
       // System.out.println("StartClient");
 
@@ -125,7 +124,7 @@ public class PatientClientImpl implements PatientClient,ClientCallBack,
     support.firePropertyChange(event);
   }
 
-  @Override public void HCSGetRoles()
+ /* @Override public void HCSGetRoles()
   {
 
     try
@@ -140,7 +139,7 @@ public class PatientClientImpl implements PatientClient,ClientCallBack,
       e.printStackTrace();
     }
 
-  }
+  }*/
 
   @Override public void GetPatients()
   {

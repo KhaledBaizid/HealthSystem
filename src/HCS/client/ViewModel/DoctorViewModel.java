@@ -4,6 +4,7 @@ import HCS.client.model.BookingModel;
 import HCS.client.model.PrescriptionModel;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Prescription;
+import HCS.shared.transferObjects.PrescriptionType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,6 +18,9 @@ public class DoctorViewModel
   private BookingModel bookingModel;
   private ObservableList<Booking> bookings;
   private ObservableList<Prescription> prescriptions;
+
+  private ObservableList<String> prescriptionsType;
+
     String radio;
    Date specificDate;
   ArrayList<Booking> bookingsradio;
@@ -28,6 +32,7 @@ public class DoctorViewModel
     this.bookingModel=bookingModel;
     bookings= FXCollections.observableArrayList();
     prescriptions=FXCollections.observableArrayList();
+    prescriptionsType=FXCollections.observableArrayList();
     radio="all";
     specificDate=null;
     bookingsradio=new ArrayList<>();
@@ -46,7 +51,7 @@ public class DoctorViewModel
   private void getBookings(PropertyChangeEvent event)
   {
 
-    System.out.println("GETBOOKINGSSSSSSSSSSSSSSSSS"+specificDate);
+   // System.out.println("GETBOOKINGSSSSSSSSSSSSSSSSS"+specificDate);
 
     if (radio.equals("all"))
     {
@@ -66,16 +71,17 @@ public class DoctorViewModel
             .equals(specificDate.toString()))
         {
           bookingsradio1.add(booking);
-          System.out.println("bookingradioremooooooooove");
+
         }
-        System.out.println(
-            "Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+
       }
       bookings.clear();
       bookings.addAll( bookingsradio1);
 
   } else {}
   }
+
+
 
   public void getModelBookings()
   {
@@ -121,15 +127,7 @@ public class DoctorViewModel
 
   }
 
-  private String getRadio()
-  {
-    return radio;
-  }
 
-  private Date getSpecificDate()
-  {
-    return specificDate;
-  }
 
   public void removePrescription(Prescription prescription)
   {
@@ -146,4 +144,33 @@ public class DoctorViewModel
     bookingModel.GetPatientBookingsByDate(date);
 
   }
+
+  public void   getPrescriptionsByPatient(String cprNumber)
+  {
+   prescriptionModel.getPrescriptionsByPatient(cprNumber);
+
+  }
+
+  public void getPrescriptionsByDate(Date date)
+  {
+    prescriptionModel.getPrescriptionsByDate(date);
+  }
+
+  public   void getPrescriptionsType()
+  {
+    prescriptionsType.clear();
+      prescriptionsType.addAll(prescriptionModel.getPrescriptionsType());
+  }
+
+  public ObservableList<String> getPrescriptionsTypeList()
+  {
+    return prescriptionsType;
+  }
+
+  public   ArrayList<String> getPrescriptionsTypeModel()
+  {
+    //prescriptionsType.clear();
+   return prescriptionModel.getPrescriptionsType();
+  }
+
 }

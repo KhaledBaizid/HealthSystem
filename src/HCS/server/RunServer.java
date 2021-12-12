@@ -13,17 +13,18 @@ public class RunServer {
     public static void main(String[] args)
         throws RemoteException, AlreadyBoundException
     {
-        AdminDAO adminDAO = AdminDAO.getInstance();
+        UserDAO adminDAO = UserDAO.getInstance();
         PatientDAO patientDAO= PatientDAO.getInstance();
         LoginDAO loginDAO = LoginDAO.getInstance();
         BookingDAO bookingDAO= BookingDAO.getInstance();
         PrescriptionDAO prescriptionDAO=PrescriptionDAO.getInstance();
+        PrescriptionTypeDAO prescriptionTypeDAO= PrescriptionTypeDAO.getInstance();
        // MainDAO mainDAO=MainDAO.getInstance();
         LoginModelServerImpl serverModelLogin=new LoginModelServerImpl(loginDAO);
         AdminModelServerImpl adminModelServer=new AdminModelServerImpl(adminDAO);
         PatientModelServerImpl patientModelServer=new PatientModelServerImpl(patientDAO,bookingDAO);
         BookingModelServerImpl bookingModelServer=new BookingModelServerImpl(bookingDAO,prescriptionDAO);
-        PrescriptionModelServerImpl prescriptionModelServer=new PrescriptionModelServerImpl(prescriptionDAO);
+        PrescriptionModelServerImpl prescriptionModelServer=new PrescriptionModelServerImpl(prescriptionDAO,prescriptionTypeDAO);
 
         RMIServerImpl rs = new RMIServerImpl(serverModelLogin,adminModelServer,patientModelServer,bookingModelServer,prescriptionModelServer);
        // RMIServer rs = new RMIServer(new ServerModel(mainDAO));

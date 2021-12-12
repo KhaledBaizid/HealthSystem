@@ -5,7 +5,7 @@ import HCS.client.model.*;
 public class ModelFactory
 {
   private ClientFactory cf;
-  AdminModel adminModel;
+  UserModel userModel;
   PatientModel patientModel;
   LoginModel loginModel;
   PrescriptionModel prescriptionModel;
@@ -16,10 +16,10 @@ public class ModelFactory
     this.cf = cf;
   }
 
-  public AdminModel getModelAdmin()
+  public UserModel getModelAdmin()
   {
-    if (adminModel == null) adminModel = new AdminModelImpl(cf.getAdminClient());
-    return adminModel;
+    if (userModel == null) userModel = new UserModelImpl(cf.getAdminClient());
+    return userModel;
   }
   public BookingModel getModelBooking()
   {

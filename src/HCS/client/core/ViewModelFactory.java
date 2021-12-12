@@ -11,9 +11,9 @@ public class ViewModelFactory
    LoginViewModel loginViewModel;
    AdminViewModel adminViewModel;
    ReceptionViewModel receptionViewModel;
-   HCSAdminDeleteRoleViewModel hcsAdminDeleteRoleViewModel;
+ //  HCSAdminDeleteRoleViewModel hcsAdminDeleteRoleViewModel;
    DoctorViewModel doctorViewModel;
-   BookingViewModel bookingViewModel;
+  // BookingViewModel bookingViewModel;
 
   public ViewModelFactory(ModelFactory mf)
   {
@@ -28,13 +28,13 @@ public class ViewModelFactory
     return loginViewModel;
   }
 
-  public BookingViewModel getHcsBookingViewModel()
+/*  public BookingViewModel getHcsBookingViewModel()
   {
 
     if (bookingViewModel ==null)
       bookingViewModel = new BookingViewModel(mf.getModelBooking());
     return bookingViewModel;
-  }
+  }*/
 
   public AdminViewModel getHcsAdminViewModel()
   {
@@ -51,12 +51,12 @@ public class ViewModelFactory
     return receptionViewModel;
   }
 
-  public HCSAdminDeleteRoleViewModel getHcsAdminDeleteRoleViewModel()
+ /* public HCSAdminDeleteRoleViewModel getHcsAdminDeleteRoleViewModel()
   {
     if (hcsAdminDeleteRoleViewModel==null)
       hcsAdminDeleteRoleViewModel= new HCSAdminDeleteRoleViewModel(mf.getModelAdmin());
     return hcsAdminDeleteRoleViewModel;
-  }
+  }*/
 
   public DoctorViewModel getHcsDoctorViewModel()
   {

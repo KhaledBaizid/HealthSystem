@@ -4,7 +4,7 @@ public class RMIClientImpl implements RMIClient
 
 {
  private LoginClient loginClient;
- private AdminClient adminClient;
+ private UserClient userClient;
  private PatientClient patientClient;
  private BookingClient bookingClient;
  private PrescriptionClient prescriptionClient;
@@ -20,10 +20,10 @@ public class RMIClientImpl implements RMIClient
     return loginClient;
   }
 
-  @Override public AdminClient getAdminClient()
+  @Override public UserClient getAdminClient()
   {
-    if (adminClient == null) adminClient = new AdminClientImpl();
-    return adminClient;
+    if (userClient == null) userClient = new UserClientImpl();
+    return userClient;
   }
 
   @Override public PatientClient getPatientClient()

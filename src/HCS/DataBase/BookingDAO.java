@@ -55,7 +55,7 @@ public class BookingDAO implements ManageBookingDAO
     ArrayList<Booking> bookings=new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber  ");
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber   ORDER BY booking.bookingdate DESC , booking.bookingtime ASC ");
 
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
@@ -191,7 +191,7 @@ public class BookingDAO implements ManageBookingDAO
     ArrayList<Booking> bookings=new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber WHERE booking.cprNumber LIKE ? ");
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber WHERE booking.cprNumber LIKE ?   ORDER BY booking.bookingdate DESC , booking.bookingtime ASC ");
       statement.setString(1,cprNumber1+"%");
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
@@ -222,7 +222,7 @@ public class BookingDAO implements ManageBookingDAO
     ArrayList<Booking> bookings=new ArrayList<>();
     ///
     try (Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber WHERE booking.bookingdate= ? ");
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM patient inner join booking on patient.cprNumber=booking.cprNumber WHERE booking.bookingdate= ?   ORDER BY booking.bookingdate DESC , booking.bookingtime ASC ");
       statement.setDate(1,date);
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {

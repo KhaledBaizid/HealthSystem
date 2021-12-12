@@ -1,12 +1,9 @@
 package HCS.server.network;
 
-import HCS.shared.ClientReceptionCallBack;
-import HCS.shared.ClientCallBack;
+import HCS.shared.PatientClientCallBack;
+import HCS.shared.BookingClientCallBack;
 //import HCS.shared.transferObjects.Message;
-import HCS.shared.transferObjects.Booking;
-import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.Prescription;
-import HCS.shared.transferObjects.User;
+import HCS.shared.transferObjects.*;
 //import HCS.shared.transferObjects.User;
 
 import java.rmi.Remote;
@@ -22,9 +19,9 @@ public interface RMIServer extends Remote
 
  // void disconnect(User userDisconnecting) throws RemoteException;
  //void registerClient();
-  void registerClient(ClientCallBack clientCallBack) throws RemoteException;
- void registerClient(ClientCallBack clientCallBack, ClientReceptionCallBack clientReceptionCallBack) throws RemoteException;
-   void unregisterClient(ClientCallBack clientCallBack) throws RemoteException;
+  void registerClient(BookingClientCallBack bookingClientCallBack) throws RemoteException;
+ void registerClient(BookingClientCallBack bookingClientCallBack, PatientClientCallBack patientClientCallBack) throws RemoteException;
+   void unregisterClient(BookingClientCallBack bookingClientCallBack) throws RemoteException;
 
 
   String Login(String username,String password) throws RemoteException;
@@ -58,6 +55,10 @@ public interface RMIServer extends Remote
  boolean isBookingHasAPrescription(Date bookingDate,String bookingTime) throws RemoteException;
  void removePrescription(Prescription prescription) throws RemoteException;
  void updatePrescription(Date bookingDate,String bookingTime, String prescriptionType, String newPrescriptionType,String prescriptionText) throws RemoteException;
+ ArrayList<Prescription> getPrescriptionsByPatient(String cprNumber) throws RemoteException;
+ ArrayList<Prescription> getPrescriptionsByDate(Date date) throws RemoteException;
+
+ ArrayList<String> getPrescriptionsType() throws  RemoteException;
 
 
 

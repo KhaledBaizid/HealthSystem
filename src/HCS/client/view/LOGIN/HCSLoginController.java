@@ -60,6 +60,7 @@ public class HCSLoginController
 
   public void LoginButton()
   {
+   // vh.openHCSReceptionist(usernameTextEdit.textProperty().getValue());
    vm.HCSLogin(usernameTextEdit.textProperty().getValue(),password.textProperty().getValue());
     System.out.println("viewcontroller");
   }

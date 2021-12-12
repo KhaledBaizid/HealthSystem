@@ -1,6 +1,6 @@
 package HCS.client.ViewModel;
 
-import HCS.client.model.AdminModel;
+import HCS.client.model.UserModel;
 import HCS.shared.transferObjects.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 public class AdminViewModel
 {
-  private AdminModel model;
+  private UserModel model;
   private ObservableList<User> roles1;
 
 
-  public AdminViewModel(AdminModel model)
+  public AdminViewModel(UserModel model)
   {
     this.model=model;
     roles1= FXCollections.observableArrayList();

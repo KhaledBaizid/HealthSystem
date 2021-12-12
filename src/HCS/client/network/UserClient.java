@@ -7,7 +7,7 @@ import HCS.shared.utility.Subject;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public interface AdminClient extends Subject
+public interface UserClient extends Subject
 {
     void startClient();
     void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role);

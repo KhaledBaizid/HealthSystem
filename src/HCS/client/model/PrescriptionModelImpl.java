@@ -2,11 +2,13 @@ package HCS.client.model;
 
 import HCS.client.network.PrescriptionClient;
 import HCS.shared.transferObjects.Prescription;
+import HCS.shared.transferObjects.PrescriptionType;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class PrescriptionModelImpl implements PrescriptionModel
 {
@@ -71,5 +73,21 @@ public class PrescriptionModelImpl implements PrescriptionModel
   {
     prescriptionClient.updatePrescription(bookingDate, bookingTime, prescriptionType, newPrescriptionType, prescriptionText);
     prescriptionClient.getPrescriptions();
+  }
+
+  @Override public void getPrescriptionsByPatient(
+      String cprNumber)
+  {
+     prescriptionClient.getPrescriptionsByPatient(cprNumber);
+  }
+
+  @Override public void getPrescriptionsByDate(Date date)
+  {
+    prescriptionClient.getPrescriptionsByDate(date);
+  }
+
+  @Override public ArrayList<String> getPrescriptionsType()
+  {
+    return prescriptionClient.getPrescriptionsType();
   }
 }

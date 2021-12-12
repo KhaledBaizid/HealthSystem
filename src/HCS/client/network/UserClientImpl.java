@@ -1,13 +1,11 @@
 package HCS.client.network;
 
 import HCS.server.network.RMIServer;
-import HCS.shared.ClientCallBack;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
 import HCS.shared.transferObjects.User;
 //import HCS.shared.transferObjects.User;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.NotBoundException;
@@ -19,13 +17,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class AdminClientImpl implements AdminClient, Remote //ClientCallBack
+public class UserClientImpl implements UserClient, Remote //ClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
 
 
-  public AdminClientImpl() {
+  public UserClientImpl() {
     support = new PropertyChangeSupport(this);
   }
 

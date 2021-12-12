@@ -3,7 +3,9 @@ package HCS.server.model;
 import HCS.DataBase.ManageLoginDAO;
 import HCS.DataBase.ManagePatientDAO;
 import HCS.DataBase.ManagePrescriptionDAO;
+import HCS.DataBase.ManagePrescriptionTypeDAO;
 import HCS.shared.transferObjects.Prescription;
+import HCS.shared.transferObjects.PrescriptionType;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -14,9 +16,11 @@ public class PrescriptionModelServerImpl implements PrescriptionModelServer
 {
   private PropertyChangeSupport support;
   private ManagePrescriptionDAO prescriptionDAO;
+  private ManagePrescriptionTypeDAO prescriptionTypeDAO;
 
-  public PrescriptionModelServerImpl(ManagePrescriptionDAO prescriptionDAO)
+  public PrescriptionModelServerImpl(ManagePrescriptionDAO prescriptionDAO,ManagePrescriptionTypeDAO prescriptionTypeDAO)
   {
+    this.prescriptionTypeDAO=prescriptionTypeDAO;
     this.prescriptionDAO=prescriptionDAO;
     support=new PropertyChangeSupport(this);
   }
@@ -58,11 +62,16 @@ public class PrescriptionModelServerImpl implements PrescriptionModelServer
   @Override public ArrayList<Prescription> getPrescriptionsByPatient(
       String cprNumber)
   {
-    return null;
+    return prescriptionDAO.getPrescriptionsByPatient(cprNumber);
   }
 
-  @Override public ArrayList<Prescription> getPrescriptionsByDate()
+  @Override public ArrayList<Prescription> getPrescriptionsByDate(Date date)
   {
-    return null;
+    return prescriptionDAO.getPrescriptionsByDate(date);
+  }
+
+  @Override public ArrayList<String> getPrescriptionsType()
+  {
+    return prescriptionTypeDAO.getPrescriptionsType();
   }
 }

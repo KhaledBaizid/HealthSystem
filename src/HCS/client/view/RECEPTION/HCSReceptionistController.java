@@ -1,6 +1,6 @@
 package HCS.client.view.RECEPTION;
 
-import HCS.client.ViewModel.BookingViewModel;
+//import HCS.client.ViewModel.BookingViewModel;
 import HCS.client.ViewModel.ReceptionViewModel;
 import HCS.client.core.ViewHandler;
 import HCS.shared.transferObjects.Booking;
@@ -120,7 +120,7 @@ public class HCSReceptionistController
 
   private ViewHandler vh;
   private ReceptionViewModel vm;
-  private BookingViewModel vmb;
+  //private BookingViewModel vmb;
   private Object HCSBookingController;
 
   Date dateToBeChanged=null;
@@ -130,7 +130,7 @@ public class HCSReceptionistController
   {
     this.vh=vh;
     this.vm=vm;
-    this.vmb=vmb;
+    //this.vmb=vmb;
 
     sexComboBox.getItems().addAll("F","M");
     sexComboBox1.getItems().addAll("F","M");
@@ -266,15 +266,15 @@ public class HCSReceptionistController
 
   public void onSearchTyped()
   {
-    if (!searchTextField.getText().isBlank())
+  //  if (!searchTextField.getText().isEmpty())
    vm.getModelSpecificPatients(searchTextField.textProperty().getValue());
-    else vm.getModelPatients();
+   // else vm.getModelPatients();
   }
   public void onCPRNumberTyped()
   {
-    if (!cprNumber.getText().isBlank())
+  //  if (!cprNumber.getText().isEmpty())
       vm.getModelSpecificPatients(cprNumber.textProperty().getValue());
-    else vm.getModelPatients();
+   // else vm.getModelPatients();
   }
 
   public void patientTableClicked()
@@ -382,11 +382,11 @@ public class HCSReceptionistController
   public void BookForPatient()
   {
     //HCSBookingController.class.getClassLoader().
-    vh.openHCSBooking(bookingCPRNumber.textProperty().getValue(),bookingFirstname.textProperty().getValue(),bookingLastname.textProperty().getValue());
+  //  vh.openHCSBooking(bookingCPRNumber.textProperty().getValue(),bookingFirstname.textProperty().getValue(),bookingLastname.textProperty().getValue());
     //vh.openHCSDoctor("sgsgsgs");
   }
   public void OpenBookPage()
   {
-    vh.openHCSBooking();
+    //vh.openHCSBooking();
   }
 }

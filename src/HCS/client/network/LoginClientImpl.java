@@ -1,9 +1,7 @@
 package HCS.client.network;
 
 import HCS.server.network.RMIServer;
-import HCS.shared.ClientCallBack;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.NotBoundException;
