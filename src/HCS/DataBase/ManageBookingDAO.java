@@ -16,5 +16,5 @@ public interface ManageBookingDAO
   boolean isPatientHasABooking(String cprNumber);
 
   ArrayList<Booking> GetBookingsBYCprNumber(String cprNumber);
-  ArrayList<Booking> GetPatientBookingsByDate(Date date);
+  ArrayList<Booking> GetBookingsByDate(Date date);
 }

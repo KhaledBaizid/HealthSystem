@@ -217,7 +217,7 @@ public class BookingDAO implements ManageBookingDAO
     return bookings;
   }
 
-  @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
+  @Override public ArrayList<Booking> GetBookingsByDate(Date date)
   {
     ArrayList<Booking> bookings=new ArrayList<>();
     ///

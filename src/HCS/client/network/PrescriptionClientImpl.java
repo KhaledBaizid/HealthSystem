@@ -9,6 +9,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -17,7 +18,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class PrescriptionClientImpl
-    implements PrescriptionClient, BookingClientCallBack
+    implements PrescriptionClient , Remote //, BookingClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
@@ -33,8 +34,8 @@ public class PrescriptionClientImpl
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
-      server.registerClient(this);
-      // System.out.println("StartClient");
+     // server.registerClient(this);
+
 
     } catch (RemoteException | NotBoundException e) {
       e.printStackTrace();
@@ -42,19 +43,7 @@ public class PrescriptionClientImpl
     
   }
 
- /* @Override public void HCSGetBookings()
-  {
-    try
-    {
-      ArrayList<Booking> bookings;
-      bookings= server.GetBookings();
-      support.firePropertyChange("HCSGetBookings",null,bookings);
-    }
-    catch (RemoteException e)
-    {
-      e.printStackTrace();
-    }
-  }*/
+
 
   @Override public void createPrescription(Prescription prescription)
   {
@@ -163,34 +152,11 @@ public class PrescriptionClientImpl
     support.removePropertyChangeListener(eventName, listener);
   }
 
-/*  @Override public void publicMessageSent(PropertyChangeEvent event)
-      throws RemoteException
-  {
 
-  }
-
-  @Override public void userAdded(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }
-
-  @Override public void userDeleted(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }*/
-
-  /*@Override public void sharedroles(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }*/
-
-  @Override public void sharedBookings(PropertyChangeEvent event)
+ /* @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException
   {
     support.firePropertyChange(event);
 
-  }
+  }*/
 }

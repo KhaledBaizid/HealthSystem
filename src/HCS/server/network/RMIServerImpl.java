@@ -57,6 +57,7 @@ public class RMIServerImpl implements RMIServer
     for (PatientClientCallBack i:clients1)
     {
       try {
+
         i.sharedPatients(event);
         System.out.println(i.toString());
       } catch (RemoteException e) {
@@ -152,21 +153,35 @@ public class RMIServerImpl implements RMIServer
 
   }
 
-  @Override public void registerClient(
+ /* @Override public void registerClient(
       BookingClientCallBack bookingClientCallBack,
       PatientClientCallBack patientClientCallBack) throws RemoteException
   {
     clients.add(bookingClientCallBack);
     clients1.add(patientClientCallBack);
+  }*/
+
+  @Override public void registerPatientClient(
+      PatientClientCallBack patientClientCallBack) throws RemoteException
+  {
+    clients1.add(patientClientCallBack);
   }
 
-  @Override public void unregisterClient(
+/*  @Override public void unregisterClient(
       BookingClientCallBack bookingClientCallBack)
 
   {
     clients.remove(bookingClientCallBack);
 
-  }
+  }*/
+
+ /* @Override public void unregisterClient(
+      BookingClientCallBack bookingClientCallBack,
+      PatientClientCallBack patientClientCallBack) throws RemoteException
+  {
+    clients.remove(bookingClientCallBack);
+    clients1.remove(patientClientCallBack);
+  }*/
 
   @Override public String Login(String username, String password)
   {
@@ -213,7 +228,7 @@ public class RMIServerImpl implements RMIServer
       throws RemoteException
   {
     patientModelServer.updatePatient(cprNumber, patient);
-    bookingModelServer.GetBookings();
+   // bookingModelServer.GetBookings();
   }
 
   @Override public ArrayList<Patient> GetPatients() throws RemoteException
@@ -260,10 +275,10 @@ public class RMIServerImpl implements RMIServer
     return bookingModelServer.GetBookingsBYCprNumber(cprNumber);
   }
 
-  @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
+  @Override public ArrayList<Booking> GetBookingsByDate(Date date)
       throws RemoteException
   {
-    return bookingModelServer.GetPatientBookingsByDate(date);
+    return bookingModelServer.GetBookingsByDate(date);
   }
 
   @Override public boolean isPatientHasABooking(String cprNumber)

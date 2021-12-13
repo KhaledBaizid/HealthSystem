@@ -15,25 +15,17 @@ public class UserModelImpl implements UserModel
     private UserClient userClient;
     private PropertyChangeSupport support;
 
-    //private User user;
+
 
 
     public UserModelImpl(UserClient userClient) {
         support = new PropertyChangeSupport(this);
         this.userClient = userClient;
         userClient.startClient();
-      //  user = new User();
 
-       /* client.addListener(RequestType.SUCCESSFUL_LOGIN.toString(), this::fireAll);
-        client.addListener(RequestType.EXISTING_USERNAME.toString(), this::fireAll);
-        client.addListener(RequestType.UPDATE_ACTIVE_USERS.toString(), this::fireAll);
-        client.addListener(RequestType.GET_ACTIVE_USERS.toString(), this::fireAll);
-        client.addListener(RequestType.RECEIVE_PUBLIC.toString(), this::fireAll);*/
-/////////////////////
-      //  adminClient.addListener("HCSLogin", this::fireAll);
         userClient.addListener("HCSGetRoles", this::fireUsers);
 
-        ////////////////////
+
 
     }
 
@@ -50,36 +42,6 @@ public class UserModelImpl implements UserModel
     public void removeListener(String eventName, PropertyChangeListener listener) {
         support.removePropertyChangeListener(eventName, listener);
     }
-
-  /*  @Override
-    public void login(String username) {
-        user.setUsername(username);
-        client.login(user);
-        System.out.println("ModelLogin");
-    }
-
-    @Override
-    public ArrayList<String> getActiveUsersList() {
-        return  client.getActiveUsersList();
-
-    }
-
-    @Override
-    public void sendPublicMessage(String message) {
-        Message messageToSend = new Message(message, user);
-        client.sendPublicMessage(messageToSend);
-    }
-
-    @Override
-    public void disconnect() {
-        client.disconnect(user);
-    }*/
-
-
-  /*  @Override public void HCSLogin(String username, String password)
-    {
-         client.HCSLogin(username,password);
-    }*/
 
     @Override public void CreateUser(String firstname, String lastname,
         Date birthday, String username, String password, String role)

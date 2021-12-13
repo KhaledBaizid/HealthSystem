@@ -96,13 +96,10 @@ public class HCSAdminController
 
   public void deleteRoleButton()
   {
-   // LocalDate s= birthdayDatePicker.getValue();
-   // System.out.println(s.toString());
-   // System.out.println(HCSAdminController.class.getName());
+
     vm.RemoveUser(username.textProperty().getValue());
      vm.getModelUsers();
-    System.out.println("controller");
-    //vh.openHCSAdminDeleteRole();
+
 
   }
  public void  TableViewClicked()
@@ -110,12 +107,11 @@ public class HCSAdminController
     user =RoleTableView.getSelectionModel().getSelectedItem();
    firstname.setText(user.getFirstname());
    lastname.setText(user.getLastname());
-   //Date date =role.getBirthday();
- // LocalDate localdate= date.toLocalDate();
+
    birthdayDatePicker.setValue(user.getBirthday().toLocalDate());
    username.setText(user.getUsername());
    password.setText(user.getPassword());
    roleComboBox.getSelectionModel().select(user.getRole());
-   // System.out.println(role.getUsername());
+
  }
 }

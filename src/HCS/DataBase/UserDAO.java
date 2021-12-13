@@ -36,40 +36,6 @@ public class UserDAO implements ManageUserDAO
 
 
 
- /* @Override public void createUser(String username)
-  {
-    System.out.println("CREATEUSERDATABASE");
-    try(Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("INSERT INTO users VALUES (?)");
-      statement.setString(1,username);
-      statement.executeUpdate();
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
-  }*/
-
- /* @Override public String HCSLogin(String username, String password)
-  {
-    String role=null;
-    //System.out.println("CREATEUSERDATABASE");
-    try(Connection connection = jdbcController.getConnection()) {
-      System.out.println(username+""+password);
-      PreparedStatement statement = connection.prepareStatement
-          ("SELECT roles FROM userslogin WHERE username = ? AND passwords = ?");
-      statement.setString(1,username);
-      statement.setString(2,password);
-      ResultSet resultSet = statement.executeQuery();
-      if (resultSet.next())
-      {
-        role = resultSet.getString("roles");
-      }
-      System.out.println(role);
-      // statement.executeUpdate();
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
-    return role;
-  }*/
 
   @Override public boolean UserExist(String username)
   {
@@ -193,18 +159,5 @@ public class UserDAO implements ManageUserDAO
     }
   }
 
- /* @Override public void createPatient(String cprnumber, String firstname,
-      String lastname)
-  {
-    System.out.println("ReceptionDAO");
-    try(Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("INSERT INTO patient VALUES (?,?,?)");
-      statement.setString(1,cprnumber);
-      statement.setString(2,firstname);
-      statement.setString(3,lastname);
-      statement.executeUpdate();
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
-  }*/
+
 }

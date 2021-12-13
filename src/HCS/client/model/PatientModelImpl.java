@@ -58,11 +58,7 @@ public class PatientModelImpl implements PatientModel
   public void removeListener(String eventName, PropertyChangeListener listener) {
     support.removePropertyChangeListener(eventName, listener);
   }
- /* @Override public void HCSGetRoles()
-  {
-    System.out.println("model");
-    patientClient.HCSGetRoles();
-  }*/
+
 
   @Override public void GetPatients()
   {
@@ -79,25 +75,10 @@ public class PatientModelImpl implements PatientModel
     return patientClient.patientExist(cprNumber);
   }
 
- /* @Override public void createBooking(Booking booking)
+/*  @Override public void Disconnect()
   {
-    System.out.println("BookingModel");
-    clientReception.createBooking(booking);
-    clientReception.HCSGetBookings();
-  }
-
-  @Override public void HCSGetBookings()
-  {
-    clientReception.HCSGetBookings();
-  }
-
-  @Override public void removeBooking(Date bookingDate, String bookingTime)
-  {
-    clientReception.removeBooking(bookingDate, bookingTime);
-  }
-
-  @Override public ArrayList<String> getTimeAvailable(Date date)
-  {
-    return clientReception.getTimeAvailable(date);
+    patientClient.Disconnect();
   }*/
+
+
 }

@@ -13,16 +13,20 @@ public class LoginViewModel implements Subject
 {
 
   private PropertyChangeSupport support;
- // private ModelInterface model;
+
   private LoginModel model;
   private StringProperty error;
+  private StringProperty username;
+  private StringProperty password;
 
   public LoginViewModel(LoginModel model)
   {support = new PropertyChangeSupport(this);
     this.model=model;
     model.addListener("HCSLogin", this::fireRole);
-    //model.addListener(RequestType.EXISTING_USERNAME.toString(), this::updateErrorLabel);
+
     this.error = new SimpleStringProperty("");
+    this.username=new SimpleStringProperty("");
+    this.password=new SimpleStringProperty("");
   }
 
   private void fireRole(PropertyChangeEvent event)
@@ -39,10 +43,13 @@ public class LoginViewModel implements Subject
     System.out.println("NEWLOGIN");
   }
 
-  /*public void getRoles()
+  public void HCSLogin()
   {
-    model.HCSGetRoles();
-  }*/
+    model.HCSLogin(username.get(), password.get());
+    System.out.println("NEWLOGIN");
+  }
+
+
 
   @Override public void addListener(String eventName,
       PropertyChangeListener listener)
@@ -58,5 +65,14 @@ public class LoginViewModel implements Subject
   public StringProperty errorProperty()
   {
     return error;
+  }
+  public StringProperty getUsernameProperty()
+  {
+    return username;
+  }
+
+  public StringProperty getPasswordProperty()
+  {
+    return password;
   }
 }

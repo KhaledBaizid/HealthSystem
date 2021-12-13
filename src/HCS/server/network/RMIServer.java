@@ -20,8 +20,11 @@ public interface RMIServer extends Remote
  // void disconnect(User userDisconnecting) throws RemoteException;
  //void registerClient();
   void registerClient(BookingClientCallBack bookingClientCallBack) throws RemoteException;
- void registerClient(BookingClientCallBack bookingClientCallBack, PatientClientCallBack patientClientCallBack) throws RemoteException;
-   void unregisterClient(BookingClientCallBack bookingClientCallBack) throws RemoteException;
+ //void registerClient(BookingClientCallBack bookingClientCallBack, PatientClientCallBack patientClientCallBack) throws RemoteException;
+ void registerPatientClient(PatientClientCallBack patientClientCallBack) throws RemoteException;
+ //  void  unregisterClient(BookingClientCallBack bookingClientCallBack) throws RemoteException;
+// void  unregisterClient(BookingClientCallBack bookingClientCallBack , PatientClientCallBack patientClientCallBack) throws RemoteException;
+
 
 
   String Login(String username,String password) throws RemoteException;
@@ -43,7 +46,7 @@ public interface RMIServer extends Remote
  void updateBooking(Date bookingDate,String bookingTime,Booking booking) throws RemoteException;
  ArrayList<String> getAvailableTime(Date date) throws RemoteException;
  ArrayList<Booking> GetBookingsBYCprNumber(String cprNumber) throws RemoteException;
- ArrayList<Booking> GetPatientBookingsByDate(Date date) throws RemoteException;
+ ArrayList<Booking> GetBookingsByDate(Date date) throws RemoteException;
  boolean isPatientHasABooking(String cprNumber) throws  RemoteException;
 
 

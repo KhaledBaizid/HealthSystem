@@ -25,15 +25,6 @@ public class LoginModelImpl implements LoginModel
     clientLogin.addListener("HCSLogin", this::fireRole);
   }
 
- /* public LoginModelImpl(RMIClient rmiClient)
-  {
-    this.rmiClient=rmiClient;
-    this.support=new PropertyChangeSupport(this);
-    rmiClient.getLoginClient().startClient();
-    rmiClient.getLoginClient().addListener("HCSLogin", this::fireRole);
-  }*/
-
-
 
   private void fireRole(PropertyChangeEvent event)
   {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public interface ManagePrescriptionDAO
 {
   ArrayList<String> getPrescreptionsType();
-  //void createPrescription(Date bookingDate,String bookingTime,String prescriptionType, String prescriptionText);
+
   void createPrescription(Prescription prescription);
   String getSpecificPrescription(Date bookingDate,String bookingTime,String prescriptionType);
   ArrayList<Prescription>  getPrescriptions();

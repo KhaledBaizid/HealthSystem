@@ -50,9 +50,6 @@ public class DoctorViewModel
 
   private void getBookings(PropertyChangeEvent event)
   {
-
-   // System.out.println("GETBOOKINGSSSSSSSSSSSSSSSSS"+specificDate);
-
     if (radio.equals("all"))
     {
       bookings.clear();
@@ -85,7 +82,7 @@ public class DoctorViewModel
 
   public void getModelBookings()
   {
-   // model.HCSGetBookings();
+
     bookingModel.GetBookings();
   }
   public ObservableList<Booking> getTableViewBookings()
@@ -110,10 +107,9 @@ public class DoctorViewModel
   {
     this.setRadio(s);
     this.setSpecificDate(date);
-   // specificDate=date;
+
    radio=s;
-  // specificDate=date;
-   // System.out.println(radio+" "+date);
+
   }
 
   public void setRadio(String radio)
@@ -138,10 +134,10 @@ public class DoctorViewModel
   {
     prescriptionModel.updatePrescription(bookingDate, bookingTime, prescriptionType, newPrescriptionType, prescriptionText);
   }
-  public void GetPatientBookingsByDate(Date date)
+  public void GetBookingsByDate(Date date)
   {
     specificDate=date;
-    bookingModel.GetPatientBookingsByDate(date);
+    bookingModel.GetBookingsByDate(date);
 
   }
 
@@ -169,7 +165,7 @@ public class DoctorViewModel
 
   public   ArrayList<String> getPrescriptionsTypeModel()
   {
-    //prescriptionsType.clear();
+
    return prescriptionModel.getPrescriptionsType();
   }
 

@@ -34,7 +34,7 @@ public class BookingClientImpl
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
       server.registerClient(this);
-      // System.out.println("StartClient");
+
 
     } catch (RemoteException | NotBoundException e) {
       e.printStackTrace();
@@ -124,11 +124,11 @@ public class BookingClientImpl
    // return null;
   }
 
-  @Override public void GetPatientBookingsByDate(Date date)
+  @Override public void GetBookingsByDate(Date date)
   {
     try
     { ArrayList<Booking> bookings;
-      bookings= server.GetPatientBookingsByDate(date);
+      bookings= server.GetBookingsByDate(date);
       support.firePropertyChange("HCSGetBookings",null,bookings);
       // return bookings;
     }
@@ -145,7 +145,7 @@ public class BookingClientImpl
     {
       return server.isPatientHasABooking(cprNumber);
 
-     // support.firePropertyChange("PtientHasBooking",null,find);
+
     }
     catch (RemoteException e)
     {
@@ -180,11 +180,7 @@ public class BookingClientImpl
     support.removePropertyChangeListener(eventName, listener);
   }
 
-  /*@Override public void sharedroles(PropertyChangeEvent event)
-      throws RemoteException
-  {
 
-  }*/
 
   @Override public void sharedBookings(PropertyChangeEvent event)
       throws RemoteException

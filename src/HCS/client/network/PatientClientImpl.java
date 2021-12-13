@@ -16,7 +16,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class PatientClientImpl
-    implements PatientClient, BookingClientCallBack, PatientClientCallBack
+    implements PatientClient, PatientClientCallBack
 {
   private RMIServer server;
   private PropertyChangeSupport support;
@@ -24,7 +24,7 @@ public class PatientClientImpl
   public PatientClientImpl()
   {
     support = new PropertyChangeSupport(this);
-   // server.addListener("PatientHasBooking",this::patientHasBooking);
+
 
   }
 
@@ -34,14 +34,26 @@ public class PatientClientImpl
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
-     // server.registerClient(this);
-      server.registerClient(this,this);
-      // System.out.println("StartClient");
+
+      server.registerPatientClient(this);
+
 
     } catch (RemoteException | NotBoundException e) {
       e.printStackTrace();
     }
   }
+
+ /* @Override public void Disconnect()
+  {
+    try
+    {
+      server.unregisterClient(this,this);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }*/
 
   @Override public void createPatient(Patient patient)
   {
@@ -94,53 +106,6 @@ public class PatientClientImpl
     support.removePropertyChangeListener(eventName, listener);
   }
 
- /* @Override public void publicMessageSent(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }
-
-  @Override public void userAdded(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }
-
-  @Override public void userDeleted(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }*/
-
- /* @Override public void sharedroles(PropertyChangeEvent event)
-      throws RemoteException
-  {
-    support.firePropertyChange(event);
-  }*/
-
-  @Override public void sharedBookings(PropertyChangeEvent event)
-      throws RemoteException
-  {
-    support.firePropertyChange(event);
-  }
-
- /* @Override public void HCSGetRoles()
-  {
-
-    try
-    {
-      System.out.println("client");
-      ArrayList<User> users;
-      users = server.GetUsers();
-      support.firePropertyChange("HCSGetRoles",null, users);
-    }
-    catch (RemoteException e)
-    {
-      e.printStackTrace();
-    }
-
-  }*/
-
   @Override public void GetPatients()
   {
     ArrayList<Patient> patients;
@@ -184,63 +149,6 @@ public class PatientClientImpl
     return false;
   }
 
- /* @Override public void createBooking(Booking booking)
-  {
-    try
-    {
-      System.out.println("BookingClient");
-      server.createBooking(booking);
-    }
-    catch (RemoteException e)
-    {
-      e.printStackTrace();
-    }
-  }
-
-  @Override public void HCSGetBookings()
-  {
-    try
-    { ArrayList<Booking> bookings;
-      bookings= server.GetBookings();
-      support.firePropertyChange("HCSGetBookings",null,bookings);
-
-    }
-    catch (RemoteException e)
-    {
-      e.printStackTrace();
-    }
-  }
-
-  @Override public void removeBooking(Date bookingDate, String bookingTime)
-  {
-    try
-    {
-      server.removeBooking(bookingDate, bookingTime);
-    }
-    catch (RemoteException e)
-    {
-      e.printStackTrace();
-    }
-  }
-
-  @Override public ArrayList<String> getTimeAvailable(Date date)
-  {
-    try
-    {
-      return server.getAvailableTime(date);
-    }
-    catch (RemoteException e)
-    {
-      e.printStackTrace();
-    }
-    return null;
-  }*/
-
- /* @Override public void patientHasBooking(PropertyChangeEvent event)
-      throws RemoteException
-  {
-    support.firePropertyChange(event);
-  }*/
 
   @Override public void sharedPatients(PropertyChangeEvent event)
       throws RemoteException

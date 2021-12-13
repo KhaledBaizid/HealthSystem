@@ -11,18 +11,16 @@ import java.util.ArrayList;
 public interface PatientClient extends Subject
 {
   void startClient();
+ // void Disconnect();
 
   void createPatient(Patient patient);
   void removePatient(String cprNumber);
   void updatePatient(String cprNumber,Patient patient);
- // void   HCSGetRoles();
+
   void GetPatients();
   void GetSpecificPatients(String search);
 
   boolean patientExist(String cprNumber);
 
- /* void createBooking(Booking booking);
-  void HCSGetBookings();
-  void removeBooking(Date bookingDate,String bookingTime );
-  ArrayList<String> getTimeAvailable(Date date);*/
+
 }

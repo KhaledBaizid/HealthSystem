@@ -20,27 +20,25 @@ public class ReceptionViewModel implements Subject
 {
   private PropertyChangeSupport support;
   private StringProperty error;
-  private PatientModel model;
+  private PatientModel patientmodel;
   private BookingModel bookingModel;
-  private ObservableList<User> roles1;
+ // private ObservableList<User> roles1;
   private ObservableList<Patient> patients;
   private ObservableList<Booking> bookings;
 
-  public ReceptionViewModel(PatientModel model,BookingModel bookingModel)
+  public ReceptionViewModel(PatientModel patientmodel,BookingModel bookingModel)
   {
-    this.model=model;
+    this.patientmodel=patientmodel;
     this.bookingModel=bookingModel;
     support = new PropertyChangeSupport(this);
-    roles1= FXCollections.observableArrayList();
+   // roles1= FXCollections.observableArrayList();
     patients=FXCollections.observableArrayList();
     bookings=FXCollections.observableArrayList();
-    model.addListener("HCSGetPatients",this::getPatients);
-    model.addListener("HCSGetRoles",this::getRoles);
-   // model.addListener("HCSGetBookings",this::getBookings);
+    patientmodel.addListener("HCSGetPatients",this::getPatients);
+  //  model.addListener("HCSGetRoles",this::getRoles);
 
-  //  bookingModel.addListener("PtientHasBooking",this::patientHasBooking);
     bookingModel.addListener("HCSGetBookings",this::getBookings);
-   // model.addListener("HCSGetPatients",this::fireAll);
+
 
   }
 
@@ -71,29 +69,25 @@ public class ReceptionViewModel implements Subject
     patients.addAll(patients1);
   }
 
-  private void getRoles(PropertyChangeEvent event)
+ /* private void getRoles(PropertyChangeEvent event)
   {
     roles1.clear();
     ArrayList<User> users =(ArrayList<User>) event.getNewValue();
     roles1.addAll(users);
-  }
+  }*/
   public ObservableList<Patient> getTableViewPatients()
   {
     return patients;
   }
-  public ObservableList<User> getTableViewRoles()
+ /* public ObservableList<User> getTableViewRoles()
   {
 
     return roles1;
-  }
- /* public void getModelRoles()
-  {
-    System.out.println("viewmodel");
-    model.HCSGetRoles();
   }*/
+
    public boolean isPatientExist(String cprNumber)
    {
-     return model.patientExist(cprNumber);
+     return patientmodel.patientExist(cprNumber);
    }
 
   public void createPatient(Patient patient)
@@ -108,27 +102,36 @@ public class ReceptionViewModel implements Subject
   }
   public void addPatient(Patient patient)
   {
-    model.createPatient(patient);
+    patientmodel.createPatient(patient);
   }
   public void removePatient(String cprNumber)
   {
 
    if(! bookingModel.isPatientHasABooking(cprNumber))
-    model.removePatient(cprNumber);
+     patientmodel.removePatient(cprNumber);
    else
      support.firePropertyChange("PtientHasBooking",null,true);
   }
   public void updatePatient(String cprNumber,Patient patient)
   {
-    model.updatePatient(cprNumber, patient);
+    if (!cprNumber.equals(patient.getCprNumber()))
+    {
+      if (isPatientExist( patient.getCprNumber()))
+      {
+        support.firePropertyChange("updatedPtientHasAUsedCPRNumber",null,true);
+
+      }
+      else  patientmodel.updatePatient(cprNumber, patient);
+    } else
+      patientmodel.updatePatient(cprNumber, patient);
   }
   public void getModelPatients()
   {
-    model.GetPatients();
+    patientmodel.GetPatients();
   }
   public void getModelSpecificPatients(String search)
   {
-    model.GetSpecificPatients(search);
+    patientmodel.GetSpecificPatients(search);
   }
   public void createBooking(Booking booking)
   {
@@ -163,14 +166,20 @@ public class ReceptionViewModel implements Subject
   {
     bookingModel.GetBookingsBYCprNumber(cprNumber);
   }
-  public void GetPatientBookingsByDate(Date date)
+  public void GetBookingsByDate(Date date)
   {
-    bookingModel.GetPatientBookingsByDate(date);
+    bookingModel.GetBookingsByDate(date);
   }
 
   public boolean isPatientHasAbooking(String cprNumber)
   {
     return false;
+  }
+
+
+  public void Disconnect()
+  {
+   // model.Disconnect();
   }
 
   @Override public void addListener(String eventName,

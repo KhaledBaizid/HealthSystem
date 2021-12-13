@@ -20,10 +20,10 @@ public class ViewHandler
   private Stage primaryStage;
    Scene loginScene;
    Scene AdmintScene;
-   Scene DeleteRole;
+
    Scene ReceptionScene;
    Scene DoctorScene;
-   Scene BookingScene;
+
 
   public ViewHandler(ViewModelFactory vmf, Stage primaryStage)
   {
@@ -34,60 +34,10 @@ public class ViewHandler
 
   public void start()
   {
-    //openUserLogin();
 
   openHCSLogin();
 
   }
-
-
- /* public void openUserChatView(String username)
-  {
-    if (UserChatScene == null)
-    {
-      try {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/UserChatView.fxml"));
-        Parent root = loader.load();
-        UserChatController ctrl = loader.getController();
-        ctrl.init(this,vmf.getUserChatViewModel());
-        UserChatScene = new Scene(root);
-
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-    }
-
-    primaryStage.setTitle(username);
-    primaryStage.setScene(UserChatScene);
-    primaryStage.show();
-
-  }*/
-
-
- /* public void openUserLogin()
-  {
-
-    if (loginScene == null)
-    {
-      try {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/UserLogin.fxml"));
-        Parent root = loader.load();
-        UserLoginController ctrl = loader.getController();
-        ctrl.init(this,vmf.getUserLoginViewModel());
-        loginScene = new Scene(root);
-
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-    }
-    primaryStage.setTitle("Login");
-    primaryStage.setScene(loginScene);
-    primaryStage.show();
-  }*/
 
   /////
 
@@ -187,74 +137,6 @@ public class ViewHandler
     primaryStage.show();
   }
 
- /* public void openHCSAdminDeleteRole ()
-  {
-
-    if (DeleteRole  == null)
-    {
-      try {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/HCSAdminDeleteRole.fxml"));
-        Parent root = loader.load();
-        HCSAdminDeleteRoleController ctrl = loader.getController();
-        ctrl.init(this,vmf.getHcsAdminDeleteRoleViewModel());
-        DeleteRole  = new Scene(root);
-
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-    }
-    primaryStage.setTitle("Delete: ");
-    primaryStage.setScene(DeleteRole);
-    primaryStage.show();
-  }*/
-
-  /*public void openHCSBooking (String cprNumber,String firstname,String lastname)
-  {
-
-    if (BookingScene  == null)
-    {
-      try {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/Booking/HCSBooking.fxml"));
-        Parent root = loader.load();
-        HCSBookingController ctrl = loader.getController();
-        ctrl.init(this,vmf.getHcsBookingViewModel(),cprNumber,firstname,lastname);
-        BookingScene  = new Scene(root);
-
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-    }
-    primaryStage.setTitle("BOOKING:" );
-    primaryStage.setScene(BookingScene);
-    primaryStage.show();
-  }*/
-
- /* public void openHCSBooking ()
-  {
-
-    if (BookingScene  == null)
-    {
-      try {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/Booking/HCSBooking.fxml"));
-        Parent root = loader.load();
-        HCSBookingController ctrl = loader.getController();
-        ctrl.init(this,vmf.getHcsBookingViewModel(),"","","");
-        BookingScene  = new Scene(root);
-
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-    }
-    primaryStage.setTitle("BOOKING:" );
-    primaryStage.setScene(BookingScene);
-    primaryStage.show();
-  }*/
 
 
 

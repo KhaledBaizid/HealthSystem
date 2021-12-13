@@ -6,6 +6,6 @@ import java.rmi.RemoteException;
 
 public interface PatientClientCallBack extends Remote
 {
- // void patientHasBooking(PropertyChangeEvent event) throws RemoteException;
+
   void sharedPatients(PropertyChangeEvent event) throws RemoteException;
 }

@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public interface ManageUserDAO
 {
- // void createUser(String username);
-  //String HCSLogin(String username,String password);
+
   boolean UserExist(String username);
   void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role);
   ArrayList<User> GetUsers();
@@ -17,6 +16,6 @@ public interface ManageUserDAO
 
   void deleteAllUsers();
 
-  //void createPatient(String cprnumber ,String firstname,String lastname);
+
 
 }

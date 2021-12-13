@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface PrescriptionModel extends Subject
 {
- // void HCSGetBookings();
+
 
   void createPrescription(Prescription prescription);
   void  getPrescriptions();

@@ -32,7 +32,9 @@ public class HCSLoginController
     this.vm=vmf.getHcsLoginViewModel();
     vm.addListener("HCSLogin",this::successfulLogin);
     errorLabel.textProperty().bind(vm.errorProperty());
-    //HCSPasswordTextEdit.visibleProperty().bind(HCSPasswordTextEdit.selectedProperty().not());
+    usernameTextEdit.textProperty().bindBidirectional(vm.getUsernameProperty());
+    password.textProperty().bindBidirectional(vm.getPasswordProperty());
+
   }
 
   private void successfulLogin(PropertyChangeEvent event)
@@ -60,8 +62,6 @@ public class HCSLoginController
 
   public void LoginButton()
   {
-   // vh.openHCSReceptionist(usernameTextEdit.textProperty().getValue());
-   vm.HCSLogin(usernameTextEdit.textProperty().getValue(),password.textProperty().getValue());
-    System.out.println("viewcontroller");
+    vm.HCSLogin();
   }
 }

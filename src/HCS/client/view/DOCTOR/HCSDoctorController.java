@@ -121,13 +121,6 @@ public class HCSDoctorController
 
   public void onCreatePrescription()
   {
-   // String s=prescreptionTextArea.textProperty().getValue();
-    //System.out.println(s);
-  /* String  s="sgsgsg"+"\n"
-       +"sgsgdsgd"
-        + "sgsgsggd"
-        + "sgsgsggs";
-    prescreptionTextArea.setText(s)*/;
 
     Prescription prescription=new Prescription(Date.valueOf(bookingDatePicker.getValue()),bookingTime.textProperty().getValue(),
         prescriptionComboBox.getSelectionModel().getSelectedItem().toString(),prescreptionTextArea.textProperty().getValue());
@@ -164,13 +157,13 @@ public class HCSDoctorController
 
   public void onAllBookingsRadioButton()
   {
-   // System.out.println("radiobuttonAll");
+
     vm.RadioButtonClicked("all",null);
     vm.getModelBookings();
   }
   public void onSpecificBookingsRadioButton()
   {
-  //  System.out.println("radiobuttonSpecific");
+
     vm.RadioButtonClicked("specific",Date.valueOf(specificDatePicker.getValue()));
   }
 
@@ -180,7 +173,7 @@ public class HCSDoctorController
         prescriptionComboBox1.getSelectionModel().getSelectedItem().toString(),
       prescreptionTextArea1.textProperty().getValue());
     vm.removePrescription(prescription);
-    //vm.removePrescription();
+
   }
 
   public void updatePrescription()
@@ -191,15 +184,14 @@ public class HCSDoctorController
 
   public void onBookingSearchDatePicker()
   {
-    vm.GetPatientBookingsByDate(Date.valueOf(specificDatePicker.getValue()));
+    vm.GetBookingsByDate(Date.valueOf(specificDatePicker.getValue()));
   }
 
   public void getPrescriptionsByCptNumber()
   {
-   // if (!searchByCprNumber.getText().isBlank())
+
     vm.getPrescriptionsByPatient(searchByCprNumber.textProperty().getValue());
-    //else
-     // vm.getPrescriptionsModel();
+
   }
 
   public void onPrescriptionDatePickerClicked()

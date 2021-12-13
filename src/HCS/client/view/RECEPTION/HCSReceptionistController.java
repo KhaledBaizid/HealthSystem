@@ -120,11 +120,11 @@ public class HCSReceptionistController
 
   private ViewHandler vh;
   private ReceptionViewModel vm;
-  //private BookingViewModel vmb;
-  private Object HCSBookingController;
+
 
   Date dateToBeChanged=null;
   String timeToBeChanged="";
+  String UpdatedcprNumber="";
 
   public void init(ViewHandler vh, ReceptionViewModel vm)
   {
@@ -164,20 +164,31 @@ public class HCSReceptionistController
     vm.getModelBookings();
     bookingTableView.setItems(vm.getTableViewBookings());
 
-    // vm.addListener("HCSLogin",this::succesfulLogin);
-   /* System.out.println("ReceptionController");
-    firstname1Column.setCellValueFactory(new PropertyValueFactory<User,String>("firstname"));
-    lastname1Column.setCellValueFactory(new PropertyValueFactory<User,String>("lastname"));
-    birthday1Column.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
-    usernameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
-    passwordColumn.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
-    roleColumn.setCellValueFactory(new PropertyValueFactory<User,String>("role"));
-    vm.getModelRoles();
-    RoleTableView.setItems(vm.getTableViewRoles());*/
-
-    vm.addListener("PtientHasBooking",this::removingError);
+    vm.addListener("PtientHasBooking",this::removingPatientError);
     vm.addListener("PatientExists",this::patientExists);
     vm.addListener("BookingHasPrescription",this::removeBookingError);
+
+    vm.addListener("updatedPtientHasAUsedCPRNumber",this::updatePatientError);
+
+  }
+
+  private void updatePatientError(PropertyChangeEvent event)
+  {
+    boolean s= (boolean) event.getNewValue();
+    System.out.println(s);
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "You can not update The new patient with an other used CPR Number ");
+        alert.showAndWait();
+
+      });
+    }
+
   }
 
   private void removeBookingError(PropertyChangeEvent event)
@@ -217,7 +228,7 @@ public class HCSReceptionistController
 
   }
 
-  private void removingError(PropertyChangeEvent event)
+  private void removingPatientError(PropertyChangeEvent event)
   { boolean s= (boolean) event.getNewValue();
     System.out.println(s);
     if (s)
@@ -254,7 +265,7 @@ public class HCSReceptionistController
     Date date=Date.valueOf(localDate);
     Patient patient=new Patient(cprNumber1.textProperty().getValue(),firstname1.textProperty().getValue(),lastname1.textProperty().getValue(),date,
         sexComboBox1.getSelectionModel().getSelectedItem().toString(),address1.textProperty().getValue(),phone1.textProperty().getValue(),mail1.textProperty().getValue());
-    vm.updatePatient(cprNumber1.textProperty().getValue(),patient);
+    vm.updatePatient(UpdatedcprNumber,patient);
   }
 
   public void removePatient()
@@ -294,6 +305,8 @@ public class HCSReceptionistController
     phone1.setText(patient.getPhone());
     mail1.setText(patient.getMail());
 
+    UpdatedcprNumber=patient.getCprNumber();
+
   }
 
   public void createBooking()
@@ -332,16 +345,12 @@ public class HCSReceptionistController
     Date date2=Date.valueOf(localDate);
     System.out.println(bookingDatePicker.getValue().toString());
     ArrayList<String> time=vm.getAvailableTime(date2);
-   // vm.getTimeAvailable(date2);
+
     bookingTimeComboBox.getItems().clear();
     bookingTimeComboBox.getItems().addAll("08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45",
         "11:00","11:15","11:30","11:45","12:00","12:15","12:30","12:45","13:00","13:15","13:30","13:45","14:00","14:15","14:30","14:45","15:00","15:15","15:30","15:45");
     bookingTimeComboBox.getItems().removeAll(time);
-    for (String i:time)
-    {
-      System.out.println(i);
-    }
-    System.out.println("datetime");
+
 
   }
   public void onBookingTyped()
@@ -351,7 +360,7 @@ public class HCSReceptionistController
 
   public void onBookingSearchDatePicker()
   {
-    vm.GetPatientBookingsByDate(Date.valueOf(bookingSearchDatePicker.getValue()));
+    vm.GetBookingsByDate(Date.valueOf(bookingSearchDatePicker.getValue()));
   }
 
   public void updateBooking()
@@ -378,15 +387,10 @@ public class HCSReceptionistController
 
 
   }
+  public void Disconnect()
+  {
+   vm.Disconnect();
+   System.exit(0);
 
-  public void BookForPatient()
-  {
-    //HCSBookingController.class.getClassLoader().
-  //  vh.openHCSBooking(bookingCPRNumber.textProperty().getValue(),bookingFirstname.textProperty().getValue(),bookingLastname.textProperty().getValue());
-    //vh.openHCSDoctor("sgsgsgs");
-  }
-  public void OpenBookPage()
-  {
-    //vh.openHCSBooking();
   }
 }

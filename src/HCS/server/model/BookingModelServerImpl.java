@@ -95,10 +95,10 @@ public class BookingModelServerImpl implements BookingModelServer
     return booking1;
   }
 
-  @Override public ArrayList<Booking> GetPatientBookingsByDate(Date date)
+  @Override public ArrayList<Booking> GetBookingsByDate(Date date)
   {
     ArrayList<Booking> booking1;
-    booking1=bookingDAO.GetPatientBookingsByDate(date);
+    booking1=bookingDAO.GetBookingsByDate(date);
     //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
     // return userDAO.HCSGetRoles();
     // support.firePropertyChange("HCSGetBookings",null,booking1);

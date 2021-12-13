@@ -11,7 +11,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class LoginClientImpl implements LoginClient , Remote//, ClientCallBack
+public class LoginClientImpl implements LoginClient , Remote
 {
   private RMIServer server;
   private PropertyChangeSupport support;
@@ -21,45 +21,13 @@ public class LoginClientImpl implements LoginClient , Remote//, ClientCallBack
     support = new PropertyChangeSupport(this);
   }
 
-
- /* @Override public void publicMessageSent(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }
-
-  @Override public void userAdded(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }
-
-  @Override public void userDeleted(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }*/
-
-  /*@Override public void sharedroles(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }*/
-
- /* @Override public void sharedBookings(PropertyChangeEvent event)
-      throws RemoteException
-  {
-
-  }*/
-
   @Override public void startClient()
   {
     try {
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
-    //  server.registerClient(this);
-      // System.out.println("StartClient");
+
 
     } catch (RemoteException | NotBoundException e) {
       e.printStackTrace();

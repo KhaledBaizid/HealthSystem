@@ -17,16 +17,16 @@
 
 <AnchorPane prefHeight="807.0" prefWidth="1173.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HCS.client.view.DOCTOR.HCSDoctorController">
    <children>
-      <TableView fx:id="bookingTableView" layoutX="78.0" layoutY="583.0" onMouseClicked="#bookingTableClicked" prefHeight="202.0" prefWidth="775.0" stylesheets="@../../Design/style1.css">
+      <TableView fx:id="bookingTableView" layoutX="78.0" layoutY="583.0" onMouseClicked="#bookingTableClicked" prefHeight="202.0" prefWidth="846.0" stylesheets="@../../Design/style1.css">
         <columns>
           <TableColumn fx:id="bookingDateColumn" prefWidth="82.0" text="BookingDate" />
-          <TableColumn fx:id="bookingTimeColumn" prefWidth="86.0" text="BookingTime" />
-            <TableColumn fx:id="bookingCPRNumberColumn" prefWidth="76.0" text="CPRNumber" />
-            <TableColumn fx:id="bookingFirstnameColumn" prefWidth="71.0" text="Firstname" />
-            <TableColumn fx:id="bookingLastnameColumn" prefWidth="60.0" text="Lastname" />
-            <TableColumn fx:id="bookingBirthdayColumn" prefWidth="98.0" text="Birthday" />
-            <TableColumn fx:id="bookingSexColumn" prefWidth="52.0" text="Sex" />
-            <TableColumn fx:id="bookingSymptomsColumn" prefWidth="235.0" text="Symptoms" />
+          <TableColumn fx:id="bookingTimeColumn" text="BookingTime" />
+            <TableColumn fx:id="bookingCPRNumberColumn" prefWidth="120.0" text="CPRNumber" />
+            <TableColumn fx:id="bookingFirstnameColumn" prefWidth="76.0" text="Firstname" />
+            <TableColumn fx:id="bookingLastnameColumn" prefWidth="75.0" text="Lastname" />
+            <TableColumn fx:id="bookingBirthdayColumn" prefWidth="92.0" text="Birthday" />
+            <TableColumn fx:id="bookingSexColumn" prefWidth="53.0" text="Sex" />
+            <TableColumn fx:id="bookingSymptomsColumn" prefWidth="182.0" text="Symptoms" />
         </columns>
       </TableView>
       <TabPane layoutX="81.0" layoutY="14.0" prefHeight="249.0" prefWidth="964.0" tabClosingPolicy="UNAVAILABLE">
@@ -47,10 +47,13 @@
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
                         </Label>
-                        <Button layoutX="680.0" layoutY="175.0" mnemonicParsing="false" onAction="#onCreatePrescription" prefHeight="25.0" prefWidth="97.0" text="Add_Prescription" />
+                        <Button layoutX="680.0" layoutY="175.0" mnemonicParsing="false" onAction="#onCreatePrescription" prefHeight="25.0" prefWidth="111.0" text="Add_Prescription" />
                         <ComboBox fx:id="prescriptionComboBox" layoutX="94.0" layoutY="59.0" prefWidth="150.0" />
-                        <Label layoutX="53.0" layoutY="63.0" text="Type" />
-                        <TextField fx:id="bookingTime" editable="false" layoutX="355.0" layoutY="4.0" />
+                        <Label layoutX="53.0" layoutY="63.0" text="Type">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="bookingTime" editable="false" layoutX="355.0" layoutY="4.0" prefHeight="25.0" prefWidth="87.0" />
                         <Label layoutX="8.0" layoutY="8.0" text="BookingDate" />
                         <Label layoutX="272.0" layoutY="8.0" text="BookingTime" />
                         <DatePicker fx:id="bookingDatePicker" disable="true" editable="false" layoutX="82.0" layoutY="4.0" />
@@ -64,7 +67,7 @@
                      <children>
                         <Label layoutX="14.0" layoutY="23.0" text="BookingDate" />
                         <DatePicker fx:id="bookingDatePicker1" disable="true" editable="false" layoutX="94.0" layoutY="19.0" />
-                        <TextField fx:id="bookingTime1" editable="false" layoutX="378.0" layoutY="19.0" />
+                        <TextField fx:id="bookingTime1" editable="false" layoutX="378.0" layoutY="19.0" prefHeight="25.0" prefWidth="80.0" />
                         <Label layoutX="299.0" layoutY="23.0" text="BookingTime" />
                         <TextField fx:id="CPRNumberTextField1" editable="false" layoutX="378.0" layoutY="64.0" />
                         <Label layoutX="302.0" layoutY="68.0" text="CPRNumber" />
@@ -73,7 +76,10 @@
                         <TextField fx:id="lastnameTextField1" editable="false" layoutX="809.0" layoutY="64.0" />
                         <Label layoutX="746.0" layoutY="68.0" text="Lastname" />
                         <ComboBox fx:id="prescriptionComboBox1" layoutX="106.0" layoutY="64.0" prefWidth="150.0" />
-                        <Label layoutX="57.0" layoutY="68.0" text="Type" />
+                        <Label layoutX="57.0" layoutY="68.0" text="Type">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font></Label>
                         <TextArea fx:id="prescreptionTextArea1" layoutX="119.0" layoutY="97.0" prefHeight="117.0" prefWidth="572.0" />
                         <Label layoutX="13.0" layoutY="110.0" text="Prescription">
                            <font>
@@ -90,24 +96,24 @@
       <TableView fx:id="PrescriptionTableView" layoutX="87.0" layoutY="314.0" onMouseClicked="#prescriptionTableClicked" onSwipeUp="#prescriptionTableClicked" prefHeight="200.0" prefWidth="1036.0" stylesheets="@../../Design/style.css">
         <columns>
           <TableColumn fx:id="prescriptionDateColumn" prefWidth="91.0" text="BookingDate" />
-          <TableColumn fx:id="prescriptionTimeColumn" prefWidth="59.0" text="Time" />
-            <TableColumn fx:id="prescriptionCprNumberColumn" prefWidth="75.0" text="CPR" />
-            <TableColumn fx:id="prescriptionFirstnameColumn" prefWidth="75.0" text="Firstname" />
+          <TableColumn fx:id="prescriptionTimeColumn" prefWidth="50.0" text="Time" />
+            <TableColumn fx:id="prescriptionCprNumberColumn" prefWidth="99.0" text="CPR" />
+            <TableColumn fx:id="prescriptionFirstnameColumn" prefWidth="71.0" text="Firstname" />
             <TableColumn fx:id="prescriptionLastnameColumn" prefWidth="75.0" text="Lastname" />
-            <TableColumn fx:id="prescriptionBirthdayColumn" prefWidth="75.0" text="Birthday" />
-            <TableColumn fx:id="prescriptionSexColumn" prefWidth="75.0" text="Sex" />
-            <TableColumn fx:id="prescriptionSymptomsColumn" prefWidth="75.0" text="Symptoms" />
+            <TableColumn fx:id="prescriptionBirthdayColumn" prefWidth="91.0" text="Birthday" />
+            <TableColumn fx:id="prescriptionSexColumn" prefWidth="56.0" text="Sex" />
+            <TableColumn fx:id="prescriptionSymptomsColumn" prefWidth="86.0" text="Symptoms" />
             <TableColumn fx:id="prescriptionTypeColumn" prefWidth="75.0" text="P_Type" />
-            <TableColumn fx:id="prescriptionTextColumn" prefWidth="333.0" text="Text" />
+            <TableColumn fx:id="prescriptionTextColumn" prefWidth="314.0" text="Text" />
 
         </columns>
       </TableView>
-      <Label layoutX="14.0" layoutY="583.0" text="Bookings" textFill="#530ec3">
+      <Label layoutX="14.0" layoutY="583.0" text="Bookings" textFill="#4a804c">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="3.0" layoutY="323.0" text="Prescriptions" textFill="#308357">
+      <Label layoutX="3.0" layoutY="323.0" text="Prescriptions" textFill="#305f82">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -128,5 +134,11 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Label layoutX="29.0" layoutY="283.0" text="Search">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Separator layoutX="7.0" layoutY="270.0" prefHeight="3.0" prefWidth="1155.0" />
    </children>
 </AnchorPane>

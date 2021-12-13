@@ -7,15 +7,9 @@ import java.util.ArrayList;
 
 public interface UserModel extends Subject
 {
-   // void login(String username);
-  // ArrayList<String> getActiveUsersList();
-   // void sendPublicMessage(String value);
-   // void disconnect();
 
-    ///////
-  // void HCSLogin(String username,String password);
   void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role);
-    void   GetUsers();
+  void   GetUsers();
   void RemoveUser(String username);
-  ///////
+
 }
