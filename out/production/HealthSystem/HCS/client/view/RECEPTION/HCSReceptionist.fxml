@@ -82,8 +82,6 @@
                             </Tab>
                           </tabs>
                         </TabPane>
-                        <Button layoutX="247.0" layoutY="323.0" mnemonicParsing="false" onAction="#BookForPatient" text="Book" />
-                        <Button layoutX="338.0" layoutY="323.0" mnemonicParsing="false" onAction="#OpenBookPage" text="OpenBookPage" />
                      </children>
                   </AnchorPane>
             </content>
@@ -170,5 +168,6 @@
         </columns>
       </TableView>
       <TextField fx:id="searchTextField" layoutX="28.0" layoutY="443.0" onKeyTyped="#onSearchTyped" promptText="Type to search" />
+      <Button layoutX="795.0" layoutY="619.0" mnemonicParsing="false" onAction="#Disconnect" text="Button" />
    </children>
 </AnchorPane>
