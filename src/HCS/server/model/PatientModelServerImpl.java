@@ -45,6 +45,9 @@ public class PatientModelServerImpl implements PatientModelServer
     System.out.println("ReceptionModelServer");
    // if (!patientDAO.patientExist(patient.getCprNumber()))
     patientDAO.createPatient(patient);
+    ArrayList<Patient> patients;
+    patients=patientDAO.GetPatients();
+    support.firePropertyChange("HCSGetPatients",null, patients);
     //  userDAO.createPatient(cprnumber, firstname, Lastname);
 
   }
@@ -54,6 +57,10 @@ public class PatientModelServerImpl implements PatientModelServer
     if( !bookingDAO.isPatientHasABooking(cprNumber))
     {
       patientDAO.removePatient(cprNumber);
+
+      ArrayList<Patient> patients;
+      patients=patientDAO.GetPatients();
+      support.firePropertyChange("HCSGetPatients",null, patients);
     }
   /*  else
     {
@@ -67,6 +74,10 @@ public class PatientModelServerImpl implements PatientModelServer
     patientDAO.updatePatient(cprNumber, patient);
     ArrayList<Booking> booking1;
     booking1=bookingDAO.GetBookings();
+
+    ArrayList<Patient> patients;
+    patients=patientDAO.GetPatients();
+    support.firePropertyChange("HCSGetPatients",null, patients);
     //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
     // return userDAO.HCSGetRoles();
     support.firePropertyChange("HCSGetBookings",null,booking1);
@@ -78,7 +89,7 @@ public class PatientModelServerImpl implements PatientModelServer
   {
     ArrayList<Patient> patients;
     patients=patientDAO.GetPatients();
-    support.firePropertyChange("HCSGetPatients",null, patients);
+   // support.firePropertyChange("HCSGetPatients",null, patients);
     return patients;
   }
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface PatientClient extends Subject
 {
   void startClient();
- // void Disconnect();
+  void Disconnect();
 
   void createPatient(Patient patient);
   void removePatient(String cprNumber);

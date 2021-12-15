@@ -200,5 +200,10 @@ public class HCSDoctorController
 
   }
 
+  public void Disconnect()
+  {vm.Disconnect();
+    System.exit(0);
+  }
+
 
 }

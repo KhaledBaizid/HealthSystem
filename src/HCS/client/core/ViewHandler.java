@@ -30,6 +30,7 @@ public class ViewHandler
     this.vmf = vmf;
     this.primaryStage = primaryStage;
     primaryStage.setResizable(false);
+
   }
 
   public void start()
@@ -135,6 +136,7 @@ public class ViewHandler
     primaryStage.setTitle("DOCTOR: "+username);
     primaryStage.setScene(DoctorScene);
     primaryStage.show();
+
   }
 
 

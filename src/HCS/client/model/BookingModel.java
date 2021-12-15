@@ -18,4 +18,6 @@ public interface BookingModel extends Subject
   void GetBookingsByDate(Date date);
   boolean isPatientHasABooking(String cprNumber);
   boolean isBookingHasAPrescription(Date bookingDate,String bookingTime);
+
+  void Disconnect();
 }

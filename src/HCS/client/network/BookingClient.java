@@ -19,4 +19,6 @@ public interface BookingClient extends Subject
   boolean isPatientHasABooking(String cprNumber);
   boolean isBookingHasAPrescription(Date bookingDate,String bookingTime);
 
+  void Disconnect();
+
 }

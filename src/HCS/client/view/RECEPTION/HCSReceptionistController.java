@@ -121,6 +121,7 @@ public class HCSReceptionistController
 
     sexComboBox.getItems().addAll("F","M");
     sexComboBox1.getItems().addAll("F","M");
+    sexComboBox.getSelectionModel().select("M");
     bookingDatePicker.setValue(LocalDate.now());
     bookingTimeComboBox.getItems().addAll("08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45",
         "11:00","11:15","11:30","11:45","12:00","12:15","12:30","12:45","13:00","13:15","13:30","13:45","14:00","14:15","14:30","14:45","15:00","15:15","15:30","15:45");
@@ -156,6 +157,19 @@ public class HCSReceptionistController
     vm.addListener("BookingHasPrescription",this::removeBookingError);
 
     vm.addListener("updatedPtientHasAUsedCPRNumber",this::updatePatientError);
+
+    cprNumber.textProperty().bindBidirectional(vm.getCprNumber());
+    firstname.textProperty().bindBidirectional(vm.getFirstname());
+    lastname.textProperty().bindBidirectional(vm.getLastname());
+    birthdayDatePicker.valueProperty().bindBidirectional(vm.getBithday());
+    //vm.getSex().bindBidirectional(sexComboBox.valueProperty());
+    sexComboBox.valueProperty().bindBidirectional(vm.getSex());
+    address.textProperty().bindBidirectional(vm.getAddress());
+    phone.textProperty().bindBidirectional(vm.getPhone());
+    mail.textProperty().bindBidirectional(vm.getMail());
+   // sexComboBox.getItems().addAll(vm.getsexes());
+
+
 
   }
 
@@ -237,12 +251,12 @@ public class HCSReceptionistController
 
   public void createPatient()
   {
-    System.out.println("ReceptionController");
+   /* System.out.println("ReceptionController");
     LocalDate localDate=birthdayDatePicker.getValue();
     Date date=Date.valueOf(localDate);
     Patient patient=new Patient(cprNumber.textProperty().getValue(),firstname.textProperty().getValue(),lastname.textProperty().getValue(),date,
-        sexComboBox.getSelectionModel().getSelectedItem().toString(),address.textProperty().getValue(),phone.textProperty().getValue(),mail.textProperty().getValue());
-    vm.createPatient(patient);
+        sexComboBox.getSelectionModel().getSelectedItem().toString(),address.textProperty().getValue(),phone.textProperty().getValue(),mail.textProperty().getValue());*/
+    vm.createPatient();
 
   }
 
@@ -271,7 +285,8 @@ public class HCSReceptionistController
   public void onCPRNumberTyped()
   {
   //  if (!cprNumber.getText().isEmpty())
-      vm.getModelSpecificPatients(cprNumber.textProperty().getValue());
+    vm.getSpecificPatientByCpr();
+     // vm.getModelSpecificPatients(cprNumber.textProperty().getValue());
    // else vm.getModelPatients();
   }
 
@@ -380,4 +395,6 @@ public class HCSReceptionistController
    System.exit(0);
 
   }
+
+
 }

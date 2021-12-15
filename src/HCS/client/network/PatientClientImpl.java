@@ -43,17 +43,17 @@ public class PatientClientImpl
     }
   }
 
- /* @Override public void Disconnect()
+  @Override public void Disconnect()
   {
     try
     {
-      server.unregisterClient(this,this);
+      server.unregisterPatientClient(this);
     }
     catch (RemoteException e)
     {
       e.printStackTrace();
     }
-  }*/
+  }
 
   @Override public void createPatient(Patient patient)
   {

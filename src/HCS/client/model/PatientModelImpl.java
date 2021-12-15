@@ -75,10 +75,10 @@ public class PatientModelImpl implements PatientModel
     return patientClient.patientExist(cprNumber);
   }
 
-/*  @Override public void Disconnect()
+  @Override public void Disconnect()
   {
     patientClient.Disconnect();
-  }*/
+  }
 
 
 }

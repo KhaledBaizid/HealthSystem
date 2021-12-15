@@ -14,16 +14,10 @@ import java.util.ArrayList;
 public interface RMIServer extends Remote
 {
 
-
-
-
- // void disconnect(User userDisconnecting) throws RemoteException;
- //void registerClient();
   void registerClient(BookingClientCallBack bookingClientCallBack) throws RemoteException;
- //void registerClient(BookingClientCallBack bookingClientCallBack, PatientClientCallBack patientClientCallBack) throws RemoteException;
  void registerPatientClient(PatientClientCallBack patientClientCallBack) throws RemoteException;
- //  void  unregisterClient(BookingClientCallBack bookingClientCallBack) throws RemoteException;
-// void  unregisterClient(BookingClientCallBack bookingClientCallBack , PatientClientCallBack patientClientCallBack) throws RemoteException;
+   void  unregisterBookingClient(BookingClientCallBack bookingClientCallBack) throws RemoteException;
+ void  unregisterPatientClient( PatientClientCallBack patientClientCallBack) throws RemoteException;
 
 
 

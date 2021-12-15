@@ -7,24 +7,20 @@ import java.util.ArrayList;
 
 public class UserDAO implements ManageUserDAO
 {
-
  private static UserDAO instance;
   private JDBCController jdbcController;
-
   private UserDAO()
   {
     try
     {
       DriverManager.registerDriver(new org.postgresql.Driver());
     }
-    catch (SQLException throwables)
+    catch (SQLException throwable)
     {
-      throwables.printStackTrace();
+      throwable.printStackTrace();
     }
     jdbcController = JDBCController.getInstance();
-
   }
-
   public static synchronized UserDAO getInstance()
   {
     if (instance == null)

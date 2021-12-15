@@ -19,7 +19,7 @@ public interface PatientModel extends Subject
 
   boolean patientExist(String cprNumber);
 
-  //void Disconnect();
+  void Disconnect();
 
 
 }

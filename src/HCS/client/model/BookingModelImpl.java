@@ -93,4 +93,9 @@ public class BookingModelImpl implements BookingModel
   {
     return clientBooking.isBookingHasAPrescription(bookingDate, bookingTime);
   }
+
+  @Override public void Disconnect()
+  {
+    clientBooking.Disconnect();
+  }
 }

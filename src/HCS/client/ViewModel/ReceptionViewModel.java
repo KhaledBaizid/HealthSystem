@@ -4,9 +4,14 @@ import HCS.client.model.BookingModel;
 import HCS.client.model.PatientModel;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.User;
 import HCS.shared.utility.Subject;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -14,6 +19,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ReceptionViewModel implements Subject
@@ -26,6 +32,21 @@ public class ReceptionViewModel implements Subject
   private ObservableList<Patient> patients;
   private ObservableList<Booking> bookings;
 
+  private ObservableList<String> sexes;
+
+  private ObjectProperty<LocalDate> birthday;
+  private SimpleObjectProperty<String> sex;
+  //private StringProperty sex;
+  private StringProperty cprNumber;
+  private StringProperty firstname;
+  private StringProperty lastname;
+  private StringProperty address;
+  private StringProperty phone;
+  private StringProperty mail;
+
+
+
+
   public ReceptionViewModel(PatientModel patientmodel,BookingModel bookingModel)
   {
     this.patientmodel=patientmodel;
@@ -34,13 +55,28 @@ public class ReceptionViewModel implements Subject
    // roles1= FXCollections.observableArrayList();
     patients=FXCollections.observableArrayList();
     bookings=FXCollections.observableArrayList();
+    sexes=FXCollections.observableArrayList();
     patientmodel.addListener("HCSGetPatients",this::getPatients);
   //  model.addListener("HCSGetRoles",this::getRoles);
 
     bookingModel.addListener("HCSGetBookings",this::getBookings);
+    /////
+    birthday=new SimpleObjectProperty<LocalDate>();
+    sex= new SimpleObjectProperty<>();
+    cprNumber=new SimpleStringProperty();
+    firstname=new SimpleStringProperty();
+    lastname=new SimpleStringProperty();;
+    address=new SimpleStringProperty();
+    phone=new SimpleStringProperty();
+    mail=new SimpleStringProperty();;
+
+
+    ////
 
 
   }
+
+
 
   private void patientHasBooking(PropertyChangeEvent event)
   {boolean s= (boolean) event.getNewValue();
@@ -90,12 +126,19 @@ public class ReceptionViewModel implements Subject
      return patientmodel.patientExist(cprNumber);
    }
 
-  public void createPatient(Patient patient)
+  public void createPatient()
   {
     System.out.println("ReceptionViewModel");
+    Patient patient= new Patient(cprNumber.get(), firstname.get(),
+        lastname.get(), Date.valueOf(birthday.get()),sex.get(),address.get(),
+        phone.get(), mail.get());
+    // sex.bind(getsexes());
   //  if (!model.patientExist(patient.getCprNumber()))
       if (!isPatientExist( patient.getCprNumber()))
-     addPatient(patient);
+      {
+        addPatient(patient);
+        cprNumber.setValue("");firstname.setValue("");lastname.setValue("");address.setValue("");phone.setValue("");mail.setValue("");
+      }
     else
       support.firePropertyChange("PatientExists",null,true);
 
@@ -179,7 +222,8 @@ public class ReceptionViewModel implements Subject
 
   public void Disconnect()
   {
-   // model.Disconnect();
+    patientmodel.Disconnect();
+    bookingModel.Disconnect();
   }
 
   @Override public void addListener(String eventName,
@@ -192,5 +236,65 @@ public class ReceptionViewModel implements Subject
       PropertyChangeListener listener)
   {
 
+  }
+
+  //////
+  public ObjectProperty<LocalDate> getBithday()
+  {
+    return birthday;
+  }
+  public SimpleObjectProperty getSex()
+  {
+    return sex;
+  }
+
+  public StringProperty getAddress()
+  {
+    return address;
+  }
+
+  public StringProperty getCprNumber()
+  {
+    return cprNumber;
+  }
+
+  public StringProperty getFirstname()
+  {
+    return firstname;
+  }
+
+  public StringProperty getLastname()
+  {
+    return lastname;
+  }
+
+  public StringProperty getMail()
+  {
+    return mail;
+  }
+
+  public StringProperty getPhone()
+  {
+    return phone;
+  }
+
+  public void getSpecificPatientByCpr()
+  {
+    patientmodel.GetSpecificPatients(cprNumber.get());
+  }
+
+  public ObservableList<String> getsexes()
+  {
+    sexes.clear();
+    sexes.addAll("a","b","c");
+    return sexes;
+  }
+
+  public void displayDateBind()
+  {
+    System.out.println(birthday.toString());
+   // LocalDate d= birthday.get();
+    System.out.println(Date.valueOf((birthday.get())));
+    System.out.println(sex.get());
   }
 }

@@ -169,4 +169,9 @@ public class DoctorViewModel
    return prescriptionModel.getPrescriptionsType();
   }
 
+  public void Disconnect()
+  {
+    bookingModel.Disconnect();
+  }
+
 }

@@ -73,8 +73,19 @@ public class HCSAdminController
   {
     this.vh=vh;
     this.vm=vm;
-   // vm.addListener("HCSLogin",this::succesfulLogin);
     roleComboBox1.getItems().addAll("RECEPTION","DOCTOR");
+
+    firstname1.textProperty().bindBidirectional(vm.getFirstname());
+    lastname1.textProperty().bindBidirectional(vm.getLastname());
+    username1.textProperty().bindBidirectional(vm.getUsername());
+    password1.textProperty().bindBidirectional(vm.getPassword());
+    birthdayDatePicker1.valueProperty().bindBidirectional(vm.getBirthday());
+    //vm.getSex().bindBidirectional(sexComboBox.valueProperty());
+    roleComboBox1.valueProperty().bindBidirectional(vm.getRole());
+    roleComboBox1.valueProperty().unbind();
+    roleComboBox1.getSelectionModel().selectFirst();
+   // vm.addListener("HCSLogin",this::succesfulLogin);
+
     ////
    // getRoles();
     firstnameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("firstname"));
@@ -116,9 +127,9 @@ public class HCSAdminController
     vm.getModelUsers();
   }
 
-  public void createRoleButton()
+  public void createUser()
   {
-      LocalDate localDate=birthdayDatePicker1.getValue();
+    /*  LocalDate localDate=birthdayDatePicker1.getValue();
       Date date=Date.valueOf(localDate);
     vm.CreateUser(firstname1.textProperty().getValue(),
                      lastname1.textProperty().getValue(),
@@ -126,11 +137,13 @@ public class HCSAdminController
         username1.textProperty().getValue(),
         password1.textProperty().getValue(),
         roleComboBox1.getSelectionModel().getSelectedItem().toString());
-    firstname1.clear();lastname1.clear();username1.clear();password1.clear();
+    firstname1.clear();lastname1.clear();username1.clear();password1.clear();*/
+
+    vm.CreateUser();
 
   }
 
-  public void deleteRoleButton()
+  public void deleteUser()
   {
 
     vm.RemoveUser(username.textProperty().getValue());

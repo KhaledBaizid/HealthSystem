@@ -20,47 +20,42 @@ import java.util.List;
 
 public class RMIServerImpl implements RMIServer
 {
- // private final ServerModel model;
+
   private final LoginModelServer loginModelServer;
   private final UserModelServer userModelServer;
   private final PatientModelServer patientModelServer;
   private final BookingModelServer bookingModelServer;
   private final PrescriptionModelServer prescriptionModelServer;
-  private List<BookingClientCallBack> clients;
-  private List<PatientClientCallBack> clients1;
-  //private Object ClientloginCallBack;
- // public RMIServerImpl(ServerModel model) throws RemoteException
-  public RMIServerImpl( LoginModelServer loginModelServer,
-      UserModelServer userModelServer, PatientModelServer patientModelServer,BookingModelServer bookingModelServer, PrescriptionModelServer prescriptionModelServer) throws RemoteException
+  private List<BookingClientCallBack> callTheBookingClient;
+  private List<PatientClientCallBack> callThePatientClient;
+  
+  public RMIServerImpl( LoginModelServer loginModelServer, UserModelServer userModelServer, PatientModelServer patientModelServer,
+      BookingModelServer bookingModelServer, PrescriptionModelServer prescriptionModelServer) throws RemoteException
   {
     UnicastRemoteObject.exportObject( this, 0);
-    //this.model = model;
-    clients= new ArrayList<>();
-    clients1=new ArrayList<>();
+    callTheBookingClient =new ArrayList<>();
+    callThePatientClient=new ArrayList<>();
     this.loginModelServer = loginModelServer;
     this.userModelServer = userModelServer;
     this.patientModelServer=patientModelServer;
     this.bookingModelServer=bookingModelServer;
     this.prescriptionModelServer=prescriptionModelServer;
 
-  //  model.addListener("HCSGetRoles",this::sharedRoles);
     bookingModelServer.addListener("HCSGetBookings",this::sharedBookings);
     patientModelServer.addListener("HCSGetBookings",this::sharedBookings);
-   // model.addListener("PtientHasBooking",this::patientHasBooking);
+
     patientModelServer.addListener("HCSGetPatients",this::sharedPatients);
-
-
 
   }
 
   private void sharedPatients(PropertyChangeEvent event)
   {
-    for (PatientClientCallBack i:clients1)
+    for (PatientClientCallBack i:callThePatientClient)
     {
       try {
 
         i.sharedPatients(event);
-
+        System.out.println(i.toString());
       } catch (RemoteException e) {
         e.printStackTrace();
       }
@@ -72,22 +67,16 @@ public class RMIServerImpl implements RMIServer
 
   private void sharedBookings(PropertyChangeEvent event)
   {
-    for (BookingClientCallBack i:clients
+    for (BookingClientCallBack i:callTheBookingClient
     ) {
       try {
         i.sharedBookings(event);
-
+        System.out.println(i.toString());
       } catch (RemoteException e) {
         e.printStackTrace();
       }
 
     }
-  }
-
-
-
-  private void HCS(PropertyChangeEvent event)
-  {
   }
 
 
@@ -100,40 +89,31 @@ public class RMIServerImpl implements RMIServer
 
   @Override
   public void registerClient(BookingClientCallBack bookingClientCallBack) {
-    clients.add(bookingClientCallBack);
+    callTheBookingClient.add(bookingClientCallBack);
 
 
   }
 
- /* @Override public void registerClient(
-      BookingClientCallBack bookingClientCallBack,
-      PatientClientCallBack patientClientCallBack) throws RemoteException
-  {
-    clients.add(bookingClientCallBack);
-    clients1.add(patientClientCallBack);
-  }*/
+
 
   @Override public void registerPatientClient(
       PatientClientCallBack patientClientCallBack) throws RemoteException
   {
-    clients1.add(patientClientCallBack);
+    callThePatientClient.add(patientClientCallBack);
   }
 
-/*  @Override public void unregisterClient(
-      BookingClientCallBack bookingClientCallBack)
-
+  @Override public void unregisterBookingClient(
+      BookingClientCallBack bookingClientCallBack) throws RemoteException
   {
-    clients.remove(bookingClientCallBack);
+    callTheBookingClient.remove(bookingClientCallBack);
+  }
 
-  }*/
-
- /* @Override public void unregisterClient(
-      BookingClientCallBack bookingClientCallBack,
+  @Override public void unregisterPatientClient(
       PatientClientCallBack patientClientCallBack) throws RemoteException
   {
-    clients.remove(bookingClientCallBack);
-    clients1.remove(patientClientCallBack);
-  }*/
+callThePatientClient.remove(patientClientCallBack);
+  }
+
 
   @Override public String Login(String username, String password)
   {

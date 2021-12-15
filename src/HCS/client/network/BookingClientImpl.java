@@ -168,6 +168,18 @@ public class BookingClientImpl
     return false;
   }
 
+  @Override public void Disconnect()
+  {
+    try
+    {
+      server.unregisterBookingClient(this);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
   @Override public void addListener(String eventName,
       PropertyChangeListener listener)
   {
