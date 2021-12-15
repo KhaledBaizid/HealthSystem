@@ -98,20 +98,7 @@ public class HCSReceptionistController
   @FXML private DatePicker bookingSearchDatePicker;
 
   /////////////////////
-  @FXML
-  private TableView<User> RoleTableView;
 
-  @FXML private TableColumn<User, String> firstname1Column;
-  @FXML private
-  TableColumn<User, String> lastname1Column;
-  @FXML private
-  TableColumn<User, Date> birthday1Column;
-  @FXML private
-  TableColumn<User, String> usernameColumn;
-  @FXML private
-  TableColumn<User, String> passwordColumn;
-  @FXML private
-  TableColumn<User, String> roleColumn;
   //////////////
   @FXML
   private TextField searchTextField;
@@ -194,7 +181,7 @@ public class HCSReceptionistController
   private void removeBookingError(PropertyChangeEvent event)
   {
     boolean s= (boolean) event.getNewValue();
-    System.out.println(s);
+
     if (s)
     {
       Platform.runLater(() -> {

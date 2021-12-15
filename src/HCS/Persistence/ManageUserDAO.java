@@ -1,4 +1,4 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
 import HCS.shared.transferObjects.User;
 
@@ -13,7 +13,7 @@ public interface ManageUserDAO
   ArrayList<User> GetUsers();
   void RemoveUser(String username);
   void HCRUpdateRole(String firstname,String lastname, Date birthday,String username,String password,String role);
-
+  void updateUser(String username, User user);
   void deleteAllUsers();
 
 

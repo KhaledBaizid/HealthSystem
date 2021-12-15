@@ -4,25 +4,17 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="685.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HCS.client.view.RECEPTION.HCSReceptionistController">
+<AnchorPane prefHeight="678.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HCS.client.view.RECEPTION.HCSReceptionistController">
    <children>
-      <TableView fx:id="RoleTableView" layoutX="525.0" layoutY="456.0" prefHeight="154.0" prefWidth="463.0" visible="false">
-        <columns>
-          <TableColumn fx:id="firstname1Column" prefWidth="75.0" text="C1" />
-          <TableColumn fx:id="lastname1Column" prefWidth="75.0" text="C2" />
-            <TableColumn fx:id="birthday1Column" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="roleColumn" prefWidth="75.0" text="Column X" />
-        </columns>
-      </TableView>
       <TabPane layoutX="28.0" layoutY="28.0" prefHeight="402.0" prefWidth="767.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Manage_Patient">
@@ -108,7 +100,7 @@
                                           <TextField fx:id="bookingLastname" layoutX="502.0" layoutY="50.0" prefHeight="25.0" prefWidth="89.0" />
                                           <TextField fx:id="symptoms" layoutX="82.0" layoutY="86.0" prefHeight="25.0" prefWidth="397.0" />
                                           <Label layoutX="17.0" layoutY="90.0" text="Symptoms" />
-                                          <Button layoutX="265.0" layoutY="115.0" mnemonicParsing="false" onAction="#createBooking" text="Add Booking" />
+                                          <Button layoutX="159.0" layoutY="115.0" mnemonicParsing="false" onAction="#createBooking" text="Add Booking" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -148,8 +140,19 @@
                               <TableColumn fx:id="bookingSymptomsColumn" prefWidth="119.0" text="Symptoms" />
                           </columns>
                         </TableView>
-                        <TextField fx:id="bookingSearch" layoutX="4.0" layoutY="187.0" onKeyTyped="#onBookingTyped" />
-                        <DatePicker fx:id="bookingSearchDatePicker" layoutX="210.0" layoutY="187.0" onMouseClicked="#onBookingSearchDatePicker" />
+                        <TextField fx:id="bookingSearch" layoutX="102.0" layoutY="187.0" onKeyTyped="#onBookingTyped" promptText="Type CPR Number" />
+                        <DatePicker fx:id="bookingSearchDatePicker" layoutX="308.0" layoutY="187.0" onMouseClicked="#onBookingSearchDatePicker" promptText="Select a booking day" />
+                        <Separator layoutX="-13.0" layoutY="178.0" prefHeight="0.0" prefWidth="774.0" />
+                        <Label layoutX="20.0" layoutY="192.0" text="Booking search">
+                           <font>
+                              <Font name="System Bold Italic" size="10.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="270.0" layoutY="192.0" text="OR">
+                           <font>
+                              <Font name="System Bold Italic" size="10.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -167,7 +170,8 @@
             <TableColumn fx:id="mailColumn" prefWidth="75.0" text="Mail" />
         </columns>
       </TableView>
-      <TextField fx:id="searchTextField" layoutX="28.0" layoutY="443.0" onKeyTyped="#onSearchTyped" promptText="Type to search" />
-      <Button layoutX="795.0" layoutY="619.0" mnemonicParsing="false" onAction="#Disconnect" text="Button" />
+      <TextField fx:id="searchTextField" layoutX="28.0" layoutY="446.0" onKeyTyped="#onSearchTyped" prefHeight="25.0" prefWidth="169.0" promptText="Type  CPR Number or Name" />
+      <Button layoutX="757.0" layoutY="624.0" mnemonicParsing="false" onAction="#Disconnect" text="Button" visible="false" />
+      <Separator layoutX="5.0" layoutY="443.0" prefHeight="6.0" prefWidth="800.0" />
    </children>
 </AnchorPane>

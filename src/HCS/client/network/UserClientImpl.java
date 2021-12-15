@@ -84,6 +84,31 @@ public class UserClientImpl implements UserClient, Remote
     }
   }
 
+  @Override public boolean UserExist(String username)
+  {
+    try
+    {
+      return server.UserExist(username);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  @Override public void updateUser(String username, User user)
+  {
+    try
+    {
+      server.updateUser(username,user);
+    }
+    catch (RemoteException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
   @Override public void addListener(String eventName,
       PropertyChangeListener listener)
   {

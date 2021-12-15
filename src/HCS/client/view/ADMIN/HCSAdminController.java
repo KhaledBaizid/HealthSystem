@@ -3,10 +3,12 @@ package HCS.client.view.ADMIN;
 import HCS.client.ViewModel.AdminViewModel;
 import HCS.client.core.ViewHandler;
 import HCS.shared.transferObjects.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.beans.PropertyChangeEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -45,12 +47,26 @@ public class HCSAdminController
   @FXML private
   TableColumn<User, String> roleColumn;
 
+  @FXML
+  private TextField firstname1;
+  @FXML
+  private TextField lastname1;
+
+  @FXML
+  private TextField username1;
+  @FXML
+  private TextField password1;
+  @FXML
+  private DatePicker birthdayDatePicker1;
+
+
+  @FXML
+  private ComboBox roleComboBox1;
 
 
 
 
-
-
+  String newUsername="";
   private ViewHandler vh;
   private AdminViewModel vm;
   public void init(ViewHandler vh, AdminViewModel vm)
@@ -58,7 +74,7 @@ public class HCSAdminController
     this.vh=vh;
     this.vm=vm;
    // vm.addListener("HCSLogin",this::succesfulLogin);
-    roleComboBox.getItems().addAll("ADMIN","RECEPTION","DOCTOR");
+    roleComboBox1.getItems().addAll("RECEPTION","DOCTOR");
     ////
    // getRoles();
     firstnameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("firstname"));
@@ -70,9 +86,29 @@ public class HCSAdminController
     vm.getModelUsers();
     RoleTableView.setItems(vm.getTableViewRoles());
 
+    vm.addListener("usernameExists",this::usernameError);
+
 
     ///
 
+  }
+
+  private void usernameError(PropertyChangeEvent event)
+  {
+    boolean s= (boolean) event.getNewValue();
+
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "The username is already taken");
+        alert.showAndWait();
+
+      });
+    }
   }
 
   private void getRoles()
@@ -82,16 +118,16 @@ public class HCSAdminController
 
   public void createRoleButton()
   {
-      LocalDate localDate=birthdayDatePicker.getValue();
+      LocalDate localDate=birthdayDatePicker1.getValue();
       Date date=Date.valueOf(localDate);
-    vm.CreateUser(firstname.textProperty().getValue(),
-                     lastname.textProperty().getValue(),
-       // birthdayDatePicker.getValue()
+    vm.CreateUser(firstname1.textProperty().getValue(),
+                     lastname1.textProperty().getValue(),
         date,
-        username.textProperty().getValue(),
-        password.textProperty().getValue(),
-        roleComboBox.getSelectionModel().getSelectedItem().toString());
-   // vm.getModelRoles();
+        username1.textProperty().getValue(),
+        password1.textProperty().getValue(),
+        roleComboBox1.getSelectionModel().getSelectedItem().toString());
+    firstname1.clear();lastname1.clear();username1.clear();password1.clear();
+
   }
 
   public void deleteRoleButton()
@@ -111,7 +147,25 @@ public class HCSAdminController
    birthdayDatePicker.setValue(user.getBirthday().toLocalDate());
    username.setText(user.getUsername());
    password.setText(user.getPassword());
+   if (!user.getRole().equals("ADMIN"))
+   {roleComboBox.getItems().clear();
+     roleComboBox.getItems().addAll("RECEPTION","DOCTOR");
+
+   }
+   else
+   {roleComboBox.getItems().clear();
+     roleComboBox.getItems().addAll("ADMIN");
+   }
    roleComboBox.getSelectionModel().select(user.getRole());
+   newUsername=user.getUsername();
+
+ }
+
+ public void updateUser()
+ {
+   User user= new User(firstname.textProperty().getValue(),lastname.textProperty().getValue(),Date.valueOf(birthdayDatePicker.getValue()),username.textProperty().getValue(),
+       password.textProperty().getValue(),roleComboBox.getSelectionModel().getSelectedItem().toString());
+   vm.updateUser(newUsername,user);
 
  }
 }

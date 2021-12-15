@@ -1,6 +1,7 @@
 package HCS.client.model;
 
 import HCS.client.network.UserClient;
+import HCS.shared.transferObjects.User;
 //import HCS.shared.transferObjects.Message;
 //import HCS.shared.transferObjects.RequestType;
 //import HCS.shared.transferObjects.User;
@@ -60,5 +61,16 @@ public class UserModelImpl implements UserModel
     @Override public void RemoveUser(String username)
     {
         userClient.RemoveUser(username);
+    }
+
+    @Override public boolean UserExist(String username)
+    {
+        return userClient.UserExist(username);
+    }
+
+    @Override public void updateUser(String username, User user)
+    {
+     userClient.updateUser(username, user);
+     userClient.GetUsers();
     }
 }

@@ -1,7 +1,6 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
 import HCS.shared.transferObjects.Prescription;
-import org.w3c.dom.Text;
 
 import java.sql.Date;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package HCS.server.model;
 
-import HCS.DataBase.UserDAO;
-import HCS.DataBase.LoginDAO;
+import HCS.Persistence.UserDAO;
+import HCS.Persistence.LoginDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,28 +23,28 @@ class LoginModelServerTest
 
   @Test void login()
   {
-    adminDAO.RemoveUser("administrator");
-    adminDAO.RemoveUser("receptionist");
-    adminDAO.RemoveUser("Doc");
+    adminDAO.RemoveUser("ADMINISTRATOR");
+    adminDAO.RemoveUser("RECEPTIONIST");
+    adminDAO.RemoveUser("DOCTOR");
 
-    adminDAO.CreateUser("administrator","adminustrator",date,"administrator","adminstrator","ADMIN");
-    adminDAO.CreateUser("receptionist","receptionist",date,"receptionist","receptionist","RECEPTION");
-    adminDAO.CreateUser("Doc","Doc",date,"Doc","Doc","DOCTOR");
+    adminDAO.CreateUser("administrator","adminustrator",date,"ADMINISTRATOR","adminstrator","ADMIN");
+    adminDAO.CreateUser("receptionist","receptionist",date,"RECEPTIONIST","receptionist","RECEPTION");
+    adminDAO.CreateUser("Doc","Doc",date,"DOCTOR","Doc","DOCTOR");
 
-    String role= loginDAO.Login("administrator","adminstrator");
+    String role= loginDAO.Login("ADMINISTRATOR","adminstrator");
     assertTrue(role.equals("ADMIN"));
 
-    role= loginDAO.Login("receptionist","receptionist");
+    role= loginDAO.Login("RECEPTIONIST","receptionist");
     assertTrue(role.equals("RECEPTION"));
 
-    role= loginDAO.Login("Doc","Doc");
+    role= loginDAO.Login("DOCTOR","Doc");
     assertTrue(role.equals("DOCTOR"));
 
     role= loginDAO.Login("bbbb","abbb");
     assertTrue(role==null);
-    adminDAO.RemoveUser("administrator");
-    adminDAO.RemoveUser("receptionist");
-    adminDAO.RemoveUser("Doc");
+    adminDAO.RemoveUser("ADMINISTRATOR");
+    adminDAO.RemoveUser("RECEPTIONIST");
+    adminDAO.RemoveUser("DOCTOR");
 
 
 

@@ -1,4 +1,4 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
 import HCS.shared.transferObjects.PrescriptionType;
 

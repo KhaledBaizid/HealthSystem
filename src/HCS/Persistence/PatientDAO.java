@@ -1,7 +1,6 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
 import HCS.shared.transferObjects.Patient;
-import HCS.shared.transferObjects.User;
 
 import java.sql.*;
 import java.util.ArrayList;

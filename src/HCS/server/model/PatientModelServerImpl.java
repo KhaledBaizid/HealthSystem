@@ -1,8 +1,7 @@
 package HCS.server.model;
 
-import HCS.DataBase.ManageBookingDAO;
-import HCS.DataBase.ManageLoginDAO;
-import HCS.DataBase.ManagePatientDAO;
+import HCS.Persistence.ManageBookingDAO;
+import HCS.Persistence.ManagePatientDAO;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 

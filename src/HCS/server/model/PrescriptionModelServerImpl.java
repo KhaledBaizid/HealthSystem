@@ -1,11 +1,8 @@
 package HCS.server.model;
 
-import HCS.DataBase.ManageLoginDAO;
-import HCS.DataBase.ManagePatientDAO;
-import HCS.DataBase.ManagePrescriptionDAO;
-import HCS.DataBase.ManagePrescriptionTypeDAO;
+import HCS.Persistence.ManagePrescriptionDAO;
+import HCS.Persistence.ManagePrescriptionTypeDAO;
 import HCS.shared.transferObjects.Prescription;
-import HCS.shared.transferObjects.PrescriptionType;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

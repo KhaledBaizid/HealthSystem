@@ -22,7 +22,7 @@ public class RMIServerImpl implements RMIServer
 {
  // private final ServerModel model;
   private final LoginModelServer loginModelServer;
-  private final AdminModelServer adminModelServer;
+  private final UserModelServer userModelServer;
   private final PatientModelServer patientModelServer;
   private final BookingModelServer bookingModelServer;
   private final PrescriptionModelServer prescriptionModelServer;
@@ -30,14 +30,15 @@ public class RMIServerImpl implements RMIServer
   private List<PatientClientCallBack> clients1;
   //private Object ClientloginCallBack;
  // public RMIServerImpl(ServerModel model) throws RemoteException
-  public RMIServerImpl(/*ServerModel model,*/ LoginModelServer loginModelServer,AdminModelServer adminModelServer, PatientModelServer patientModelServer,BookingModelServer bookingModelServer, PrescriptionModelServer prescriptionModelServer) throws RemoteException
+  public RMIServerImpl( LoginModelServer loginModelServer,
+      UserModelServer userModelServer, PatientModelServer patientModelServer,BookingModelServer bookingModelServer, PrescriptionModelServer prescriptionModelServer) throws RemoteException
   {
     UnicastRemoteObject.exportObject( this, 0);
     //this.model = model;
     clients= new ArrayList<>();
     clients1=new ArrayList<>();
     this.loginModelServer = loginModelServer;
-    this.adminModelServer=adminModelServer;
+    this.userModelServer = userModelServer;
     this.patientModelServer=patientModelServer;
     this.bookingModelServer=bookingModelServer;
     this.prescriptionModelServer=prescriptionModelServer;
@@ -59,7 +60,7 @@ public class RMIServerImpl implements RMIServer
       try {
 
         i.sharedPatients(event);
-        System.out.println(i.toString());
+
       } catch (RemoteException e) {
         e.printStackTrace();
       }
@@ -67,18 +68,7 @@ public class RMIServerImpl implements RMIServer
     }
   }
 
- /* private void patientHasBooking(PropertyChangeEvent event)
-  {    for (ClientReceptionCallBack i:clients1)
-   {
-    try {
-      i.patientHasBooking(event);
-      System.out.println(i.toString());
-    } catch (RemoteException e) {
-      e.printStackTrace();
-    }
 
-  }
-  }*/
 
   private void sharedBookings(PropertyChangeEvent event)
   {
@@ -86,7 +76,7 @@ public class RMIServerImpl implements RMIServer
     ) {
       try {
         i.sharedBookings(event);
-        System.out.println(i.toString());
+
       } catch (RemoteException e) {
         e.printStackTrace();
       }
@@ -94,49 +84,11 @@ public class RMIServerImpl implements RMIServer
     }
   }
 
-/*  private void sharedRoles(PropertyChangeEvent event)
-  {
-    for (ClientCallBack i:clients
-    ) {
-      try {
-        i.sharedroles(event);
-      } catch (RemoteException e) {
-        e.printStackTrace();
-      }
 
-    }
-  }*/
 
   private void HCS(PropertyChangeEvent event)
   {
   }
-
- /* private void userAdded(PropertyChangeEvent event) {
-    for (ClientCallBack i:clients
-         ) {
-      try {
-        i.userAdded(event);
-      } catch (RemoteException e) {
-        e.printStackTrace();
-      }
-
-    }
-  }*/
-
- /* private void userdeleted(PropertyChangeEvent event) {
-
-    for (ClientCallBack i:clients
-    ) {
-      try {
-        i.userDeleted(event);
-      } catch (RemoteException e) {
-        e.printStackTrace();
-      }
-
-    }
-  }*/
-
-
 
 
   public void startServer() throws RemoteException, AlreadyBoundException
@@ -192,18 +144,24 @@ public class RMIServerImpl implements RMIServer
       Date birthday, String username, String password, String role)
 
   {
-    adminModelServer.CreateUser(firstname, lastname, birthday, username, password, role);
+    userModelServer
+        .CreateUser(firstname, lastname, birthday, username, password, role);
   }
 
   @Override public ArrayList<User> GetUsers()
   {
     System.out.println("server");
-    return adminModelServer.GetUsers();
+    return userModelServer.GetUsers();
   }
 
   @Override public void RemoveUser(String username) throws RemoteException
   {
-    adminModelServer.RemoveUser(username);
+    userModelServer.RemoveUser(username);
+  }
+
+  @Override public void updateUser(String username, User user)
+  {
+    userModelServer.updateUser(username, user);
   }
 
   @Override public boolean patientExist(String cprNumber)
@@ -289,7 +247,7 @@ public class RMIServerImpl implements RMIServer
 
   @Override public boolean UserExist(String username) throws RemoteException
   {
-    return adminModelServer.UserExist(username);
+    return userModelServer.UserExist(username);
   }
 
   @Override public void createPrescription(Prescription prescription)

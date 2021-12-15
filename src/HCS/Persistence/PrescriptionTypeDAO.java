@@ -1,6 +1,5 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
-import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.PrescriptionType;
 
 import java.sql.*;

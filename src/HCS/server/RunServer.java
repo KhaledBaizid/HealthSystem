@@ -1,6 +1,6 @@
 package HCS.server;
 
-import HCS.DataBase.*;
+import HCS.Persistence.*;
 //import chat.DataBase.MainDAO;
 import HCS.server.model.*;
 import HCS.server.network.RMIServerImpl;
@@ -21,7 +21,7 @@ public class RunServer {
         PrescriptionTypeDAO prescriptionTypeDAO= PrescriptionTypeDAO.getInstance();
        // MainDAO mainDAO=MainDAO.getInstance();
         LoginModelServerImpl serverModelLogin=new LoginModelServerImpl(loginDAO);
-        AdminModelServerImpl adminModelServer=new AdminModelServerImpl(adminDAO);
+        UserModelServerImpl adminModelServer=new UserModelServerImpl(adminDAO);
         PatientModelServerImpl patientModelServer=new PatientModelServerImpl(patientDAO,bookingDAO);
         BookingModelServerImpl bookingModelServer=new BookingModelServerImpl(bookingDAO,prescriptionDAO);
         PrescriptionModelServerImpl prescriptionModelServer=new PrescriptionModelServerImpl(prescriptionDAO,prescriptionTypeDAO);

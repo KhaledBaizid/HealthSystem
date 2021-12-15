@@ -1,6 +1,6 @@
 package HCS.server.model;
 
-import HCS.DataBase.*;
+import HCS.Persistence.*;
 import HCS.shared.transferObjects.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

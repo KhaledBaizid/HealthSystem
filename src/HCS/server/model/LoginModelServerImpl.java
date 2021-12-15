@@ -1,6 +1,6 @@
 package HCS.server.model;
 
-import HCS.DataBase.ManageLoginDAO;
+import HCS.Persistence.ManageLoginDAO;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

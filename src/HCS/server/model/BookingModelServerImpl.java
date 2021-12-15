@@ -1,8 +1,7 @@
 package HCS.server.model;
 
-import HCS.DataBase.ManageBookingDAO;
-import HCS.DataBase.ManageLoginDAO;
-import HCS.DataBase.PrescriptionDAO;
+import HCS.Persistence.ManageBookingDAO;
+import HCS.Persistence.PrescriptionDAO;
 import HCS.shared.transferObjects.Booking;
 
 import java.beans.PropertyChangeListener;

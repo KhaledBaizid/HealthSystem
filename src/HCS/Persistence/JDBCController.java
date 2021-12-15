@@ -1,4 +1,4 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,13 +23,13 @@ public class JDBCController
 
   public Connection getConnection() throws SQLException
   {
-   // String url = "jdbc:postgresql://hattie.db.elephantsql.com:5432/postgres?currentSchema=sep";
+
 
    /* String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=sepdba";
     String username = "postgres";
     String password = "dba107882";*/
 
-   // String url = "jdbc:postgresql://hattie.db.elephantsql.com:5432/aldtqbyq?currentSchema=sepdba";
+
 
     String url = "jdbc:postgresql://abul.db.elephantsql.com:5432/aldtqbyq?currentSchema=sepdba";
     String username = "aldtqbyq";

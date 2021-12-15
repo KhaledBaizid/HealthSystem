@@ -1,6 +1,6 @@
 package HCS.server.model;
 
-import HCS.DataBase.ManageUserDAO;
+import HCS.Persistence.ManageUserDAO;
 import HCS.shared.transferObjects.User;
 
 import java.beans.PropertyChangeListener;
@@ -8,14 +8,14 @@ import java.beans.PropertyChangeSupport;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class AdminModelServerImpl implements AdminModelServer
+public class UserModelServerImpl implements UserModelServer
 {
   private PropertyChangeSupport support;
-  private ManageUserDAO adminDAO;
+  private ManageUserDAO userDAO;
 
-  public AdminModelServerImpl(ManageUserDAO adminDAO)
+  public UserModelServerImpl(ManageUserDAO userDAO)
   {
-    this.adminDAO=adminDAO;
+    this.userDAO=userDAO;
     support = new PropertyChangeSupport(this);
   }
 
@@ -35,21 +35,21 @@ public class AdminModelServerImpl implements AdminModelServer
   @Override public boolean UserExist(String username)
   {
     boolean b;
-    b=adminDAO.UserExist(username);
+    b=userDAO.UserExist(username);
     return b;
   }
 
   @Override public void CreateUser(String firstname, String lastname,
       Date birthday, String username, String password, String role)
   {
-    adminDAO.CreateUser(firstname, lastname, birthday, username, password, role);
+    userDAO.CreateUser(firstname, lastname, birthday, username, password, role);
   }
 
   @Override public ArrayList<User> GetUsers()
   {
     System.out.println("servermodel");
     ArrayList<User> user1;
-    user1 =adminDAO.GetUsers();
+    user1 =userDAO.GetUsers();
     //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
     // return userDAO.HCSGetRoles();
     support.firePropertyChange("HCSGetRoles",null, user1);
@@ -58,6 +58,11 @@ public class AdminModelServerImpl implements AdminModelServer
 
   @Override public void RemoveUser(String username)
   {
-    adminDAO.RemoveUser(username);
+    userDAO.RemoveUser(username);
+  }
+
+  @Override public void updateUser(String username, User user)
+  {
+    userDAO.updateUser(username, user);
   }
 }

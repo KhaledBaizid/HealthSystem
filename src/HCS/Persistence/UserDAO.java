@@ -1,4 +1,4 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
 import HCS.shared.transferObjects.User;
 
@@ -118,8 +118,9 @@ public class UserDAO implements ManageUserDAO
   @Override public void RemoveUser(String username)
   {
     try(Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("DELETE FROM userlogin where username=?");
+      PreparedStatement statement = connection.prepareStatement("DELETE FROM userlogin where username=?  AND role != ?");
       statement.setString(1,username);
+      statement.setString(2,"ADMIN");
       statement.executeUpdate();
 
     } catch (SQLException throwables) {
@@ -146,6 +147,28 @@ public class UserDAO implements ManageUserDAO
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+  }
+
+  @Override public void updateUser(String username, User user)
+  {
+    try(Connection connection = jdbcController.getConnection()) {
+     // System.out.println(username+""+password);
+      PreparedStatement statement = connection.prepareStatement
+          ("UPDATE userlogin SET firstname=?,lastname=?,birthday=?,username=?,password=?,role=? WHERE username = ? ");
+      statement.setString(1,user.getFirstname());
+      statement.setString(2,user.getLastname());
+      statement.setDate(3,user.getBirthday());
+      statement.setString(4,user.getUsername());
+      statement.setString(5,user.getPassword());
+      statement.setString(6,user.getRole());
+      statement.setString(7,username);
+      //ResultSet resultSet = statement.executeQuery();
+      statement.executeUpdate();
+      // statement.executeUpdate();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
   }
 
   @Override public void deleteAllUsers()

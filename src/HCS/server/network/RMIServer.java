@@ -32,6 +32,9 @@ public interface RMIServer extends Remote
   void CreateUser(String firstname,String lastname, Date birthday,String username,String password,String role)throws RemoteException;
   ArrayList<User> GetUsers() throws RemoteException;
   void RemoveUser(String username) throws RemoteException;
+ void updateUser(String username, User user) throws  RemoteException;
+ boolean UserExist(String username) throws RemoteException;
+
 
  boolean patientExist(String cprNumber) throws RemoteException;
   void createPatient(Patient patient) throws RemoteException;
@@ -50,7 +53,7 @@ public interface RMIServer extends Remote
  boolean isPatientHasABooking(String cprNumber) throws  RemoteException;
 
 
- boolean UserExist(String username) throws RemoteException;
+
 
  /////
  void createPrescription(Prescription prescription) throws RemoteException;

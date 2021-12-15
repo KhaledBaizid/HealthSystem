@@ -1,4 +1,4 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
 import java.sql.*;
 

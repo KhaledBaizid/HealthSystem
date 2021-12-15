@@ -45,8 +45,8 @@
 }
 
 .table-row-cell: selected {
-    -fx-background-color: 	#5C80EF ;
-    -fx-text-background-color: black;
+    -fx-background-color: 	black ;
+    -fx-text-background-color: white;
    /* -fx-background-radius: 5px;
     -fx-background-insets: 2px;*/
 }

@@ -1,12 +1,7 @@
-package HCS.DataBase;
+package HCS.Persistence;
 
-import HCS.shared.transferObjects.Booking;
-import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.Prescription;
-import org.w3c.dom.Text;
 
-import java.io.InputStream;
-import java.io.Reader;
 import java.sql.*;
 import java.util.ArrayList;
 

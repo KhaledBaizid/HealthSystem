@@ -1,6 +1,6 @@
 package HCS.server.model;
 
-import HCS.DataBase.*;
+import HCS.Persistence.*;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import HCS.shared.transferObjects.User;

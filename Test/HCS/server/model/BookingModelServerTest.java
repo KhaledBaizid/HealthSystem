@@ -1,6 +1,6 @@
 package HCS.server.model;
 
-import HCS.DataBase.*;
+import HCS.Persistence.*;
 import HCS.shared.transferObjects.Booking;
 import HCS.shared.transferObjects.Patient;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BookingModelServerTest
 {
+
   LoginDAO loginDAO;
   UserDAO adminDAO;
   PatientDAO patientDAO;
@@ -45,10 +46,6 @@ class BookingModelServerTest
     patientDAO.removePatient("11001122");
   }
 
-  @Test void getBookings()
-  {
-  }
-
   @Test void removeBooking()
   {
     String str = "1990-03-31";
@@ -59,27 +56,11 @@ class BookingModelServerTest
     patientDAO.createPatient(patient);
     Booking booking = new Booking(date, "08:00", "tired", "11001122");
     bookingDAO.createBooking(booking);
-  //  assertTrue(bookingDAO.bookingExist(date, "08:00"));
+    //  assertTrue(bookingDAO.bookingExist(date, "08:00"));
     bookingDAO.removeBooking(date, "08:00");
     assertFalse(bookingDAO.bookingExist(date, "08:00"));
     patientDAO.removePatient("11001122");
 
-  }
-
-  @Test void updateBooking()
-  {
-  }
-
-  @Test void getAvailableTime()
-  {
-  }
-
-  @Test void GetBookingsBYCprNumber()
-  {
-  }
-
-  @Test void getPatientBookingsByDate()
-  {
   }
 
   @Test void isPatientHasABooking()
@@ -95,12 +76,8 @@ class BookingModelServerTest
     assertTrue(bookingDAO.isPatientHasABooking("11001122"));
     //  assertTrue(bookingDAO.bookingExist(date, "08:00"));
     bookingDAO.removeBooking(date, "08:00");
-   // assertFalse(bookingDAO.bookingExist(date, "08:00"));
+    // assertFalse(bookingDAO.bookingExist(date, "08:00"));
     patientDAO.removePatient("11001122");
   }
 
-  @Test void isBookingHasAPrescription()
-  {
-
-  }
 }
