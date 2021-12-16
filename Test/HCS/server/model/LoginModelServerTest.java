@@ -23,17 +23,14 @@ class LoginModelServerTest
 
   @Test void login()
   {
-    adminDAO.RemoveUser("ADMINISTRATOR");
+
     adminDAO.RemoveUser("RECEPTIONIST");
     adminDAO.RemoveUser("DOCTOR");
 
-    adminDAO.CreateUser("administrator","adminustrator",date,"ADMINISTRATOR","adminstrator","ADMIN");
     adminDAO.CreateUser("receptionist","receptionist",date,"RECEPTIONIST","receptionist","RECEPTION");
     adminDAO.CreateUser("Doc","Doc",date,"DOCTOR","Doc","DOCTOR");
 
-    String role= loginDAO.Login("ADMINISTRATOR","adminstrator");
-    assertTrue(role.equals("ADMIN"));
-
+    String role;
     role= loginDAO.Login("RECEPTIONIST","receptionist");
     assertTrue(role.equals("RECEPTION"));
 
@@ -42,10 +39,9 @@ class LoginModelServerTest
 
     role= loginDAO.Login("bbbb","abbb");
     assertTrue(role==null);
-    adminDAO.RemoveUser("ADMINISTRATOR");
+
     adminDAO.RemoveUser("RECEPTIONIST");
     adminDAO.RemoveUser("DOCTOR");
-
 
 
   }

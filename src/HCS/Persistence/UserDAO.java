@@ -114,7 +114,7 @@ public class UserDAO implements ManageUserDAO
   @Override public void RemoveUser(String username)
   {
     try(Connection connection = jdbcController.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("DELETE FROM userlogin where username=?  AND role != ?");
+      PreparedStatement statement = connection.prepareStatement("DELETE FROM userlogin where username=? AND role != ? ");
       statement.setString(1,username);
       statement.setString(2,"ADMIN");
       statement.executeUpdate();

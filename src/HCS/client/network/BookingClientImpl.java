@@ -28,14 +28,11 @@ public class BookingClientImpl
 
   @Override public void startClient()
   {
-
     try {
       UnicastRemoteObject.exportObject( this, 0);
       Registry registry = LocateRegistry.getRegistry("localhost", 1099);
       server = (RMIServer)  registry.lookup("HCS");
       server.registerClient(this);
-
-
     } catch (RemoteException | NotBoundException e) {
       e.printStackTrace();
     }

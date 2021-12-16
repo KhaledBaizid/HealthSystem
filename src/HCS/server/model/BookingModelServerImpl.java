@@ -42,8 +42,7 @@ public class BookingModelServerImpl implements BookingModelServer
     /////////
     ArrayList<Booking> booking1;
     booking1=bookingDAO.GetBookings();
-    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
-    // return userDAO.HCSGetRoles();
+
     support.firePropertyChange("HCSGetBookings",null,booking1);
   }
 
@@ -51,9 +50,7 @@ public class BookingModelServerImpl implements BookingModelServer
   {
     ArrayList<Booking> booking1;
     booking1=bookingDAO.GetBookings();
-    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
-    // return userDAO.HCSGetRoles();
-    // support.firePropertyChange("HCSGetBookings",null,booking1);
+
     return booking1;
   }
 
@@ -62,8 +59,7 @@ public class BookingModelServerImpl implements BookingModelServer
     bookingDAO.removeBooking(bookingDate, bookingTime);
     ArrayList<Booking> booking1;
     booking1=bookingDAO.GetBookings();
-    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
-    // return userDAO.HCSGetRoles();
+
     support.firePropertyChange("HCSGetBookings",null,booking1);
   }
 
@@ -85,12 +81,10 @@ public class BookingModelServerImpl implements BookingModelServer
 
   @Override public ArrayList<Booking> GetBookingsBYCprNumber(String cprNumber)
   {
-    // return bookingDAO.GetPatientBookings(cprNumber);
+
     ArrayList<Booking> booking1;
     booking1=bookingDAO.GetBookingsBYCprNumber(cprNumber);
-    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
-    // return userDAO.HCSGetRoles();
-    // support.firePropertyChange("HCSGetBookings",null,booking1);
+
     return booking1;
   }
 
@@ -98,9 +92,7 @@ public class BookingModelServerImpl implements BookingModelServer
   {
     ArrayList<Booking> booking1;
     booking1=bookingDAO.GetBookingsByDate(date);
-    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
-    // return userDAO.HCSGetRoles();
-    // support.firePropertyChange("HCSGetBookings",null,booking1);
+
     return booking1;
   }
 

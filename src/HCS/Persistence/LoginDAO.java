@@ -46,7 +46,7 @@ public class LoginDAO implements ManageLoginDAO
         role = resultSet.getString("role");
       }
       System.out.println(role);
-      // statement.executeUpdate();
+
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }

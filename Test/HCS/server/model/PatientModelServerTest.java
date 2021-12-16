@@ -104,10 +104,7 @@ class PatientModelServerTest
 
   @Test void getPatients()
   {
-   /* String str="2021-12-09";
-    Date date=Date.valueOf(str);
-    boolean find=prescriptionDAO.isBookingHasAPrescription(date,"08:15");
-    assertTrue(find);*/
+
   }
 
 }

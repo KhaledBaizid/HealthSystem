@@ -69,7 +69,7 @@ public class BookingDAO implements ManageBookingDAO
         String symptoms= resultSet.getString("symptoms");
 
         bookings.add(new Booking(bookingDate,bookingTime,cprNumber,firstname,lastname,birthday,sex,symptoms));
-        // System.out.println(patients.get(0).getUsername());
+
 
       }
     } catch (SQLException throwables) {
@@ -126,9 +126,9 @@ public class BookingDAO implements ManageBookingDAO
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
 
-        // assert timeAvalable != null;
+
         timeAvalable.add(resultSet.getString("bookingtime"));
-        // System.out.println(patients.get(0).getUsername());
+
       }
     } catch (SQLException throwables) {
       throwables.printStackTrace();
@@ -142,31 +142,29 @@ public class BookingDAO implements ManageBookingDAO
   @Override public boolean bookingExist(Date bookingDate, String bookingTime)
   {
     boolean exist=false;
-    //System.out.println("CREATEUSERDATABASE");
+
     try(Connection connection = jdbcController.getConnection()) {
-      System.out.println(bookingDate.toString());
-      System.out.println(bookingTime);
-      // System.out.println(username+""+password);
+
+
       PreparedStatement statement = connection.prepareStatement
           ("SELECT bookingtime FROM booking WHERE bookingdate = ? AND bookingtime = ? ");
       statement.setDate(1,bookingDate);
       statement.setString(2,bookingTime);
-      // statement.setString(2,password);
+
       ResultSet resultSet = statement.executeQuery();
       if (resultSet.next())
       {
         String a=resultSet.getString("bookingtime");
-       // a="08:15";
+
         System.out.println(a);
         if (a.equals(bookingTime))
           exist = true;
       }
-      // System.out.println(role);
-      // statement.executeUpdate();
+
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
-    //System.out.println(role);
+
     return exist;
   }
 
@@ -205,7 +203,7 @@ public class BookingDAO implements ManageBookingDAO
         String symptoms= resultSet.getString("symptoms");
 
         bookings.add(new Booking(bookingDate,bookingTime,cprNumber,firstname,lastname,birthday,sex,symptoms));
-        // System.out.println(patients.get(0).getUsername());
+
 
       }
     } catch (SQLException throwables) {

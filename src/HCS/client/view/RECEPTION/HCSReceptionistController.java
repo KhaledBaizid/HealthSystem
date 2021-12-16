@@ -128,6 +128,7 @@ public class HCSReceptionistController
     bookingTimeComboBox1.getItems().addAll("08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45",
         "11:00","11:15","11:30","11:45","12:00","12:15","12:30","12:45","13:00","13:15","13:30","13:45","14:00","14:15","14:30","14:45","15:00","15:15","15:30","15:45");
 
+    //bookingTimeComboBox.getSelectionModel().selectFirst();
     //Patient
     cprNumberColumn.setCellValueFactory(new PropertyValueFactory<Patient,String>("cprNumber"));
     firstnameColumn.setCellValueFactory(new PropertyValueFactory<Patient,String>("firstname"));
@@ -157,20 +158,80 @@ public class HCSReceptionistController
     vm.addListener("BookingHasPrescription",this::removeBookingError);
 
     vm.addListener("updatedPtientHasAUsedCPRNumber",this::updatePatientError);
+    vm.addListener("EditFields",this::editFields);
+    vm.addListener("chooseTime",this::chooseABookingTime);
+    vm.addListener("choosePatient",this::chooseAPatientForBooking);
+
 
     cprNumber.textProperty().bindBidirectional(vm.getCprNumber());
     firstname.textProperty().bindBidirectional(vm.getFirstname());
     lastname.textProperty().bindBidirectional(vm.getLastname());
     birthdayDatePicker.valueProperty().bindBidirectional(vm.getBithday());
-    //vm.getSex().bindBidirectional(sexComboBox.valueProperty());
     sexComboBox.valueProperty().bindBidirectional(vm.getSex());
     address.textProperty().bindBidirectional(vm.getAddress());
     phone.textProperty().bindBidirectional(vm.getPhone());
     mail.textProperty().bindBidirectional(vm.getMail());
-   // sexComboBox.getItems().addAll(vm.getsexes());
+
+    birthdayDatePicker.valueProperty().unbind();
+    birthdayDatePicker.setValue(LocalDate.now());
+    sexComboBox.valueProperty().unbind();
+    sexComboBox.getSelectionModel().selectFirst();
 
 
+  }
 
+  private void chooseAPatientForBooking(PropertyChangeEvent event)
+  {
+    boolean s= (boolean) event.getNewValue();
+    System.out.println(s);
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "Select a patient from the List of patients");
+        alert.showAndWait();
+
+      });
+    }
+  }
+
+  private void chooseABookingTime(PropertyChangeEvent event)
+  {
+    boolean s= (boolean) event.getNewValue();
+    System.out.println(s);
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "Choose a booking Time");
+        alert.showAndWait();
+
+      });
+    }
+  }
+
+  private void editFields(PropertyChangeEvent event)
+  {
+    boolean s= (boolean) event.getNewValue();
+    System.out.println(s);
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "cprNumber, firstname , lastname can not be empty");
+        alert.showAndWait();
+
+      });
+    }
   }
 
   private void updatePatientError(PropertyChangeEvent event)
@@ -251,11 +312,7 @@ public class HCSReceptionistController
 
   public void createPatient()
   {
-   /* System.out.println("ReceptionController");
-    LocalDate localDate=birthdayDatePicker.getValue();
-    Date date=Date.valueOf(localDate);
-    Patient patient=new Patient(cprNumber.textProperty().getValue(),firstname.textProperty().getValue(),lastname.textProperty().getValue(),date,
-        sexComboBox.getSelectionModel().getSelectedItem().toString(),address.textProperty().getValue(),phone.textProperty().getValue(),mail.textProperty().getValue());*/
+
     vm.createPatient();
 
   }
@@ -314,10 +371,16 @@ public class HCSReceptionistController
   public void createBooking()
   { LocalDate localDate=bookingDatePicker.getValue();
     Date date1=Date.valueOf(localDate);
-    Booking booking = new Booking(date1,bookingTimeComboBox.getSelectionModel().getSelectedItem().toString(),symptoms.textProperty().getValue(),
+   /* Booking booking = new Booking(date1,bookingTimeComboBox.getSelectionModel().getSelectedItem().toString(),symptoms.textProperty().getValue(),
         bookingCPRNumber.textProperty().getValue());
-    vm.createBooking(booking);
-    System.out.println("BookingController");
+    vm.createBooking(booking);*/
+    String bookingTime;
+    if (bookingTimeComboBox.getSelectionModel().getSelectedItem()==null)
+      bookingTime="";
+    else
+      bookingTime=bookingTimeComboBox.getSelectionModel().getSelectedItem().toString();
+    vm.createBooking(date1,bookingTime,symptoms.textProperty().getValue(), bookingCPRNumber.textProperty().getValue());
+    System.out.println(bookingTimeComboBox.getSelectionModel().getSelectedItem());
   }
   public void removeBooking()
   { LocalDate localDate=bookingDatePicker1.getValue();
@@ -369,9 +432,16 @@ public class HCSReceptionistController
   {
     LocalDate localDate=bookingDatePicker1.getValue();
     Date date1=Date.valueOf(localDate);
-    Booking booking = new Booking(date1,bookingTimeComboBox1.getSelectionModel().getSelectedItem().toString(),symptoms1.textProperty().getValue(),
-        bookingCPRNumber1.textProperty().getValue());
-    vm.updateBooking(dateToBeChanged,timeToBeChanged,booking);
+    String newbBookingTime;
+    if (bookingTimeComboBox1.getSelectionModel().getSelectedItem()==null)
+      newbBookingTime="";
+    else
+     newbBookingTime=bookingTimeComboBox1.getSelectionModel().getSelectedItem().toString();
+
+ //   Booking booking = new Booking(date1,bookingTimeComboBox1.getSelectionModel().getSelectedItem().toString(),symptoms1.textProperty().getValue(),
+     //   bookingCPRNumber1.textProperty().getValue());
+  //  vm.updateBooking(dateToBeChanged,timeToBeChanged,booking);
+    vm.updateBooking(dateToBeChanged,timeToBeChanged,date1,newbBookingTime,symptoms1.textProperty().getValue(),bookingCPRNumber1.textProperty().getValue());
 
   }
 

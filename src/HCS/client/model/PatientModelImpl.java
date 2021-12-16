@@ -32,7 +32,7 @@ public class PatientModelImpl implements PatientModel
 
   @Override public void createPatient(Patient patient)
   {
-    System.out.println("ReceptionModel");
+   
     patientClient.createPatient(patient);
     patientClient.GetPatients();
   }

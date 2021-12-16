@@ -28,6 +28,7 @@ public class HCSDoctorController
 
   @FXML private DatePicker bookingDatePicker;
   @FXML private TextField bookingTime;
+  @FXML private TextField symptoms;
   @FXML private TextField CPRNumberTextField;
   @FXML private TextField firstnameTextField;
   @FXML private TextField lastnameTextField;
@@ -49,6 +50,7 @@ public class HCSDoctorController
 
   @FXML private DatePicker bookingDatePicker1;
   @FXML private TextField bookingTime1;
+  @FXML private TextField  symptoms1;
   @FXML private TextField CPRNumberTextField1;
   @FXML private TextField firstnameTextField1;
   @FXML private TextField lastnameTextField1;
@@ -78,6 +80,7 @@ public class HCSDoctorController
 
     prescriptionComboBox.getItems().addAll(vm.getPrescriptionsTypeModel());
     prescriptionComboBox1.getItems().addAll(vm.getPrescriptionsTypeModel());
+    prescriptionComboBox.getSelectionModel().selectFirst();
 
 
     ToggleGroup radioGroup = new ToggleGroup();
@@ -136,6 +139,7 @@ public class HCSDoctorController
     lastnameTextField.setText(booking.getLastname());
     bookingDatePicker.setValue(booking.getBookingDate().toLocalDate());
     bookingTime.setText(booking.getBookingTime());
+    symptoms.setText(booking.getSymptoms());
 
 
   }
@@ -148,6 +152,7 @@ public class HCSDoctorController
     CPRNumberTextField1.setText(prescription.getCprNumber());
     firstnameTextField1.setText(prescription.getFirstname());
     lastnameTextField1.setText(prescription.getLastname());
+    symptoms1.setText(prescription.getSymptoms());
     prescriptionComboBox1.getSelectionModel().select(prescription.getPrescriptionType());
     prescreptionTextArea1.setText(prescription.getPrescriptionText());
 

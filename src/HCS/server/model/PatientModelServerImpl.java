@@ -43,12 +43,12 @@ public class PatientModelServerImpl implements PatientModelServer
   @Override public void createPatient(Patient patient)
   {
     System.out.println("ReceptionModelServer");
-   // if (!patientDAO.patientExist(patient.getCprNumber()))
+
     patientDAO.createPatient(patient);
     ArrayList<Patient> patients;
     patients=patientDAO.GetPatients();
     support.firePropertyChange("HCSGetPatients",null, patients);
-    //  userDAO.createPatient(cprnumber, firstname, Lastname);
+
 
   }
 
@@ -62,11 +62,7 @@ public class PatientModelServerImpl implements PatientModelServer
       patients=patientDAO.GetPatients();
       support.firePropertyChange("HCSGetPatients",null, patients);
     }
-  /*  else
-    {
-      String s="h";
-      support.firePropertyChange("PtientHasBooking",null,s);
-    }*/
+
   }
 
   @Override public void updatePatient(String cprNumber, Patient patient)
@@ -78,10 +74,9 @@ public class PatientModelServerImpl implements PatientModelServer
     ArrayList<Patient> patients;
     patients=patientDAO.GetPatients();
     support.firePropertyChange("HCSGetPatients",null, patients);
-    //support.firePropertyChange("HCSGetRoles",null,userDAO.HCSGetRoles());
-    // return userDAO.HCSGetRoles();
+
     support.firePropertyChange("HCSGetBookings",null,booking1);
-    // support.firePropertyChange("HCSGetPrescriptions",null,booking1);
+
 
   }
 
@@ -89,7 +84,7 @@ public class PatientModelServerImpl implements PatientModelServer
   {
     ArrayList<Patient> patients;
     patients=patientDAO.GetPatients();
-   // support.firePropertyChange("HCSGetPatients",null, patients);
+
     return patients;
   }
 

@@ -19,7 +19,7 @@ public class RunServer {
         BookingDAO bookingDAO= BookingDAO.getInstance();
         PrescriptionDAO prescriptionDAO=PrescriptionDAO.getInstance();
         PrescriptionTypeDAO prescriptionTypeDAO= PrescriptionTypeDAO.getInstance();
-       // MainDAO mainDAO=MainDAO.getInstance();
+
         LoginModelServerImpl serverModelLogin=new LoginModelServerImpl(loginDAO);
         UserModelServerImpl adminModelServer=new UserModelServerImpl(adminDAO);
         PatientModelServerImpl patientModelServer=new PatientModelServerImpl(patientDAO,bookingDAO);
@@ -27,23 +27,10 @@ public class RunServer {
         PrescriptionModelServerImpl prescriptionModelServer=new PrescriptionModelServerImpl(prescriptionDAO,prescriptionTypeDAO);
 
         RMIServerImpl rs = new RMIServerImpl(serverModelLogin,adminModelServer,patientModelServer,bookingModelServer,prescriptionModelServer);
-       // RMIServer rs = new RMIServer(new ServerModel(mainDAO));
+
 
         rs.startServer();
 
-        /* AdminDAO adminDAO = AdminDAO.getInstance();
-        PatientDAO patientDAO= PatientDAO.getInstance();
-        LoginDAO loginDAO=LoginDAO.getInstance();
-        BookingDAO bookingDAO= BookingDAO.getInstance();
-        PrescriptionDAO prescriptionDAO=PrescriptionDAO.getInstance();
-       // MainDAO mainDAO=MainDAO.getInstance();
 
-
-        RMIServerImpl rs = new RMIServerImpl(new ServerModelImpl(adminDAO,patientDAO,loginDAO,bookingDAO,prescriptionDAO));
-       // RMIServer rs = new RMIServer(new ServerModel(mainDAO));
-
-        rs.startServer();
-
-        */
     }
 }

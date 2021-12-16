@@ -56,7 +56,7 @@ class BookingModelServerTest
     patientDAO.createPatient(patient);
     Booking booking = new Booking(date, "08:00", "tired", "11001122");
     bookingDAO.createBooking(booking);
-    //  assertTrue(bookingDAO.bookingExist(date, "08:00"));
+
     bookingDAO.removeBooking(date, "08:00");
     assertFalse(bookingDAO.bookingExist(date, "08:00"));
     patientDAO.removePatient("11001122");
@@ -74,9 +74,9 @@ class BookingModelServerTest
     Booking booking = new Booking(date, "08:00", "tired", "11001122");
     bookingDAO.createBooking(booking);
     assertTrue(bookingDAO.isPatientHasABooking("11001122"));
-    //  assertTrue(bookingDAO.bookingExist(date, "08:00"));
+
     bookingDAO.removeBooking(date, "08:00");
-    // assertFalse(bookingDAO.bookingExist(date, "08:00"));
+
     patientDAO.removePatient("11001122");
   }
 

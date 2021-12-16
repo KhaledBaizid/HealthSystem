@@ -80,10 +80,12 @@ public class HCSAdminController
     username1.textProperty().bindBidirectional(vm.getUsername());
     password1.textProperty().bindBidirectional(vm.getPassword());
     birthdayDatePicker1.valueProperty().bindBidirectional(vm.getBirthday());
-    //vm.getSex().bindBidirectional(sexComboBox.valueProperty());
     roleComboBox1.valueProperty().bindBidirectional(vm.getRole());
+
     roleComboBox1.valueProperty().unbind();
     roleComboBox1.getSelectionModel().selectFirst();
+    birthdayDatePicker1.valueProperty().unbind();
+    birthdayDatePicker1.setValue(LocalDate.now());
    // vm.addListener("HCSLogin",this::succesfulLogin);
 
     ////
@@ -98,10 +100,28 @@ public class HCSAdminController
     RoleTableView.setItems(vm.getTableViewRoles());
 
     vm.addListener("usernameExists",this::usernameError);
-
+    vm.addListener("emptyUsername",this::emptyUsername);
 
     ///
 
+  }
+
+  private void emptyUsername(PropertyChangeEvent event)
+  {
+    boolean s= (boolean) event.getNewValue();
+
+    if (s)
+    {
+      Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(
+            "The username and Password should not be empty");
+        alert.showAndWait();
+
+      });
+    }
   }
 
   private void usernameError(PropertyChangeEvent event)
@@ -145,10 +165,23 @@ public class HCSAdminController
 
   public void deleteUser()
   {
+     if (roleComboBox.getSelectionModel().getSelectedItem().toString().equals("ADMIN"))
+     {
+       Platform.runLater(() -> {
+         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+         alert.setTitle("Information Dialog");
+         alert.setHeaderText(null);
+         alert.setContentText(
+             "This user can not be deleted because he is the ADMIN");
+         alert.showAndWait();
 
-    vm.RemoveUser(username.textProperty().getValue());
-     vm.getModelUsers();
+       });
 
+     }else
+     {
+       vm.RemoveUser(username.textProperty().getValue());
+       vm.getModelUsers();
+     }
 
   }
  public void  TableViewClicked()

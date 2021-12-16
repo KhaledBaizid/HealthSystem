@@ -25,9 +25,9 @@ class UserModelServerTest
 
   @Test void userExist()
   {
-    adminDAO.RemoveUser("administrator");
-    adminDAO.CreateUser("administrator","administrator",date,"administrator","adminstrator","ADMIN");
-    boolean exist= adminDAO.UserExist("administrator");
+    adminDAO.RemoveUser("yyyyyyy");
+    adminDAO.CreateUser("administrator","administrator",date,"yyyyyy","yyyyyy","DOCTOR");
+    boolean exist= adminDAO.UserExist("yyyyyy");
     assertTrue(exist);
 
     exist= adminDAO.UserExist("adgaagagagshshshshwyhxc");
@@ -37,11 +37,11 @@ class UserModelServerTest
 
   @Test void createUser()
   {
-    adminDAO.RemoveUser("administrator");
-    adminDAO.CreateUser("administrator","administrator",date,"administrator","adminstrator","ADMIN");
-    boolean exist= adminDAO.UserExist("administrator");
+    adminDAO.RemoveUser("yyyyyy");
+    adminDAO.CreateUser("administrator","administrator",date,"yyyyyy","adminstrator","RECEPTION");
+    boolean exist= adminDAO.UserExist("yyyyyy");
     assertTrue(exist);
-    adminDAO.RemoveUser("administrator");
+    adminDAO.RemoveUser("yyyyyy");
   }
 
   @Test void getUsers()
@@ -53,15 +53,15 @@ class UserModelServerTest
     String d= realUsers.get(0).getBirthday().toString();
     Date d1=Date.valueOf(d);
 
-    adminDAO.CreateUser("a","a",d1,"xxxxxx","aaa","ADMIN");
+   // adminDAO.CreateUser("a","a",d1,"xxxxxx","aaa","ADMIN");
     adminDAO.CreateUser("r","r",date,"yyyyyy","rrr","RECEPTION");
     adminDAO.CreateUser("d","d",date,"zzzzzz","ddd","DOCTOR");
 
     ArrayList<User> testUsers=adminDAO.GetUsers();
     testUsers.removeAll(realUsers);
-    assertTrue(testUsers.get(0).getUsername().equals("xxxxxx") && testUsers.get(1).getUsername().equals("yyyyyy") && testUsers.get(2).getUsername().equals("zzzzzz") );
-    assertFalse(testUsers.size()==2);
-    adminDAO.RemoveUser("xxxxxx");
+    assertTrue( testUsers.get(0).getUsername().equals("yyyyyy") && testUsers.get(1).getUsername().equals("zzzzzz") );
+    assertFalse(testUsers.size()==1);
+   // adminDAO.RemoveUser("xxxxxx");
     adminDAO.RemoveUser("yyyyyy");
     adminDAO.RemoveUser("zzzzzz");
 
@@ -69,7 +69,7 @@ class UserModelServerTest
 
   @Test void removeUser()
   {
-    adminDAO.CreateUser("a","a",date,"xxxxxx","aaa","ADMIN");
+    adminDAO.CreateUser("a","a",date,"xxxxxx","aaa","RECEPTION");
     assertTrue(adminDAO.UserExist("xxxxxx"));
     adminDAO.RemoveUser("xxxxxx");
     assertTrue(!adminDAO.UserExist("xxxxxx"));

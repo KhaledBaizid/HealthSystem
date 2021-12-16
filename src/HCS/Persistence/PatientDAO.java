@@ -156,14 +156,14 @@ public class PatientDAO implements ManagePatientDAO
   {
 
       boolean exist=false;
-      //System.out.println("CREATEUSERDATABASE");
+
       try(Connection connection = jdbcController.getConnection()) {
 
-        // System.out.println(username+""+password);
+
         PreparedStatement statement = connection.prepareStatement
             ("SELECT cprnumber FROM patient WHERE cprnumber = ?");
         statement.setString(1,cprNumber);
-        // statement.setString(2,password);
+
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next())
         {
@@ -172,12 +172,11 @@ public class PatientDAO implements ManagePatientDAO
           if (a.equals(cprNumber))
             exist = true;
         }
-        // System.out.println(role);
-        // statement.executeUpdate();
+
       } catch (SQLException throwables) {
         throwables.printStackTrace();
       }
-      //System.out.println(role);
+
       return exist;
     }
 

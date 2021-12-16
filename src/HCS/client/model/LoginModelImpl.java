@@ -1,7 +1,7 @@
 package HCS.client.model;
 
 import HCS.client.network.LoginClient;
-import HCS.client.network.RMIClient;
+//import HCS.client.network.RMIClient;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -10,7 +10,7 @@ import java.beans.PropertyChangeSupport;
 public class LoginModelImpl implements LoginModel
 {
   private LoginClient clientLogin;
-  private RMIClient rmiClient;
+ // private RMIClient rmiClient;
   private PropertyChangeSupport support;
 
 

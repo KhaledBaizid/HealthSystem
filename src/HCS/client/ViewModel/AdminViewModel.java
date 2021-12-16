@@ -54,14 +54,25 @@ public class AdminViewModel implements Subject
   }
 
   public  void CreateUser(/*String firstname,String lastname, Date birthday,String username,String password,String role*/){
-    if (model.UserExist(username.get()))
-      support.firePropertyChange("usernameExists",null,true);
-     else
+
+    if (username.getValue().equals("") || password.getValue().equals(""))
     {
-      model.CreateUser(firstname.get(), lastname.get(), Date.valueOf(birthday.get()), username.getValue(),
-          password.getValue(), role.get());
-      firstname.setValue("");lastname.setValue("");username.setValue("");password.setValue("");
+      support.firePropertyChange("emptyUsername", null, true);
+    } else
+    {
+      if (model.UserExist(username.get()))
+        support.firePropertyChange("usernameExists", null, true);
+      else
+      {
+        model.CreateUser(firstname.get(), lastname.get(), Date.valueOf(birthday.get()), username.getValue(),
+            password.getValue(), role.get());
+        firstname.setValue("");
+        lastname.setValue("");
+        username.setValue("");
+        password.setValue("");
+      }
     }
+
   }
 
   public ObservableList<User> getTableViewRoles()
@@ -82,18 +93,25 @@ public class AdminViewModel implements Subject
   //boolean UserExist(String username);
   public void updateUser(String username, User user)
   {
-    if (!username.equals(user.getUsername()))
+
+    if (username.equals("") || user.getPassword().equals(""))
     {
-      if (model.UserExist(user.getUsername()))
-      {
-        support.firePropertyChange("usernameExists",null,true);
-
-      }
-      else  model.updateUser(username, user);
+      support.firePropertyChange("emptyUsername", null, true);
     } else
+    {
+      if (!username.equals(user.getUsername()))
+      {
+        if (model.UserExist(user.getUsername()))
+        {
+          support.firePropertyChange("usernameExists", null, true);
 
-
-    model.updateUser(username, user);
+        }
+        else
+          model.updateUser(username, user);
+      }
+      else
+        model.updateUser(username, user);
+    }
   }
 
   public StringProperty getFirstname()

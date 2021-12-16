@@ -95,9 +95,9 @@
                                           <Label layoutX="-1.0" layoutY="54.0" text="Cpr_Number" />
                                           <Label layoutX="227.0" layoutY="54.0" text="Firstname" />
                                           <Label layoutX="442.0" layoutY="54.0" text="Lastname" />
-                                          <TextField fx:id="bookingCPRNumber" layoutX="82.0" layoutY="50.0" prefHeight="25.0" prefWidth="119.0" />
-                                          <TextField fx:id="bookingFirstname" layoutX="287.0" layoutY="50.0" />
-                                          <TextField fx:id="bookingLastname" layoutX="502.0" layoutY="50.0" prefHeight="25.0" prefWidth="89.0" />
+                                          <TextField fx:id="bookingCPRNumber" editable="false" layoutX="82.0" layoutY="50.0" prefHeight="25.0" prefWidth="119.0" />
+                                          <TextField fx:id="bookingFirstname" editable="false" layoutX="287.0" layoutY="50.0" />
+                                          <TextField fx:id="bookingLastname" editable="false" layoutX="502.0" layoutY="50.0" prefHeight="25.0" prefWidth="89.0" />
                                           <TextField fx:id="symptoms" layoutX="82.0" layoutY="86.0" prefHeight="25.0" prefWidth="397.0" />
                                           <Label layoutX="17.0" layoutY="90.0" text="Symptoms" />
                                           <Button layoutX="159.0" layoutY="115.0" mnemonicParsing="false" onAction="#createBooking" text="Add Booking" />
@@ -160,18 +160,18 @@
       </TabPane>
       <TableView fx:id="patientTableView" layoutX="28.0" layoutY="471.0" onMouseClicked="#patientTableClicked" prefHeight="200.0" prefWidth="729.0" stylesheets="@../../Design/style2.css">
         <columns>
-          <TableColumn fx:id="cprNumberColumn" prefWidth="75.0" text="CPRNumber" />
-          <TableColumn fx:id="firstnameColumn" prefWidth="75.0" text="Firstname" />
+          <TableColumn fx:id="cprNumberColumn" prefWidth="96.0" text="CPRNumber" />
+          <TableColumn fx:id="firstnameColumn" prefWidth="67.0" text="Firstname" />
             <TableColumn fx:id="lastnameColumn" prefWidth="75.0" text="Lastname" />
-            <TableColumn fx:id="birthdayColumn" prefWidth="75.0" text="Birthday" />
-            <TableColumn fx:id="sexColumn" prefWidth="75.0" text="Sex" />
+            <TableColumn fx:id="birthdayColumn" prefWidth="83.0" text="Birthday" />
+            <TableColumn fx:id="sexColumn" prefWidth="54.0" text="Sex" />
             <TableColumn fx:id="addressColumn" prefWidth="75.0" text="Address" />
             <TableColumn fx:id="phoneColumn" prefWidth="75.0" text="Phone" />
             <TableColumn fx:id="mailColumn" prefWidth="75.0" text="Mail" />
         </columns>
       </TableView>
       <TextField fx:id="searchTextField" layoutX="28.0" layoutY="446.0" onKeyTyped="#onSearchTyped" prefHeight="25.0" prefWidth="169.0" promptText="Type  CPR Number or Name" />
-      <Button layoutX="757.0" layoutY="624.0" mnemonicParsing="false" onAction="#Disconnect" text="Log Out">
+      <Button layoutX="757.0" layoutY="624.0" mnemonicParsing="false" onAction="#Disconnect" text="Log Out" visible="false">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>

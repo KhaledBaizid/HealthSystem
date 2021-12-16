@@ -36,7 +36,6 @@ public class ReceptionViewModel implements Subject
 
   private ObjectProperty<LocalDate> birthday;
   private SimpleObjectProperty<String> sex;
-  //private StringProperty sex;
   private StringProperty cprNumber;
   private StringProperty firstname;
   private StringProperty lastname;
@@ -63,12 +62,12 @@ public class ReceptionViewModel implements Subject
     /////
     birthday=new SimpleObjectProperty<LocalDate>();
     sex= new SimpleObjectProperty<>();
-    cprNumber=new SimpleStringProperty();
-    firstname=new SimpleStringProperty();
-    lastname=new SimpleStringProperty();;
-    address=new SimpleStringProperty();
-    phone=new SimpleStringProperty();
-    mail=new SimpleStringProperty();;
+    cprNumber=new SimpleStringProperty("");
+    firstname=new SimpleStringProperty("");
+    lastname=new SimpleStringProperty("");;
+    address=new SimpleStringProperty("");
+    phone=new SimpleStringProperty("");
+    mail=new SimpleStringProperty("");;
 
 
     ////
@@ -78,14 +77,15 @@ public class ReceptionViewModel implements Subject
 
 
 
-  private void patientHasBooking(PropertyChangeEvent event)
+ /* private void patientHasBooking(PropertyChangeEvent event)
   {boolean s= (boolean) event.getNewValue();
     System.out.println(s);
    if (s)
    {
      support.firePropertyChange(event);
    }
-  }
+  }*/
+
   public StringProperty errorProperty()
   {
     return error;
@@ -105,21 +105,12 @@ public class ReceptionViewModel implements Subject
     patients.addAll(patients1);
   }
 
- /* private void getRoles(PropertyChangeEvent event)
-  {
-    roles1.clear();
-    ArrayList<User> users =(ArrayList<User>) event.getNewValue();
-    roles1.addAll(users);
-  }*/
+
   public ObservableList<Patient> getTableViewPatients()
   {
     return patients;
   }
- /* public ObservableList<User> getTableViewRoles()
-  {
 
-    return roles1;
-  }*/
 
    public boolean isPatientExist(String cprNumber)
    {
@@ -128,20 +119,30 @@ public class ReceptionViewModel implements Subject
 
   public void createPatient()
   {
-    System.out.println("ReceptionViewModel");
+
     Patient patient= new Patient(cprNumber.get(), firstname.get(),
         lastname.get(), Date.valueOf(birthday.get()),sex.get(),address.get(),
         phone.get(), mail.get());
     // sex.bind(getsexes());
   //  if (!model.patientExist(patient.getCprNumber()))
-      if (!isPatientExist( patient.getCprNumber()))
+    if (!(cprNumber.get().isEmpty() || firstname.get().isEmpty() ||lastname.get().isEmpty()))
+    {
+      if (!isPatientExist(patient.getCprNumber()))
       {
         addPatient(patient);
-        cprNumber.setValue("");firstname.setValue("");lastname.setValue("");address.setValue("");phone.setValue("");mail.setValue("");
+        cprNumber.setValue("");
+        firstname.setValue("");
+        lastname.setValue("");
+        address.setValue("");
+        phone.setValue("");
+        mail.setValue("");
       }
-    else
-      support.firePropertyChange("PatientExists",null,true);
-
+      else
+        support.firePropertyChange("PatientExists", null, true);
+    }
+    else{
+      support.firePropertyChange("EditFields", null, true);
+    }
   }
   public void addPatient(Patient patient)
   {
@@ -157,16 +158,25 @@ public class ReceptionViewModel implements Subject
   }
   public void updatePatient(String cprNumber,Patient patient)
   {
-    if (!cprNumber.equals(patient.getCprNumber()))
-    {
-      if (isPatientExist( patient.getCprNumber()))
-      {
-        support.firePropertyChange("updatedPtientHasAUsedCPRNumber",null,true);
+   if (!(patient.getCprNumber().isEmpty() || patient.getFirstname().isEmpty() ||patient.getLastname().isEmpty()))
+   {
+     if (!cprNumber.equals(patient.getCprNumber()))
+     {
+       if (isPatientExist(patient.getCprNumber()))
+       {
+         support.firePropertyChange("updatedPtientHasAUsedCPRNumber", null, true);
 
-      }
-      else  patientmodel.updatePatient(cprNumber, patient);
-    } else
-      patientmodel.updatePatient(cprNumber, patient);
+       }
+       else
+         patientmodel.updatePatient(cprNumber, patient);
+     }
+     else
+       patientmodel.updatePatient(cprNumber, patient);
+   }
+   else
+   {
+     support.firePropertyChange("EditFields", null, true);
+   }
   }
   public void getModelPatients()
   {
@@ -176,10 +186,15 @@ public class ReceptionViewModel implements Subject
   {
     patientmodel.GetSpecificPatients(search);
   }
-  public void createBooking(Booking booking)
+  public void createBooking(Date bookingDate, String bookingTime, String symptoms, String cprNumber)
   {
-    System.out.println("BookingViewModel");
-    bookingModel.createBooking(booking);
+    System.out.println(bookingTime);
+    if (bookingTime.equals(""))
+      support.firePropertyChange("chooseTime", null, true);
+    else if (cprNumber.isEmpty())
+      support.firePropertyChange("choosePatient", null, true);
+    else
+    bookingModel.createBooking(new Booking(bookingDate,bookingTime,symptoms,cprNumber));
   }
   public void getModelBookings()
   {
@@ -197,10 +212,17 @@ public class ReceptionViewModel implements Subject
       support.firePropertyChange("BookingHasPrescription",null,true);
 
   }
-  public  void updateBooking(Date bookingDate,String bookingTime,Booking booking)
+
+
+  public  void updateBooking(Date bookingDate,String bookingTime,Date newBookingDate,String newBookingTime,String symptoms, String cprNumber)
   {
-    bookingModel.updateBooking(bookingDate, bookingTime, booking);
+    if (newBookingTime.equals(""))
+      support.firePropertyChange("chooseTime", null, true);
+    else
+
+    bookingModel.updateBooking(bookingDate, bookingTime, new Booking(newBookingDate,newBookingTime,symptoms,cprNumber));
   }
+
   public ArrayList<String> getAvailableTime(Date date)
   {
     return bookingModel.getAvailableTime(date);
@@ -247,32 +269,26 @@ public class ReceptionViewModel implements Subject
   {
     return sex;
   }
-
   public StringProperty getAddress()
   {
     return address;
   }
-
   public StringProperty getCprNumber()
   {
     return cprNumber;
   }
-
   public StringProperty getFirstname()
   {
     return firstname;
   }
-
   public StringProperty getLastname()
   {
     return lastname;
   }
-
   public StringProperty getMail()
   {
     return mail;
   }
-
   public StringProperty getPhone()
   {
     return phone;
@@ -283,12 +299,12 @@ public class ReceptionViewModel implements Subject
     patientmodel.GetSpecificPatients(cprNumber.get());
   }
 
-  public ObservableList<String> getsexes()
+ /* public ObservableList<String> getsexes()
   {
     sexes.clear();
     sexes.addAll("a","b","c");
     return sexes;
-  }
+  }*/
 
   public void displayDateBind()
   {

@@ -11,7 +11,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class LoginClientImpl implements LoginClient , Remote
+public class  LoginClientImpl implements LoginClient , Remote
 {
   private RMIServer server;
   private PropertyChangeSupport support;
